@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111b35" />
+  <meta name="description" content="A DECA practice studio for original exam-style questions, answer explanations, and role-play rehearsal." />
+  <title>DECA Sprint — Practice Studio</title>
+  <style>
+:root{--ink:#1b2540;--muted:#768099;--muted2:#98a1b5;--line:#e8ebf2;--paper:#fff;--bg:#f5f7fb;--navy:#111b35;--navy2:#182644;--blue:#365be9;--blue2:#edf1ff;--cyan:#b5f4eb;--mint:#e3f8ef;--green:#198a62;--amber:#f1ad42;--red:#cc4e5d;--purple:#8b70ef;--shadow:0 14px 40px rgba(28,42,79,.06);font-family:'DM Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-size:14px;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(54,91,233,.26);outline-offset:2px}a{color:var(--blue);text-decoration:none}.app-shell{min-height:100vh;display:flex}.sidebar{width:246px;position:fixed;inset:0 auto 0 0;background:var(--navy);color:#d7def0;padding:25px 16px 16px;display:flex;flex-direction:column;z-index:20;overflow-y:auto}.brand{display:flex;align-items:center;gap:11px;padding:0 8px 32px;color:white}.brand-mark{width:35px;height:35px;display:inline-grid;place-items:center;background:var(--cyan);color:var(--navy);border-radius:11px;font:800 19px Manrope,sans-serif;letter-spacing:-2px;flex:none}.brand-mark span{color:var(--blue);font-size:13px;vertical-align:top;letter-spacing:0}.brand-copy strong{font:800 16px Manrope,sans-serif;display:block;letter-spacing:-.35px}.brand-copy small{display:block;font-size:11px;color:#8290b1;margin-top:1px}.sidebar-label{color:#7785a8;letter-spacing:1.5px;font-weight:700;font-size:9px;padding:0 12px 10px}.sidebar-label.spaced{margin-top:27px}.primary-nav{display:grid;gap:5px}.nav-item{width:100%;border:0;display:flex;align-items:center;gap:12px;padding:11px 12px;color:#aeb9d4;border-radius:9px;background:transparent;text-align:left;font-size:12px;font-weight:600;transition:background .16s,color .16s}.nav-item:hover{background:#1b2a4a;color:white}.nav-item.active{background:#27385f;color:#fff;box-shadow:inset 3px 0 0 var(--cyan)}.nav-icon{width:17px;font-size:17px;text-align:center;color:#9eacd0;line-height:1}.nav-item.active .nav-icon{color:var(--cyan)}.nav-count{font-size:9px;margin-left:auto;background:#334a7a;border-radius:5px;padding:2px 6px;color:#dbe5ff}.nav-dot{margin-left:auto;width:6px;height:6px;background:var(--amber);border-radius:50%;display:none}.nav-dot.show{display:block}.sidebar-spacer{min-height:25px;flex:1}.sidebar-challenge{background:linear-gradient(150deg,#22355d,#1a2949);border:1px solid #314469;border-radius:14px;padding:15px;margin:24px 2px 18px}.challenge-icon{width:26px;height:26px;display:grid;place-items:center;border-radius:8px;background:#31446c;color:var(--cyan);font-size:15px;margin-bottom:12px}.challenge-eyebrow{font-size:9px;font-weight:700;letter-spacing:1.2px;color:#8293b9;margin:0 0 5px}.sidebar-challenge strong{font:800 17px/1.3 Manrope,sans-serif;color:#fff;letter-spacing:-.6px}.challenge-copy{font-size:10px;color:#a2b0cf;line-height:1.55;margin:9px 0 15px}.sidebar-challenge-btn{border:0;background:var(--cyan);color:var(--navy);width:100%;border-radius:8px;padding:9px 10px;font-weight:700;font-size:10px;text-align:left}.sidebar-challenge-btn span{float:right;font-size:15px;line-height:12px}.sidebar-foot{padding:11px 5px 0;border-top:1px solid #293652;display:flex;gap:8px;align-items:center;color:#7785a8;font-size:9px}.status-pip{display:inline-block;width:7px;height:7px;background:#53d5a5;border-radius:50%;box-shadow:0 0 0 3px rgba(83,213,165,.1);flex:none}.main-area{margin-left:246px;width:calc(100% - 246px);min-width:0;display:flex;flex-direction:column;min-height:100vh}.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(255,255,255,.82);border-bottom:1px solid #e9ecf3;position:sticky;top:0;z-index:10;backdrop-filter:blur(15px)}.breadcrumbs{display:flex;align-items:center;gap:11px;font-size:11px;color:#8992a7}.breadcrumbs strong{font-weight:700;color:var(--ink)}.crumb-slash{color:#ccd2df}.topbar-actions{display:flex;align-items:center;gap:14px}.practice-tag{font-size:10px;font-weight:700;color:#67728c;background:#f3f5fa;border:1px solid #e7eaf2;border-radius:20px;padding:7px 11px;display:flex;align-items:center;gap:8px}.practice-tag .status-pip{width:6px;height:6px}.icon-button{border:1px solid #e6eaf2;background:white;color:#66718b;width:28px;height:28px;border-radius:50%;font-size:12px;font-weight:700}.profile-button{display:flex;align-items:center;gap:8px;background:transparent;border:0;padding:0 0 0 2px;color:var(--ink);font-size:11px;font-weight:700}.avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#dce6ff;color:#365be9;font-size:12px;font-weight:800}.chevron{font-size:13px;color:#939bb0;margin-left:1px}.mobile-brand{display:none}.content-area{width:100%;max-width:1430px;padding:31px 36px 32px;margin:0 auto;flex:1;min-width:0;outline:none}.global-footer{padding:16px 36px 20px;color:#9aa3b6;font-size:10px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8ebf2}.global-footer a{color:#7280a1}.footer-sep{margin:0 9px;color:#c5cad6}
+.eyebrow{font-size:10px;letter-spacing:1.4px;font-weight:800;color:#8c96ac;text-transform:uppercase}.page-title{font:800 clamp(24px,2.1vw,31px)/1.22 Manrope,sans-serif;letter-spacing:-1.15px;margin:5px 0 7px;color:#18223c}.page-subtitle{font-size:12px;color:#838da4;margin:0;line-height:1.65;max-width:680px}.header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:24px}.header-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:8px;padding:10px 14px;font-size:11px;font-weight:700;transition:transform .14s,background .14s,border-color .14s;color:var(--ink);background:white}.btn:active{transform:translateY(1px)}.btn-primary{background:var(--blue);color:white;box-shadow:0 6px 15px rgba(54,91,233,.17)}.btn-primary:hover{background:#284dd8}.btn-secondary{border-color:#e3e7f0;background:#fff;color:#46516b}.btn-secondary:hover{border-color:#c6cee1;background:#fbfcff}.btn-ghost{background:transparent;color:#64708b;border-color:transparent}.btn-ghost:hover{background:#eff2f9}.btn-dark{background:var(--navy);color:#fff}.btn-danger{background:#fff5f5;border-color:#f3d6d9;color:#b33e4b}.btn-small{font-size:10px;padding:7px 10px;border-radius:7px}.btn-full{width:100%}.panel{background:#fff;border:1px solid #e9ecf3;border-radius:14px;box-shadow:var(--shadow)}.panel-pad{padding:21px}.section-title{font:800 14px Manrope,sans-serif;letter-spacing:-.35px;margin:0;color:#202b47}.section-desc{font-size:10px;color:#8b95aa;margin:4px 0 0;line-height:1.6}.panel-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:19px}.link-btn{color:var(--blue);font-weight:700;font-size:10px;border:0;background:transparent;padding:3px 0}.muted{color:var(--muted)}.tiny{font-size:10px}.small{font-size:11px}.rule{border:0;border-top:1px solid #edf0f6;margin:17px 0}.grid{display:grid;gap:16px}.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:19px}.stat-card{padding:17px 18px;border:1px solid #e9ecf3;border-radius:12px;background:#fff;min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#8992a8;font-size:10px;font-weight:600}.stat-icon{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#f0f3ff;color:var(--blue);font-size:15px}.stat-value{font:800 27px/1.25 Manrope,sans-serif;letter-spacing:-1.1px;margin:10px 0 5px;color:#1d2844}.stat-foot{font-size:10px;color:#8993a9;display:flex;align-items:center;gap:5px}.delta{font-weight:800;color:#1a986d}.overview-grid{grid-template-columns:minmax(0,1.55fr) minmax(260px,.85fr);align-items:stretch}.hero-card{position:relative;overflow:hidden;border:0;background:linear-gradient(120deg,#19294b,#223962);color:#fff;min-height:236px;padding:27px 29px;box-shadow:0 13px 28px rgba(23,39,77,.12)}.hero-card:after{content:"";position:absolute;width:240px;height:240px;border:1px solid rgba(181,244,235,.15);border-radius:50%;right:-28px;top:-74px;box-shadow:0 0 0 34px rgba(181,244,235,.035),0 0 0 70px rgba(181,244,235,.025)}.hero-kicker{display:flex;align-items:center;gap:7px;color:#c1cce2;font-size:10px;font-weight:700;letter-spacing:.7px}.hero-kicker span{color:var(--cyan);font-size:15px}.hero-title{font:800 25px/1.23 Manrope,sans-serif;letter-spacing:-.8px;max-width:440px;margin:15px 0 9px;position:relative;z-index:1}.hero-copy{font-size:11px;color:#b0bdd8;max-width:440px;line-height:1.7;margin:0 0 20px;position:relative;z-index:1}.hero-actions{display:flex;gap:9px;align-items:center;position:relative;z-index:1}.btn-cyan{background:var(--cyan);color:#172440}.btn-cyan:hover{background:#d0fff6}.hero-secondary{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#f7f9ff}.hero-secondary:hover{background:rgba(255,255,255,.14)}.hero-orbit{position:absolute;right:45px;top:46px;width:124px;height:124px;border:1px solid rgba(181,244,235,.3);border-radius:50%;display:grid;place-items:center;z-index:1}.hero-orbit:before,.hero-orbit:after{content:"";position:absolute;inset:13px;border:1px dashed rgba(181,244,235,.35);border-radius:50%}.hero-orbit:after{inset:-18px;border-color:rgba(255,255,255,.08);border-style:solid}.orbit-center{width:65px;height:65px;border-radius:22px;background:var(--cyan);color:#1b2944;display:grid;place-items:center;font:800 26px Manrope,sans-serif;box-shadow:0 0 32px rgba(181,244,235,.22)}.orbit-spark{position:absolute;right:1px;top:13px;color:var(--cyan);font-size:19px}.orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--amber);left:2px;bottom:24px;box-shadow:0 0 0 5px rgba(241,173,66,.13)}.daily-card{padding:21px 22px;display:flex;flex-direction:column;min-height:236px}.daily-top{display:flex;align-items:center;justify-content:space-between}.daily-top h2{margin:0;font:800 14px Manrope,sans-serif}.day-pill{font-size:9px;font-weight:800;background:#e7f9f0;color:#17865f;border-radius:6px;padding:5px 7px}.daily-progress{display:flex;gap:15px;align-items:center;margin:17px 0 14px}.progress-ring{width:59px;height:59px;position:relative;flex:none}.progress-ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring-bg{fill:none;stroke:#edf0f6;stroke-width:7}.ring-value{fill:none;stroke:var(--blue);stroke-width:7;stroke-linecap:round;stroke-dasharray:138;stroke-dashoffset:138;transition:stroke-dashoffset .4s}.ring-center{position:absolute;inset:0;display:grid;place-items:center;font:800 13px Manrope,sans-serif}.daily-progress strong{font:800 14px Manrope,sans-serif;display:block}.daily-progress p{color:#8993aa;font-size:10px;line-height:1.55;margin:4px 0 0}.task-list{display:grid;gap:10px;margin:0 0 14px}.task-line{display:flex;align-items:center;gap:10px;font-size:10px;color:#69748d}.task-check{width:16px;height:16px;border-radius:5px;border:1.5px solid #d6dce9;display:inline-grid;place-items:center;color:white;font-size:10px;flex:none}.task-check.done{background:#1d9b6f;border-color:#1d9b6f}.daily-card .btn{margin-top:auto}.lower-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);margin-top:17px;align-items:stretch}.performance-card,.weak-card{padding:21px}.mini-chart{height:118px;width:100%;display:flex;align-items:flex-end;gap:14px;padding:5px 5px 0;position:relative;background:repeating-linear-gradient(to bottom,transparent 0,transparent 28px,#f0f2f7 29px,#f0f2f7 30px)}.chart-col{flex:1;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;gap:6px;height:100%;min-width:0}.chart-bar{width:min(28px,70%);background:#aebcf9;border-radius:5px 5px 2px 2px;min-height:4px;position:relative;transition:height .3s}.chart-bar.latest{background:var(--blue)}.chart-label{font-size:9px;color:#a0a8b8}.chart-val{font-size:9px;color:#7e89a4;font-weight:700}.chart-empty{font-size:11px;color:#a0a8b8;text-align:center;margin:auto}.weak-list{display:grid;gap:15px}.weak-row{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:13px;align-items:center}.weak-row-title{font-size:10px;font-weight:700;color:#38435f}.weak-row-sub{color:#969fb2;font-size:9px;margin-top:3px}.weak-track{height:6px;background:#f0f2f8;border-radius:8px;overflow:hidden}.weak-fill{height:100%;background:var(--purple);border-radius:8px}.weak-fill.low{background:#efb556}.weak-row-rate{text-align:right;font-size:10px;font-weight:800;color:#78839a;margin-bottom:4px}.tip-strip{margin-top:17px;padding:13px 16px;background:#f0f5ff;border:1px solid #e1e9ff;border-radius:10px;display:flex;align-items:center;gap:11px}.tip-icon{width:27px;height:27px;background:#e0e9ff;border-radius:8px;display:grid;place-items:center;color:#365be9;flex:none}.tip-strip strong{font-size:10px;display:block;color:#334260}.tip-strip p{margin:2px 0 0;font-size:9px;color:#6f7b97;line-height:1.5}
+/* setup */
+.setup-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(290px,.65fr);gap:17px;align-items:start}.setup-main{padding:23px}.setup-section{padding:0 0 22px;margin-bottom:20px;border-bottom:1px solid #edf0f6}.setup-section:last-child{padding-bottom:0;margin-bottom:0;border:0}.step-head{display:flex;gap:11px;align-items:flex-start;margin-bottom:15px}.step-number{width:25px;height:25px;display:grid;place-items:center;border:1px solid #dfe5f2;border-radius:8px;color:var(--blue);font:800 11px Manrope,sans-serif;flex:none}.step-title{font:800 13px Manrope,sans-serif;margin:0}.step-copy{font-size:10px;color:#8c95a9;margin:3px 0 0}.choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.choice-card{border:1px solid #e5e9f1;border-radius:10px;padding:13px 12px;background:white;text-align:left;position:relative;min-height:106px;transition:all .15s}.choice-card:hover{border-color:#bdcaff}.choice-card.selected{border:1.5px solid var(--blue);background:#f7f8ff;box-shadow:0 0 0 3px rgba(54,91,233,.06)}.choice-card.selected:after{content:'✓';position:absolute;right:10px;top:9px;background:var(--blue);color:white;border-radius:50%;width:17px;height:17px;display:grid;place-items:center;font-size:10px;font-weight:800}.choice-icon{width:27px;height:27px;border-radius:8px;display:grid;place-items:center;background:#e8edff;color:#365be9;font-size:15px;margin-bottom:10px}.choice-card:nth-child(2) .choice-icon{background:#e5f8f2;color:#128560}.choice-card:nth-child(3) .choice-icon{background:#fff0d9;color:#b67517}.choice-name{display:block;font:800 11px Manrope,sans-serif;color:#303b56}.choice-detail{display:block;font-size:9px;color:#8993a8;line-height:1.5;margin-top:4px;padding-right:8px}.form-label{font-size:10px;font-weight:800;color:#4a5570;display:block;margin-bottom:7px}.field{width:100%;border:1px solid #e1e6f0;border-radius:8px;padding:10px 11px;background:#fff;color:#38435d;font-size:11px;outline:none}.field:focus{border-color:#99adff;box-shadow:0 0 0 3px rgba(54,91,233,.07)}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field-note{font-size:9px;color:#939cb0;margin-top:6px;line-height:1.5}.count-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.count-choice{border:1px solid #e4e8f1;border-radius:8px;background:#fff;text-align:center;padding:11px 6px;color:#58647d}.count-choice strong{font:800 16px Manrope,sans-serif;display:block}.count-choice span{font-size:9px;color:#8e98ad}.count-choice.selected{border-color:var(--blue);background:#f6f8ff;color:var(--blue)}.count-choice:disabled{opacity:.35;cursor:not-allowed}.setup-side{display:grid;gap:14px}.exam-preview{padding:21px;background:linear-gradient(145deg,#172443,#24385e);color:white;border-radius:13px;box-shadow:var(--shadow)}.preview-chip{font-size:9px;letter-spacing:.9px;text-transform:uppercase;color:#a7b4d2;font-weight:800}.preview-big{font:800 35px Manrope,sans-serif;letter-spacing:-1.8px;margin:12px 0 0}.preview-big small{font:600 11px 'DM Sans';letter-spacing:0;color:#a9b5d0}.preview-sub{font-size:10px;color:#b0bdd6;margin:3px 0 17px}.preview-metrics{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.14);padding-top:15px;gap:13px}.preview-metric-label{font-size:9px;color:#9caccd}.preview-metric-value{font:700 13px Manrope,sans-serif;margin-top:2px}.preview-note{font-size:9px;color:#a7b4d2;line-height:1.6;margin:16px 0 0}.standards-card{padding:18px}.standards-list{display:grid;gap:12px;margin-top:14px}.standard-row{display:flex;gap:9px;align-items:flex-start;font-size:10px;color:#6c7893}.standard-check{display:grid;place-items:center;width:18px;height:18px;border-radius:6px;background:#e6f8f0;color:#1d926b;font-size:10px;flex:none}.standards-row-copy strong{display:block;color:#43506d;font-size:10px}.standards-row-copy span{font-size:9px;color:#98a1b4;display:block;margin-top:2px}
+/* Exam */
+.exam-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.exam-labels{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;font-size:9px;font-weight:800;background:#f1f3fa;color:#69758f}.pill.blue{color:var(--blue);background:#edf1ff}.pill.green{color:#14805c;background:#e4f8ef}.pill.gold{color:#9d6818;background:#fff3dd}.exam-timer{font:800 16px Manrope,sans-serif;letter-spacing:.2px;color:#263250;display:flex;align-items:center;gap:8px}.exam-timer.warning{color:#ba3e4e}.timer-icon{font-size:16px;color:#8490ab}.exam-progress-track{height:5px;background:#e9edf6;border-radius:6px;overflow:hidden;margin-bottom:19px}.exam-progress-fill{height:100%;background:var(--blue);border-radius:6px;transition:width .2s}.exam-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px;align-items:start}.question-panel{padding:25px;min-height:460px}.question-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.question-number{font-size:10px;color:#8d97aa;font-weight:700;letter-spacing:.5px}.flag-btn{background:transparent;border:0;color:#8d96aa;font-size:10px;display:flex;align-items:center;gap:6px;padding:5px}.flag-btn.flagged{color:#b57b1d}.question-stem{font:700 19px/1.5 Manrope,sans-serif;letter-spacing:-.35px;max-width:840px;margin:0 0 23px;color:#202b47}.answer-options{display:grid;gap:10px}.answer-option{width:100%;display:flex;align-items:flex-start;gap:12px;border:1px solid #e4e8f1;border-radius:10px;padding:13px 14px;background:#fff;color:#3b4661;text-align:left;transition:all .15s}.answer-option:hover{border-color:#b6c6ff;background:#fbfcff}.answer-option.selected{border-color:var(--blue);background:#f7f8ff;box-shadow:0 0 0 2px rgba(54,91,233,.055)}.answer-letter{width:25px;height:25px;border:1px solid #dfe4ef;border-radius:7px;display:grid;place-items:center;flex:none;font-size:10px;font-weight:800;color:#75809a;background:#fff}.answer-option.selected .answer-letter{background:var(--blue);border-color:var(--blue);color:#fff}.answer-text{font-size:12px;line-height:1.55;padding-top:3px}.question-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #edf0f6;margin-top:23px;padding-top:18px}.question-foot-left{font-size:10px;color:#9aa3b6}.question-foot-right{display:flex;gap:8px}.question-side{display:grid;gap:13px}.question-map{padding:17px}.map-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;color:#3b4661}.map-sub{font-size:9px;color:#969fb1;margin-top:4px}.question-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:15px}.qnav{height:29px;border:1px solid #e4e8f0;border-radius:6px;display:grid;place-items:center;background:#fff;color:#8993a8;font-size:9px;font-weight:700}.qnav.current{border-color:var(--blue);background:var(--blue);color:white}.qnav.answered{background:#e8edff;border-color:#dce4ff;color:#3453c7}.qnav.flagged:after{content:'•';color:#dfa13e;font-size:18px;position:absolute;top:-9px;right:3px}.qnav{position:relative}.map-legend{display:flex;gap:11px;flex-wrap:wrap;margin-top:13px;font-size:8px;color:#9099ad}.legend-dot{width:7px;height:7px;border-radius:2px;display:inline-block;margin-right:4px;background:#e8edff}.legend-dot.current{background:var(--blue)}.legend-dot.flag{background:#e4b45e}.submit-card{padding:17px}.submit-card strong{font:800 12px Manrope,sans-serif}.submit-card p{font-size:10px;color:#8c96aa;line-height:1.6;margin:5px 0 13px}.submit-warning{padding:9px 11px;border-radius:7px;background:#fff7e9;color:#90641d;font-size:9px;line-height:1.5;margin-bottom:11px}
+/* Results */
+.results-hero{padding:24px;background:linear-gradient(130deg,#182746,#263d66);color:white;border-radius:14px;display:grid;grid-template-columns:1fr 190px;gap:20px;align-items:center;position:relative;overflow:hidden;margin-bottom:17px}.results-kicker{color:#b0bedb;font-size:10px;font-weight:800;letter-spacing:1.2px}.results-title{font:800 23px Manrope,sans-serif;margin:7px 0 5px;letter-spacing:-.7px}.results-copy{font-size:11px;color:#bdc8df;line-height:1.7;margin:0;max-width:600px}.score-ring{width:138px;height:138px;border:8px solid rgba(181,244,235,.16);border-top-color:var(--cyan);border-right-color:var(--cyan);border-radius:50%;display:grid;place-items:center;justify-self:center;transform:rotate(18deg)}.score-ring-inner{text-align:center;transform:rotate(-18deg)}.score-num{font:800 35px Manrope,sans-serif;letter-spacing:-1.5px}.score-caption{font-size:9px;color:#aab8d4;font-weight:700}.result-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:17px}.result-stat{padding:14px 16px;background:#fff;border:1px solid #e9ecf3;border-radius:10px}.result-stat-label{font-size:9px;color:#8f99ad;font-weight:700}.result-stat-value{font:800 20px Manrope,sans-serif;margin-top:4px;letter-spacing:-.5px}.answer-key-card{padding:21px}.filter-tabs{display:flex;gap:6px;align-items:center}.filter-tab{border:1px solid #e5e9f2;border-radius:6px;background:#fff;color:#7b869f;font-weight:700;font-size:9px;padding:7px 9px}.filter-tab.active{color:var(--blue);border-color:#d9e1ff;background:#f5f7ff}.answer-table{width:100%;border-collapse:collapse;min-width:680px}.table-wrap{overflow:auto}.answer-table th{text-align:left;font-size:9px;letter-spacing:.7px;color:#929bb0;text-transform:uppercase;padding:11px 10px;border-bottom:1px solid #edf0f6;white-space:nowrap}.answer-table td{padding:13px 10px;border-bottom:1px solid #f0f2f7;vertical-align:top;font-size:10px;color:#596580}.answer-table tr:last-child td{border-bottom:0}.key-q{font-size:11px!important;font-weight:700;color:#303c58!important;min-width:210px;max-width:430px}.key-label{white-space:nowrap;font-weight:800}.key-label.good{color:#15875e}.key-label.bad{color:#c34c5b}.key-explain{line-height:1.6;min-width:220px;max-width:400px}.key-topic{font-size:9px;color:#929cb1;margin-top:4px}
+/* Review */
+.review-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.6fr);gap:17px;align-items:start}.flashcard-area{padding:23px}.flashcard{min-height:260px;background:linear-gradient(135deg,#f6f8ff,#fff);border:1px solid #e5eaff;border-radius:13px;padding:27px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative}.flashcard-badge{position:absolute;top:16px;left:17px}.flashcard-question{font:800 21px/1.45 Manrope,sans-serif;letter-spacing:-.5px;max-width:560px;margin:0 auto 18px}.flashcard-answer{font-size:12px;line-height:1.8;color:#66728e;max-width:550px;margin:0}.flashcard-actions{display:flex;justify-content:center;gap:8px;margin-top:17px;flex-wrap:wrap}.review-stats{padding:21px}.review-counter{display:flex;justify-content:space-between;align-items:center;margin:14px 0 7px;font-size:10px;color:#8c96aa}.review-track{height:6px;background:#edf0f6;border-radius:8px;overflow:hidden}.review-track span{display:block;height:100%;background:var(--blue);border-radius:8px}.missed-list{display:grid;gap:8px;margin-top:14px}.missed-row{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid #edf0f6;border-radius:8px}.missed-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:7px;background:#fff0f1;color:#cc4e5d;flex:none}.missed-row strong{display:block;font-size:10px;color:#38435e}.missed-row span{font-size:9px;color:#949db0}.missed-row button{margin-left:auto;border:0;background:transparent;color:#8490a8;font-size:14px}
+/* Cases */
+.case-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(285px,.85fr);gap:17px;align-items:start}.case-brief{padding:22px}.case-banner{padding:20px 22px;background:linear-gradient(120deg,#1b2b4c,#29436d);color:white;border-radius:11px;margin-bottom:17px;position:relative;overflow:hidden}.case-banner:after{content:'◈';position:absolute;right:20px;top:8px;font-size:75px;color:rgba(181,244,235,.12);font-weight:400}.case-banner .pill{background:rgba(255,255,255,.12);color:#d8e2f7}.case-banner h2{font:800 21px Manrope,sans-serif;letter-spacing:-.6px;margin:12px 0 6px;max-width:500px}.case-banner p{font-size:10px;line-height:1.65;color:#c1cce2;max-width:600px;margin:0}.case-block{margin:17px 0}.case-block h3{font:800 11px Manrope,sans-serif;color:#3e4963;margin:0 0 7px}.case-block p{font-size:11px;color:#69758e;line-height:1.8;margin:0}.case-data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.case-data{padding:11px;background:#f6f8fc;border:1px solid #edf0f6;border-radius:8px}.case-data span{display:block;font-size:9px;color:#8c96ab}.case-data strong{font:800 15px Manrope,sans-serif;color:#313d59;display:block;margin-top:3px}.case-asks{padding-left:18px;color:#67738c;font-size:10px;line-height:1.8}.case-side{display:grid;gap:13px}.case-timer-card{padding:19px}.phase-row{display:flex;gap:7px;margin:14px 0 15px}.phase{flex:1;border:1px solid #e4e8f0;background:#fff;padding:8px 7px;border-radius:7px;text-align:center;color:#8791a5;font-size:9px;font-weight:800}.phase.active{border-color:#a8b8ff;color:var(--blue);background:#f5f7ff}.phase.done{border-color:#c9efdf;color:#19865e;background:#edfbf5}.large-timer{font:800 34px Manrope,sans-serif;letter-spacing:-1.2px;text-align:center;margin:10px 0 1px;color:#1c2844}.timer-caption{text-align:center;color:#8994a9;font-size:9px}.case-tools{display:flex;gap:8px;margin-top:14px}.case-tools .btn{flex:1}.craft-card{padding:18px}.craft-list{display:grid;gap:10px;margin-top:13px}.craft-item{display:grid;grid-template-columns:28px 1fr;gap:9px;align-items:start}.craft-letter{width:26px;height:26px;display:grid;place-items:center;border-radius:8px;color:var(--blue);background:#edf1ff;font:800 11px Manrope,sans-serif}.craft-item strong{display:block;font-size:10px;color:#43506a}.craft-item p{font-size:9px;color:#929caf;margin:3px 0 0;line-height:1.55}.notes-panel{padding:21px;margin-top:17px}.notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notes-area{display:flex;flex-direction:column;gap:6px}.notes-area .field{min-height:90px;resize:vertical;line-height:1.7}.rubric-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.rubric-item{padding:10px 11px;border:1px solid #e7ebf2;border-radius:8px;display:flex;align-items:flex-start;gap:8px;font-size:10px;color:#5e6a84;line-height:1.5}.rubric-item input{accent-color:var(--blue);margin:2px 0 0;flex:none}.case-feedback{padding:14px;border-radius:9px;background:#eaf8f1;color:#267355;font-size:10px;line-height:1.65;margin-top:12px}
+/* Vault and progress */
+.vault-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.72fr);gap:17px;align-items:start}.resource-list{display:grid;gap:10px}.resource-row{display:flex;align-items:flex-start;gap:12px;padding:13px;border:1px solid #edf0f6;border-radius:9px}.resource-icon{width:34px;height:34px;display:grid;place-items:center;background:#edf1ff;color:var(--blue);border-radius:9px;flex:none;font-size:15px}.resource-copy{flex:1;min-width:0}.resource-copy strong{font-size:11px;color:#35415e;display:block}.resource-copy p{font-size:9px;color:#8d97ab;margin:3px 0 0;line-height:1.65}.resource-row>a{font-size:9px;font-weight:800;white-space:nowrap;margin-top:6px}.import-drop{padding:19px;border:1px dashed #cfd6e6;border-radius:10px;background:#fafbfe;text-align:center}.import-symbol{width:39px;height:39px;display:grid;place-items:center;background:#edf1ff;color:var(--blue);border-radius:12px;font-size:18px;margin:0 auto 10px}.import-drop strong{font:800 12px Manrope,sans-serif;display:block}.import-drop p{font-size:10px;color:#8c96aa;line-height:1.65;margin:5px auto 13px;max-width:300px}.code-sample{background:#111b35;color:#dbe4ff;border-radius:8px;padding:12px;font:10px/1.8 ui-monospace,SFMono-Regular,monospace;overflow:auto;text-align:left}.vault-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 17px}.vault-metric{background:white;border:1px solid #e9ecf3;border-radius:10px;padding:13px}.vault-metric strong{font:800 21px Manrope,sans-serif;display:block}.vault-metric span{font-size:9px;color:#8d97aa}.cluster-bars{display:grid;gap:14px}.cluster-bar-row{display:grid;grid-template-columns:minmax(140px,1fr) 2fr 36px;gap:12px;align-items:center}.cluster-bar-name{font-size:10px;font-weight:700;color:#53607b}.cluster-bar-track{height:7px;border-radius:8px;background:#eef1f7;overflow:hidden}.cluster-bar-fill{height:100%;border-radius:8px;background:var(--blue)}.cluster-bar-score{text-align:right;font-size:10px;font-weight:800;color:#56617a}.history-list{display:grid;gap:0}.history-row{display:grid;grid-template-columns:minmax(0,1fr) 74px 58px;gap:12px;align-items:center;border-bottom:1px solid #eff1f6;padding:13px 0}.history-row:last-child{border-bottom:0}.history-row strong{font-size:10px;color:#35415c;display:block}.history-row span{font-size:9px;color:#969fb2;display:block;margin-top:2px}.history-score{font:800 14px Manrope,sans-serif;text-align:right}.history-mark{font-size:9px;color:#7b869f;text-align:right}.empty-state{padding:34px 20px;text-align:center;border:1px dashed #e0e5ef;border-radius:10px;color:#8993a7}.empty-symbol{font-size:23px;margin-bottom:8px;color:#8c9ce5}.empty-state strong{display:block;font:800 13px Manrope,sans-serif;color:#495570}.empty-state p{font-size:10px;max-width:390px;margin:6px auto 12px;line-height:1.7}.toast{position:fixed;bottom:24px;right:24px;z-index:100;background:#172340;color:white;border:1px solid #2b3c61;padding:12px 15px;border-radius:9px;box-shadow:0 12px 25px rgba(12,21,41,.2);font-size:11px;max-width:min(400px,calc(100% - 30px));opacity:0;transform:translateY(10px);pointer-events:none;transition:all .2s}.toast.show{opacity:1;transform:translateY(0)}.disclaimer{background:#fff8e9;border:1px solid #f5e4c1;border-radius:9px;padding:12px 14px;font-size:10px;color:#8b682b;line-height:1.7}.subtle-link{font-size:10px;color:#8590a7;font-weight:600}.form-error{font-size:10px;color:#be4756;margin-top:8px}
+@media(max-width:1200px){.content-area{padding:26px 25px}.topbar{padding:0 25px}.hero-orbit{right:25px;opacity:.6}.overview-grid{grid-template-columns:minmax(0,1.4fr) minmax(245px,.85fr)}.exam-layout{grid-template-columns:minmax(0,1fr) 225px}.question-panel{padding:21px}.sidebar{width:225px}.main-area{margin-left:225px;width:calc(100% - 225px)}}
+@media(max-width:1000px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-grid,.lower-grid,.setup-layout,.case-layout,.vault-grid,.review-layout{grid-template-columns:1fr}.hero-card{min-height:220px}.daily-card{min-height:unset}.setup-side{grid-template-columns:1fr 1fr}.exam-layout{grid-template-columns:minmax(0,1fr) 225px}.hero-orbit{right:55px}.case-side{grid-template-columns:1fr 1fr}.case-timer-card{min-height:220px}}
+@media(max-width:760px){.sidebar{width:100%;height:auto;bottom:auto;position:sticky;top:0;padding:8px 12px;flex-direction:row;align-items:center;gap:10px;overflow-x:auto;overflow-y:hidden}.brand{padding:0 5px;min-width:max-content}.brand-mark{width:31px;height:31px}.brand-copy strong{font-size:13px}.brand-copy small,.sidebar-label,.sidebar-spacer,.sidebar-challenge,.sidebar-foot{display:none}.primary-nav{display:flex;gap:4px;align-items:center}.nav-item{width:auto;padding:9px 10px;gap:7px;min-width:max-content;font-size:10px}.nav-icon{font-size:14px}.nav-count{display:none}.main-area{margin-left:0;width:100%}.topbar{height:56px;position:static;padding:0 17px}.breadcrumbs{font-size:10px}.topbar-actions{gap:7px}.practice-tag{display:none}.profile-name,.chevron{display:none}.avatar{width:27px;height:27px}.icon-button{width:27px;height:27px}.content-area{padding:22px 16px 26px}.global-footer{padding:14px 16px;gap:12px;align-items:flex-start;flex-direction:column}.header-row{display:block;margin-bottom:20px}.header-actions{margin-top:15px}.hero-card{padding:23px;min-height:255px}.hero-orbit{opacity:.3;right:-8px;top:55px}.hero-title{font-size:23px;max-width:330px}.hero-copy{max-width:340px}.setup-side{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr}.choice-card{min-height:85px;display:grid;grid-template-columns:35px 1fr;column-gap:8px;align-items:center}.choice-icon{grid-row:span 2;margin:0}.choice-name{align-self:end}.choice-detail{align-self:start}.setup-main{padding:17px}.field-grid{grid-template-columns:1fr}.exam-toolbar{align-items:flex-start}.exam-layout{grid-template-columns:1fr}.question-side{grid-template-columns:1fr}.question-map{order:2}.submit-card{order:1}.question-panel{padding:18px;min-height:unset}.question-stem{font-size:17px}.question-foot{align-items:flex-start;flex-direction:column}.question-foot-right{width:100%;justify-content:space-between}.question-foot-right .btn{flex:1}.question-grid{grid-template-columns:repeat(10,minmax(0,1fr))}.results-hero{grid-template-columns:1fr;padding:22px}.score-ring{grid-row:1;grid-column:1;justify-self:start;width:94px;height:94px;border-width:6px;margin-bottom:8px}.score-num{font-size:25px}.results-hero>div:first-child{grid-row:2}.result-stat-row{grid-template-columns:1fr}.filter-tabs{flex-wrap:wrap}.answer-key-card{padding:15px}.case-side{grid-template-columns:1fr}.notes-grid,.rubric-grid{grid-template-columns:1fr}.case-data-grid{grid-template-columns:1fr 1fr 1fr}.vault-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.vault-metric{padding:11px}.vault-metric strong{font-size:18px}.cluster-bar-row{grid-template-columns:minmax(110px,1.2fr) 2fr 32px;gap:8px}.history-row{grid-template-columns:minmax(0,1fr) 50px 45px}.toast{bottom:12px;right:12px}}
+@media(max-width:480px){.nav-item{font-size:0;gap:0;padding:10px 12px}.nav-icon{font-size:17px}.nav-count{display:none}.stats-grid{gap:9px}.stat-card{padding:13px}.stat-value{font-size:23px}.stat-foot{font-size:9px}.daily-progress{gap:11px}.header-actions .btn{flex:1}.count-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.question-grid{grid-template-columns:repeat(7,minmax(0,1fr))}.case-data-grid{grid-template-columns:1fr}.results-title{font-size:21px}.vault-grid{min-width:0}.resource-row{gap:8px;padding:10px}.resource-row>a{white-space:normal;text-align:right}.page-title{font-size:24px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+.answer-option.correct-choice{border-color:#b5e9d4;background:#f0fbf6}.answer-option.correct-choice .answer-letter{border-color:#1d986b;background:#1d986b;color:#fff}.answer-option.incorrect-choice{border-color:#f0c7cc;background:#fff6f7}.answer-option.incorrect-choice .answer-letter{border-color:#c44d5b;background:#c44d5b;color:#fff}.answer-option:disabled{cursor:default}
+@media(max-width:760px){.app-shell{display:block}}
+
+</style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a href="#dashboard" class="brand" data-view="dashboard" aria-label="DECA Sprint home">
+        <span class="brand-mark">D<span>+</span></span>
+        <span class="brand-copy"><strong>DECA Sprint</strong><small>Practice studio</small></span>
+      </a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span><span>Overview</span></button>
+        <button class="nav-item" data-view="exam-setup"><span class="nav-icon">▤</span><span>Exam practice</span><span class="nav-count">100</span></button>
+        <button class="nav-item" data-view="case-coach"><span class="nav-icon">◈</span><span>Case study lab</span></button>
+        <button class="nav-item" data-view="review"><span class="nav-icon">✳</span><span>Review & flashcards</span><span id="reviewNavCount" class="nav-dot"></span></button>
+      </nav>
+      <div class="sidebar-label spaced">YOUR PROGRESS</div>
+      <nav class="primary-nav" aria-label="Progress navigation">
+        <button class="nav-item" data-view="progress"><span class="nav-icon">↗</span><span>Performance</span></button>
+        <button class="nav-item" data-view="vault"><span class="nav-icon">▣</span><span>Question vault</span></button>
+        <button class="nav-item" data-view="daily"><span class="nav-icon">☀</span><span>Question of the day</span></button>
+        <button class="nav-item" data-view="coach"><span class="nav-icon">✦</span><span>AI learning coach</span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-challenge">
+        <div class="challenge-icon">✦</div>
+        <p class="challenge-eyebrow">THE DAILY EDGE</p>
+        <strong>Small reps.<br />Big confidence.</strong>
+        <p class="challenge-copy">A focused 20-minute session beats a last-minute cram.</p>
+        <button class="sidebar-challenge-btn" data-action="daily-session">Start today's reps <span>→</span></button>
+      </div>
+      <div class="sidebar-foot"><span class="status-pip"></span><span>Progress saved on this device</span></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">D<span>+</span></span><strong>DECA Sprint</strong></div>
+        <div class="breadcrumbs"><span>Workspace</span><span class="crumb-slash">/</span><strong id="pageCrumb">Overview</strong></div>
+        <div class="topbar-actions">
+          <div class="practice-tag"><span class="status-pip"></span> Practice mode</div>
+          <button class="icon-button" data-action="quick-help" aria-label="Help" title="Help">?</button>
+          <button class="profile-button" data-view="account" title="Account and saved progress"><span class="avatar" id="profileAvatar">S</span><span class="profile-name" id="profileName">Create account</span><span class="chevron">⌄</span></button>
+        </div>
+      </header>
+      <div id="appContent" class="content-area" tabindex="-1"></div>
+      <footer class="global-footer">
+        <span>Built for practice, not predictions.</span>
+        <span><a href="https://www.deca.org/compete" target="_blank" rel="noopener noreferrer">Official DECA events ↗</a><span class="footer-sep">·</span><span>Original practice content</span></span>
+      </footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input id="importFile" type="file" accept=".csv,.json,application/json,text/csv" hidden />
+  <script>
+/* Original DECA-style practice questions. Not official DECA exam content. */
+let questionSequence = 0;
+const q = (cluster, topic, difficulty, question, options, answer, explanation, target) => ({
+  id: `${cluster.toLowerCase().replace(/[^a-z0-9]+/g,'-')}-${topic.toLowerCase().replace(/[^a-z0-9]+/g,'-')}-${String(++questionSequence).padStart(3,'0')}`, 
+  cluster, topic, difficulty, question, options, answer, explanation, target, source: 'Original practice'
+});
+
+const QUESTIONS = [
+  // BUSINESS ADMINISTRATION CORE (16)
+  q('Business Administration Core','Business fundamentals',1,'Which statement best describes a business’s primary purpose in a market economy?', ['To eliminate all competition','To create value for customers while operating sustainably','To guarantee every employee the same role','To avoid responding to consumer demand'],'B','Businesses create value by solving customer problems or meeting needs; sustainable operations allow them to continue serving customers.','Business concepts'),
+  q('Business Administration Core','Communication',1,'A customer misunderstands a return policy. What is the best first response from the employee?', ['Repeat the policy louder','Blame the customer for not reading it','Listen, clarify the concern, and explain the policy respectfully','Immediately promise an exception'],'C','Active listening and a clear, respectful explanation address the issue without escalating it or promising something unauthorized.','Customer relations'),
+  q('Business Administration Core','Ethics',2,'A salesperson notices that a product description contains a claim the company cannot verify. What should the salesperson do?', ['Use the claim because competitors do','Remove or verify the claim before promoting the product','Hide the claim in smaller text','Ask customers to decide whether it is true'],'B','Marketing claims should be truthful and supportable. Unverified claims can mislead customers and damage trust.','Business ethics'),
+  q('Business Administration Core','Economics',1,'When the price of a product rises and other factors stay the same, what generally happens to quantity demanded?', ['It rises in every case','It stays fixed','It decreases','It becomes unlimited'],'C','The law of demand states that, other things equal, a higher price usually leads to a lower quantity demanded.','Economic principles'),
+  q('Business Administration Core','Management',2,'A manager sets a measurable sales target, assigns responsibilities, and checks progress weekly. Which management function is most directly demonstrated by checking progress?', ['Controlling','Staffing','Negotiating','Product development'],'A','Controlling includes measuring actual performance against goals and making adjustments when needed.','Management functions'),
+  q('Business Administration Core','Decision making',2,'A team has three possible solutions and limited time. Which approach is most likely to produce a defensible choice?', ['Choose the first idea','Compare options against agreed criteria and evidence','Choose the most expensive option','Delay until every uncertainty disappears'],'B','Explicit criteria and evidence make decisions more consistent, explainable, and aligned with the objective.','Decision making'),
+  q('Business Administration Core','Teamwork',1,'Two teammates disagree about a project deadline. What is the most productive next step?', ['Ignore the disagreement','Escalate immediately without discussion','Clarify task dependencies and agree on a realistic schedule','Let the person with the loudest voice decide'],'C','A shared understanding of dependencies, constraints, and priorities helps the team reach a workable agreement.','Teamwork'),
+  q('Business Administration Core','Data interpretation',2,'A store had 80 transactions on Monday and 100 on Tuesday. What was the percentage increase?', ['20%','25%','80%','125%'],'B','The increase is 20 transactions. Divide 20 by the original 80: 20 ÷ 80 = 25%.','Business math'),
+  q('Business Administration Core','Customer service',1,'A customer reports a defective item and is upset. Which action best supports service recovery?', ['Acknowledge the problem and explain the available remedies','Argue that defects are rare','Transfer the customer repeatedly','Offer an unrelated discount without listening'],'A','Acknowledging the issue, listening, and clearly explaining realistic remedies helps restore confidence.','Customer service'),
+  q('Business Administration Core','Professionalism',1,'Which email subject line is most useful when asking a supervisor to approve a revised event budget?', ['Hey!!!','Important stuff','Approval requested: revised event budget for Friday','Please read whenever'],'C','A specific subject line communicates the purpose and relevant context immediately.','Professional communication'),
+  q('Business Administration Core','Information management',2,'A team stores customer details in a shared spreadsheet. Which practice is most appropriate?', ['Give everyone unrestricted access','Collect only needed information and limit access to authorized staff','Use personal email accounts to share copies','Keep the file public so it is easy to find'],'B','Data minimization and restricted access reduce privacy and security risks.','Information management'),
+  q('Business Administration Core','Operations',2,'A café repeatedly runs out of its most popular pastry before lunch. Which data would be most useful first?', ['The owner’s favourite flavours','Daily demand and sales by time period','The colour of the display case','The number of posts the café made last year'],'B','Sales by time period helps match production and inventory to actual demand patterns.','Operations management'),
+  q('Business Administration Core','Business law and policy',3,'An employee is unsure whether a proposed promotion complies with company policy. What is the best next step?', ['Launch it and ask forgiveness later','Check the relevant policy and consult the appropriate supervisor','Assume verbal approval is unnecessary','Delete the written policy'],'B','Checking policy and obtaining appropriate guidance reduces compliance and reputational risk.','Policies and compliance'),
+  q('Business Administration Core','Economic indicators',2,'A rise in the consumer price level over time is known as:', ['Deflation','Inflation','Depreciation','Appreciation'],'B','Inflation is a sustained increase in the general price level of goods and services.','Economic indicators'),
+  q('Business Administration Core','Goal setting',2,'Which objective is the strongest example of a SMART goal?', ['Improve service soon','Make customers happier','Increase the post-purchase survey rating from 4.1 to 4.4 by March 31','Become the best store'],'C','It is specific, measurable, time-bound, and gives a clear target for improvement.','Goal setting'),
+  q('Business Administration Core','Conflict resolution',3,'A staff member repeatedly misses a shared deadline. Which response best combines accountability and problem solving?', ['Publicly criticize the staff member','Remove every responsibility without a conversation','Discuss the impact privately, identify barriers, and agree on checkpoints','Ignore future missed deadlines'],'C','A private, specific conversation can uncover barriers while setting clear expectations and follow-up.','Conflict resolution'),
+
+  // MARKETING (14)
+  q('Marketing','Segmentation',1,'A sportswear brand divides customers into groups based on age, location, and lifestyle. This is an example of:', ['Market segmentation','Inventory turnover','Price skimming','Internal auditing'],'A','Segmentation divides a broad market into meaningful groups with similar characteristics or needs.','Market segmentation'),
+  q('Marketing','Marketing mix',1,'Which element of the marketing mix refers to where and how customers can buy a product?', ['Product','Price','Place','Promotion'],'C','Place covers distribution channels, availability, and how the offering reaches customers.','Marketing mix'),
+  q('Marketing','Promotion',2,'A new café wants local awareness on a limited budget. Which approach is most directly targeted?', ['Buy national television ads','Partner with nearby student clubs and use location-targeted social content','Raise prices before opening','Reduce opening hours'],'B','Local partnerships and geographically targeted content can reach nearby customers efficiently.','Promotion strategy'),
+  q('Marketing','Market research',2,'A company wants to understand why customers stopped buying. Which method best gathers detailed explanations from former customers?', ['A focus group or structured interviews','A count of warehouse shelves','A random change to the logo','A review of staff vacation days'],'A','Interviews and focus groups can uncover motives and unmet needs; they complement quantitative data.','Market research'),
+  q('Marketing','Branding',1,'What is the main purpose of a brand position statement?', ['List every product specification','Define the target customer, category, difference, and benefit','Replace all market research','Guarantee a particular sales result'],'B','Positioning clarifies who the brand serves, the space it competes in, and why it is distinct.','Brand positioning'),
+  q('Marketing','Pricing',2,'A product costs $24 to make and sells for $40. What is its gross profit per unit before other expenses?', ['$16','$24','$40','$64'],'A','Gross profit per unit is selling price minus product cost: $40 − $24 = $16.','Pricing and margins'),
+  q('Marketing','Customer journey',2,'A high number of shoppers add items to an online cart but do not check out. Which metric is most relevant to investigate?', ['Cart abandonment rate','Employee absenteeism','Factory utilization','Net promoter score only'],'A','Cart abandonment measures the share of carts that do not become completed purchases and helps locate checkout friction.','Marketing analytics'),
+  q('Marketing','Digital marketing',2,'An email campaign has 10,000 delivered emails and 2,000 unique opens. What is the open rate?', ['2%','10%','20%','50%'],'C','Open rate is unique opens divided by delivered emails: 2,000 ÷ 10,000 = 20%.','Campaign metrics'),
+  q('Marketing','Product life cycle',2,'A product has rapidly rising sales, new competitors, and growing awareness. Which product life-cycle stage is most likely?', ['Introduction','Growth','Decline','Discontinuation only'],'B','Growth often features accelerating demand, increasing competition, and broader market awareness.','Product life cycle'),
+  q('Marketing','Public relations',3,'A brand discovers a factual error in a widely shared promotional post. What is the strongest response?', ['Delete all comments and stay silent','Correct the information promptly, explain the correction, and update the original where possible','Blame a customer','Publish a different ad and pretend nothing happened'],'B','Prompt transparent correction limits misinformation and signals accountability.','Public relations'),
+  q('Marketing','Target audience',2,'A premium running shoe is designed for experienced marathoners who value performance data. Which research question best tests the intended audience?', ['What colour is most popular among all shoppers?','Which performance features influence marathoners’ purchase decisions and willingness to pay?','How many people own a television?','What is the average length of a shopping aisle?'],'B','The question targets the identified segment and tests relevant purchase drivers.','Target marketing'),
+  q('Marketing','Sales promotion',1,'A coupon that gives 15% off for one week is primarily a:', ['Short-term sales promotion','Long-term employee benefit','Distribution channel','Market segmentation variable'],'A','Coupons are short-term incentives intended to encourage trial or purchase.','Sales promotion'),
+  q('Marketing','Ethical marketing',3,'A company wants to advertise a product as “the most sustainable choice” but has evidence for only one packaging feature. What should it do?', ['Make the broad claim anyway','Use a narrower, specific claim supported by evidence','Avoid mentioning any evidence','Compare itself to a fictitious competitor'],'B','Environmental claims should be specific and substantiated; broad claims can mislead consumers.','Ethical marketing'),
+  q('Marketing','Channel strategy',3,'A small maker sells through its own website and a retailer. The retailer complains that the maker undercuts its price online. What should the maker do first?', ['End the retailer relationship immediately','Review channel agreements, customer segments, and total channel economics','Raise every price without analysis','Stop tracking online sales'],'B','Channel conflict should be addressed by reviewing agreements, positioning, economics, and potential coordinated pricing policies.','Distribution strategy'),
+
+  // FINANCE (14)
+  q('Finance','Financial statements',1,'Which financial statement reports revenue and expenses over a period?', ['Income statement','Balance sheet','Bank reconciliation only','Inventory tag'],'A','The income statement summarizes revenue, expenses, and resulting profit or loss over a period.','Financial statements'),
+  q('Finance','Balance sheet',1,'Which equation correctly represents the accounting equation?', ['Assets = Liabilities + Owner’s equity','Revenue = Assets + Expenses','Cash = Profit × Time','Liabilities = Sales − Marketing'],'A','Assets are financed by liabilities and owners’ equity.','Accounting equation'),
+  q('Finance','Profitability',2,'A business has $12,000 in sales and $9,000 in cost of goods sold. What is its gross profit margin?', ['25%','33.3%','75%','300%'],'A','Gross profit is $3,000. Gross profit margin is $3,000 ÷ $12,000 = 25%.','Profitability ratios'),
+  q('Finance','Cash flow',2,'A business is profitable on paper but cannot pay suppliers because customers pay late. Which issue is it facing?', ['Cash-flow timing','Excess brand awareness','Market segmentation','Depreciation only'],'A','Profit does not guarantee cash on hand. Delayed collections can create a liquidity problem.','Cash-flow management'),
+  q('Finance','Budgeting',1,'What is the primary purpose of a cash budget?', ['Forecast cash inflows and outflows','Choose a company slogan','Set employee uniforms','Measure social media sentiment'],'A','A cash budget estimates when money will enter and leave the business to plan liquidity.','Budgeting'),
+  q('Finance','Break-even',2,'Fixed costs are $2,000 per month. Price per unit is $30 and variable cost is $20. How many units are needed to break even?', ['20','100','200','600'],'C','Contribution per unit is $10 ($30 − $20). Break-even units = $2,000 ÷ $10 = 200.','Break-even analysis'),
+  q('Finance','Credit',1,'A lender’s annual percentage rate (APR) is most useful for comparing:', ['The annualized cost of borrowing, including certain fees','The colour of a credit card','A business’s market share','Inventory shelf space'],'A','APR standardizes the annualized cost of borrowing and can include certain fees, though terms still matter.','Credit and borrowing'),
+  q('Finance','Time value of money',2,'Why is $100 received today generally worth more than $100 received one year from now?', ['Money today can be saved or invested and may earn a return','Future money is always counterfeit','Inflation only affects businesses','The two amounts are always identical in value'],'A','Money received sooner can earn returns and has more immediate purchasing power.','Time value of money'),
+  q('Finance','Financial ratios',3,'A company has current assets of $45,000 and current liabilities of $30,000. What is its current ratio?', ['0.67','1.0','1.5','15.0'],'C','Current ratio = current assets ÷ current liabilities = $45,000 ÷ $30,000 = 1.5.','Liquidity ratios'),
+  q('Finance','Risk and return',2,'Compared with a diversified portfolio, holding all savings in one company’s stock generally creates:', ['Less company-specific risk','More company-specific risk','Guaranteed higher returns','No possibility of loss'],'B','Diversification spreads exposure; concentration in one company increases the impact of company-specific problems.','Investment risk'),
+  q('Finance','Accounts receivable',2,'A business tightens its credit policy. Which outcome is a likely trade-off?', ['Fewer late payments but potentially fewer sales to credit-sensitive customers','Guaranteed sales growth','No change in collections','Higher inventory quality automatically'],'A','Stricter credit terms can reduce bad debts and collection delays, but may deter some customers.','Credit management'),
+  q('Finance','Depreciation',2,'Why do businesses record depreciation on many long-lived assets?', ['To allocate an asset’s cost over its useful life','To increase its original purchase price','To record every cash sale','To remove all maintenance costs'],'A','Depreciation allocates the depreciable cost of a tangible asset across periods that benefit from its use.','Asset accounting'),
+  q('Finance','Investment analysis',3,'A project costs $5,000 and is expected to generate $6,000 in present value of future cash inflows. What is its net present value?', ['−$1,000','$0','$1,000','$11,000'],'C','NPV = present value of inflows minus initial cost = $6,000 − $5,000 = $1,000.','Capital budgeting'),
+  q('Finance','Internal controls',3,'One employee receives cash, records sales, and reconciles the bank account. What is the main control concern?', ['Too much task specialization','Lack of separation of duties','Too many approval steps','Excess market research'],'B','Separating custody, recording, and reconciliation makes it harder for errors or fraud to go undetected.','Internal controls'),
+
+  // HOSPITALITY & TOURISM (14)
+  q('Hospitality & Tourism','Guest service',1,'A hotel guest says their room is not ready at the promised time. What should the front desk do first?', ['Acknowledge the inconvenience, check the status, and give a realistic update','Tell the guest to come back tomorrow','Promise a room without checking','Blame housekeeping in front of the guest'],'A','Empathy, accurate information, and a realistic plan are the foundations of service recovery.','Guest relations'),
+  q('Hospitality & Tourism','Occupancy',2,'A hotel has 150 rooms and sells 120 of them tonight. What is the occupancy rate?', ['30%','70%','80%','125%'],'C','Occupancy rate = rooms sold ÷ rooms available = 120 ÷ 150 = 80%.','Hospitality metrics'),
+  q('Hospitality & Tourism','Revenue management',3,'A hotel expects high demand for a major festival weekend. Which action best reflects revenue management?', ['Set rates using forecast demand, booking pace, and market conditions','Keep every rate fixed regardless of demand','Close the booking system','Offer every room at the lowest rate'],'A','Revenue management uses demand forecasts, booking patterns, and market conditions to optimize price and capacity.','Revenue management'),
+  q('Hospitality & Tourism','Food safety',1,'A food-service employee is about to prepare ready-to-eat food after handling raw chicken. What must happen first?', ['Change gloves only, without washing hands','Wash hands and follow required food-safety procedures','Wipe hands on an apron','Continue if the chicken looked fresh'],'B','Proper handwashing and cross-contamination controls are essential when moving from raw poultry to ready-to-eat food.','Food safety'),
+  q('Hospitality & Tourism','Service design',2,'A restaurant’s wait times are longest between 12:00 and 1:00 p.m. What should management study first?', ['Demand by arrival time, staffing, and kitchen bottlenecks','The playlist from last summer','The owner’s travel schedule','The number of chairs in storage only'],'A','Combining arrival patterns, staffing, and throughput data helps identify the true source of the bottleneck.','Operations analysis'),
+  q('Hospitality & Tourism','Tourism marketing',2,'A destination wants to attract visitors outside its peak summer season. Which strategy is most directly aligned?', ['Create shoulder-season packages around local food, culture, and indoor activities','Stop communicating with visitors','Raise every price during the quiet season','Remove the destination website'],'A','Seasonal packages built around distinctive activities give travelers a reason to visit beyond the peak period.','Destination marketing'),
+  q('Hospitality & Tourism','Reservations',1,'Why should a hotel confirm special accessibility requirements before arrival?', ['To prepare suitable arrangements and communicate clearly','To increase room rates automatically','To avoid recording the reservation','To guarantee no delays under any circumstance'],'A','Confirming requirements supports planning, clear communication, and a more accessible guest experience.','Reservation management'),
+  q('Hospitality & Tourism','Event planning',2,'An event planner has a fixed budget and must choose between décor, catering, and audiovisual upgrades. What is the best method?', ['Rank each option by attendee impact, necessity, and cost','Choose the most expensive upgrade','Spend the budget before reviewing quotes','Remove contingency funds first'],'A','Prioritization based on experience, requirements, and costs protects the event’s core objectives.','Event budgeting'),
+  q('Hospitality & Tourism','Sustainability',2,'A resort wants to reduce food waste. Which measure best helps track progress?', ['Weigh and categorize discarded food over time','Count the number of room keys','Measure the lobby’s paint coverage','Compare staff birthdays'],'A','Consistent waste measurement creates a baseline and shows which actions reduce waste.','Sustainable operations'),
+  q('Hospitality & Tourism','Capacity planning',3,'A tour operator has 48 seats and expects 55 bookings. Which action best manages the capacity conflict?', ['Accept every booking and decide later','Check safe capacity, communicate options, and offer a waitlist or alternate departure','Remove the seat belts','Silently cancel the last seven customers'],'B','The operator should respect capacity limits and provide transparent alternatives rather than overpromise.','Capacity management'),
+  q('Hospitality & Tourism','Reputation management',2,'After several reviews mention slow check-in, which response is most useful?', ['Thank reviewers and investigate arrival-time, staffing, and process data','Argue with every reviewer','Buy unrelated positive comments','Close all review channels'],'A','The pattern is a signal to investigate the operational cause, respond professionally, and track whether changes work.','Online reputation'),
+  q('Hospitality & Tourism','Customer segmentation',2,'A travel company designs small-group culinary tours for visitors interested in local food traditions. This is primarily:', ['Targeted tourism product development','A bank reconciliation','A fixed-cost calculation','A room-maintenance schedule'],'A','The operator is aligning a specific travel product to the interests of a defined visitor segment.','Tourism product design'),
+  q('Hospitality & Tourism','Service recovery',3,'A restaurant mistakenly charges a guest for an item they did not order. What is the best response?', ['Review the bill, correct the error promptly, and apologize','Insist the point-of-sale system cannot be wrong','Make the guest prove intent','Offer no explanation'],'A','Prompt correction and a sincere apology resolve the immediate issue and preserve trust.','Service recovery'),
+  q('Hospitality & Tourism','Yield indicators',3,'A hotel’s revenue per available room (RevPAR) can be calculated as:', ['Room revenue ÷ available rooms','Total payroll ÷ employees','Rooms available ÷ room revenue','Food revenue ÷ occupied tables'],'A','RevPAR measures room revenue generated per available room; it can also be calculated as ADR multiplied by occupancy.','Hospitality finance'),
+
+  // BUSINESS MANAGEMENT & ADMINISTRATION (14)
+  q('Business Management & Administration','Leadership',1,'Which leadership action is most likely to build trust during a change in procedures?', ['Explain why the change is needed and invite relevant questions','Hide all details until launch','Punish anyone who asks for clarification','Change the procedure daily without notice'],'A','Clear rationale and two-way communication help people understand and adapt to change.','Leadership'),
+  q('Business Management & Administration','Human resources',2,'A company wants to reduce early employee turnover. Which step should it evaluate first?', ['Whether role expectations, onboarding, and manager support match the job','The colour of the company logo','The number of posters in the hallway','Whether every job has the same schedule'],'A','Early turnover can reflect a mismatch between job expectations and the onboarding or support employees receive.','Employee retention'),
+  q('Business Management & Administration','Performance management',2,'A performance review is most useful when it includes:', ['Specific examples, clear expectations, and an agreed development plan','Only vague criticism','Surprises with no prior feedback','A ranking with no explanation'],'A','Evidence, clarity, and jointly defined next steps make feedback actionable and fair.','Performance management'),
+  q('Business Management & Administration','Project management',1,'A project milestone is best described as:', ['A significant checkpoint or deliverable in a project timeline','A recurring office expense','A customer demographic','A brand slogan'],'A','Milestones mark important points used to monitor progress and dependencies.','Project management'),
+  q('Business Management & Administration','Operations',2,'A process map shows that every customer request waits for one manager’s approval. This is most likely a:', ['Bottleneck','Market segment','Variable cost','Brand extension'],'A','A bottleneck is a constrained step that limits the throughput of the whole process.','Process improvement'),
+  q('Business Management & Administration','Workplace communication',1,'Which instruction is most likely to prevent a task from being misunderstood?', ['“Do this well.”','“Complete the customer list by 3 p.m.; verify phone numbers and flag missing data.”','“Handle it soon.”','“You know what I mean.”'],'B','The instruction specifies the task, deadline, quality check, and how to handle exceptions.','Workplace communication'),
+  q('Business Management & Administration','Training',2,'How should a supervisor evaluate whether new training improved performance?', ['Compare relevant performance measures before and after, while considering other changes','Count how many slides were shown','Ask only whether participants liked the snacks','Assume attendance proves mastery'],'A','Performance measures provide stronger evidence of transfer than attendance or satisfaction alone.','Training evaluation'),
+  q('Business Management & Administration','Change management',3,'A new scheduling system is technically effective, but employees keep using the old method. What should management do?', ['Investigate usability and training barriers, involve users, and reinforce the new workflow','Remove support resources','Assume staff are deliberately uncooperative','Keep both systems indefinitely without guidance'],'A','Adoption problems often reveal workflow, training, or communication gaps that should be addressed directly.','Change management'),
+  q('Business Management & Administration','Delegation',2,'Which task is most appropriate to delegate to a trained employee with clear limits?', ['A routine inventory count with an agreed reporting deadline','A confidential decision outside the employee’s authority','A task requiring credentials the employee does not have','An urgent task with no context or resources'],'A','Routine work can be delegated when responsibilities, limits, resources, and checkpoints are clear.','Delegation'),
+  q('Business Management & Administration','Workplace safety',1,'An employee notices a spill in a walkway. What should happen first?', ['Secure or mark the hazard and follow the workplace reporting procedure','Wait until someone slips','Take a photo for social media','Move the spill sign to the storage room'],'A','Promptly controlling and reporting a hazard reduces the chance of injury.','Workplace safety'),
+  q('Business Management & Administration','Quality management',2,'A distribution team tracks the percentage of orders shipped correctly on the first attempt. This is an example of a:', ['Key performance indicator','Mission statement','Market share estimate','Fixed asset'],'A','A KPI is a measurable value used to assess progress toward an operational objective.','Quality measurement'),
+  q('Business Management & Administration','Staffing',2,'A store consistently has too few employees during its busiest hour and too many during quiet periods. What is the best response?', ['Use demand patterns to redesign shift coverage','Schedule everyone for the same shift','Stop recording hourly sales','Hire without assessing needs'],'A','Staffing should match expected workload while respecting availability, costs, and employment rules.','Workforce planning'),
+  q('Business Management & Administration','Business continuity',3,'A small company depends on one supplier for a critical component. Which action most directly reduces continuity risk?', ['Assess alternatives and create a qualified backup-supplier plan','Delete supplier records','Increase dependence on that supplier','Stop monitoring lead times'],'A','A validated alternative source reduces the impact of a supplier disruption.','Risk management'),
+  q('Business Management & Administration','Meeting management',2,'Which practice makes a project meeting more likely to produce action?', ['Use an agenda, assign owners and due dates, and record decisions','Invite everyone without a goal','Discuss issues without deciding next steps','Avoid documenting responsibilities'],'A','A clear agenda and action log turn discussion into accountable follow-through.','Meeting effectiveness'),
+
+  // ENTREPRENEURSHIP (14)
+  q('Entrepreneurship','Customer discovery',1,'Before building a new app, an entrepreneur should first:', ['Test whether a clearly defined customer has the problem the app aims to solve','Spend the full budget on branding','Assume friends represent the entire market','Hire a large team'],'A','Customer discovery tests the problem and demand before major product investment.','Customer discovery'),
+  q('Entrepreneurship','Value proposition',1,'A value proposition should clearly explain:', ['Who the offering serves, what problem it solves, and why it is valuable','Every future feature regardless of relevance','Only the founder’s biography','The company’s tax filing date'],'A','A strong value proposition links a customer need to a distinct, useful benefit.','Value proposition'),
+  q('Entrepreneurship','Lean testing',2,'A startup has two possible landing-page messages. What is the most informative low-cost test?', ['Run a controlled test with a defined success metric and comparable audiences','Ask the founder which one sounds cooler','Change the message and price at the same time','Wait a year before collecting data'],'A','A controlled test with a predefined metric makes it easier to attribute differences to the message.','Experiment design'),
+  q('Entrepreneurship','Revenue models',2,'A software startup charges customers a fixed amount every month for continued access. This is a:', ['Subscription model','Barter-only model','One-time liquidation','Commission-free donation'],'A','A subscription generates recurring revenue in exchange for ongoing access or service.','Business models'),
+  q('Entrepreneurship','Unit economics',2,'A product sells for $50 and has variable costs of $32 per unit. What is the contribution margin per unit?', ['$18','$32','$50','$82'],'A','Contribution margin per unit equals selling price minus variable cost: $50 − $32 = $18.','Unit economics'),
+  q('Entrepreneurship','Competitive analysis',2,'What is the most useful way to assess direct competitors?', ['Compare target customers, pricing, features, positioning, and customer feedback','Copy their logo','Count only their office chairs','Assume no competitor means no risk'],'A','Structured competitor analysis shows where alternatives are strong and where customers may be underserved.','Competitive analysis'),
+  q('Entrepreneurship','Funding',2,'An entrepreneur wants capital but also wants to retain ownership. Which funding source may fit that preference, depending on terms?', ['A loan with manageable repayment obligations','Selling all ownership immediately','Ignoring cash requirements','Promising guaranteed returns without evidence'],'A','Debt can provide capital without giving up equity, but repayment and borrowing costs must be assessed carefully.','Funding options'),
+  q('Entrepreneurship','Pricing validation',3,'Customers praise a product but very few buy at its proposed price. What should the founder do next?', ['Test willingness to pay and investigate perceived value, segment, and alternatives','Conclude praise guarantees demand','Increase production immediately','Hide the price until after purchase'],'A','Stated interest and actual purchase behaviour differ; research can diagnose value, price, or audience mismatch.','Pricing validation'),
+  q('Entrepreneurship','Cash runway',2,'A startup has $24,000 in cash and spends a net $4,000 per month. Ignoring future changes, how much runway does it have?', ['3 months','6 months','12 months','24 months'],'B','Runway = available cash ÷ monthly net burn = $24,000 ÷ $4,000 = 6 months.','Cash runway'),
+  q('Entrepreneurship','Minimum viable product',1,'The main purpose of a minimum viable product (MVP) is to:', ['Test key assumptions with a simple version that delivers core value','Include every planned feature','Avoid talking to customers','Guarantee product-market fit'],'A','An MVP is a learning tool: it tests important assumptions with a limited, usable solution.','Product validation'),
+  q('Entrepreneurship','Go-to-market',2,'A small business has a limited launch budget and knows its best customers are in three nearby neighbourhoods. Which plan is most sensible?', ['Pilot targeted outreach in those areas and measure customer acquisition cost','Spend the entire budget on national advertising','Launch in every country simultaneously','Avoid tracking results'],'A','A focused pilot reduces risk and provides evidence about reach, conversion, and acquisition cost.','Go-to-market planning'),
+  q('Entrepreneurship','Risk assessment',3,'A founder identifies a critical technology that may fail and would stop the service. What belongs in a risk plan?', ['Likelihood, impact, mitigation owner, trigger, and contingency action','Only a list of optimistic outcomes','A slogan about resilience','No action until failure occurs'],'A','A useful risk register turns uncertainty into assigned actions and contingency plans.','Risk planning'),
+  q('Entrepreneurship','Partnerships',2,'A potential partner offers access to customers but asks for exclusivity. What should the founder examine before agreeing?', ['The value of access, contract scope and duration, alternatives, and future constraints','Only the partner’s logo','The founder’s favourite colour','Whether a contract can be skipped'],'A','Exclusivity can limit future options, so its value and restrictions should be understood before commitment.','Strategic partnerships'),
+  q('Entrepreneurship','Pitching',3,'Which evidence most strengthens an investor pitch about product demand?', ['Repeat usage, paid pilots, conversion data, and credible customer interviews','Only a large top-down market estimate','A mock-up with no testing','A list of famous companies unrelated to the product'],'A','Behavioural evidence and credible customer validation support claims that a market exists and can be reached.','Pitching and validation'),
+
+  // PERSONAL FINANCIAL LITERACY (14)
+  q('Personal Financial Literacy','Budgeting',1,'Which budget category usually contains rent, a phone plan, and a monthly transit pass?', ['Fixed or recurring expenses','Investment gains','One-time windfalls','Business gross profit'],'A','These are predictable expenses that usually recur on a regular schedule, even if some can change over time.','Personal budgeting'),
+  q('Personal Financial Literacy','Saving',1,'What is the main purpose of an emergency fund?', ['Cover unexpected expenses or income interruptions','Pay for every planned vacation','Replace all insurance','Guarantee investment profits'],'A','Accessible emergency savings can help manage unexpected costs without relying immediately on expensive debt.','Emergency savings'),
+  q('Personal Financial Literacy','Compound interest',2,'Interest earned on both the original deposit and previously earned interest is called:', ['Simple interest only','Compound interest','A transaction fee','A minimum payment'],'B','Compound interest means earnings can themselves generate future earnings.','Interest'),
+  q('Personal Financial Literacy','Credit score',2,'Which behaviour generally supports a healthy credit history?', ['Paying bills on time and managing borrowed amounts responsibly','Applying for many accounts without a plan','Missing due dates regularly','Ignoring statements'],'A','Payment history and responsible use of available credit are important factors in many credit-scoring models.','Credit health'),
+  q('Personal Financial Literacy','Needs and wants',1,'Which purchase is most clearly a need in a monthly personal budget?', ['Basic groceries','A premium gaming console upgrade','A designer accessory','A second streaming subscription'],'A','Basic food is essential; the other examples are typically discretionary wants.','Spending priorities'),
+  q('Personal Financial Literacy','Interest calculation',2,'A $500 balance earns 4% simple interest over one year. How much interest is earned?', ['$4','$20','$40','$520'],'B','Simple interest = principal × rate × time = $500 × 0.04 × 1 = $20.','Interest calculation'),
+  q('Personal Financial Literacy','Credit cards',2,'Paying only the minimum due on a credit-card balance can lead to:', ['A longer payoff period and more interest paid','The balance disappearing automatically','No effect on repayment time','Guaranteed improvement in credit score'],'A','Minimum payments can keep debt outstanding longer and increase total interest costs.','Credit-card management'),
+  q('Personal Financial Literacy','Fraud awareness',1,'A message claims your bank account will be locked unless you click an unfamiliar link and enter your password. What is the safest response?', ['Use the bank’s official app or contact details to check; do not use the link','Click quickly to avoid a penalty','Reply with your password','Forward the message to everyone'],'A','Urgent messages and unfamiliar links are common phishing signs. Verify through a trusted channel.','Fraud prevention'),
+  q('Personal Financial Literacy','Insurance',2,'What is the main purpose of an insurance deductible?', ['The amount the policyholder generally pays toward a covered loss before insurance pays','A guaranteed annual refund','The insurer’s marketing budget','A credit-card reward'],'A','A deductible is the portion of a covered claim the insured pays under the policy terms.','Insurance basics'),
+  q('Personal Financial Literacy','Financial goals',1,'Which goal is the most specific and measurable?', ['Save $600 for a laptop by June by setting aside $50 each month','Save more someday','Spend less when possible','Become financially successful'],'A','It sets an amount, a purpose, a deadline, and a repeatable contribution plan.','Financial goal setting'),
+  q('Personal Financial Literacy','Investing',2,'Why do investors often consider both risk and time horizon before choosing investments?', ['The ability to handle losses and the time available to recover vary','Every investment has the same risk','Time horizon predicts an exact return','A longer horizon removes all risk'],'A','A longer horizon may allow more time to recover from volatility, but it does not eliminate risk or guarantee returns.','Investment planning'),
+  q('Personal Financial Literacy','Net worth',2,'A person owns assets worth $8,000 and owes $2,500. What is their net worth?', ['$2,500','$5,500','$8,000','$10,500'],'B','Net worth = total assets minus total liabilities = $8,000 − $2,500 = $5,500.','Net worth'),
+  q('Personal Financial Literacy','Taxes and payroll',2,'On a pay stub, gross pay is generally:', ['Earnings before deductions and withholdings','The amount deposited after all deductions','Only tips','A credit limit'],'A','Gross pay is total earnings before deductions such as taxes, benefit contributions, and other withholdings.','Payroll basics'),
+  q('Personal Financial Literacy','Comparison shopping',3,'Two phone plans offer similar service: Plan A costs $45 per month plus a $60 setup fee; Plan B costs $50 per month with no setup fee. Over 12 months, which costs less before taxes?', ['Plan A by $0','Plan A by $0?','Plan B by $0?','They cost the same'],'A','Plan A costs 12 × $45 + $60 = $600. Plan B costs 12 × $50 = $600, so they cost the same.','Comparing total costs')
+];
+
+// Fix the last item's answer options deliberately: equal 12-month total, answer A says same? Keep label consistent by normalizing below.
+QUESTIONS[QUESTIONS.length - 1].options = ['Plan A costs $600; Plan B costs $600','Plan A costs $60 more','Plan B costs $60 more','Plan A costs $120 less'];
+QUESTIONS[QUESTIONS.length - 1].answer = 'A';
+
+if (typeof window !== 'undefined') window.DECA_QUESTIONS = QUESTIONS;
+
+</script>
+<script>
+(() => {
+  'use strict';
+
+  const STORAGE_KEY = 'decaSprint.workspace.v1';
+  const CLUSTERS = [
+    'Business Administration Core', 'Marketing', 'Finance', 'Hospitality & Tourism',
+    'Business Management & Administration', 'Entrepreneurship', 'Personal Financial Literacy'
+  ];
+  const LEVELS = {
+    Regional: { label: 'Regional', icon: '↗', desc: 'Build speed and master the fundamentals.', mix: [0.60, 0.30, 0.10] },
+    Provincials: { label: 'Provincials', icon: '✦', desc: 'Apply concepts to less obvious business situations.', mix: [0.30, 0.50, 0.20] },
+    ICDC: { label: 'ICDC', icon: '◎', desc: 'Stretch your reasoning with more challenge questions.', mix: [0.20, 0.45, 0.35] }
+  };
+  const CASES = [
+    { id:'cafe-growth', cluster:'Marketing', title:'A local café needs a growth plan', role:'You are a marketing consultant for Northline Café.', brief:'Northline Café has built a loyal morning crowd, but afternoon traffic is low. The owner wants to increase weekday revenue without turning the café into a discount-first brand. A nearby school has clubs and events, and customer comments mention study space and seasonal drinks.', problem:'Recommend a focused marketing plan that increases afternoon visits while protecting profit and the café’s neighbourhood identity.', data:[['Afternoon sales','$420 / weekday'],['Gross margin','62% average'],['Promo budget','$1,200 / month']], tasks:['Identify the likely target segment and the customer need you will address.','Recommend two connected tactics and explain why they fit this café.','Provide a 30-day launch timeline with owners and a simple budget split.','Choose two KPIs and explain how the owner should adjust based on results.'] },
+    { id:'retail-stock', cluster:'Business Management & Administration', title:'A retailer’s stock problem', role:'You are an operations adviser to a small sports retailer.', brief:'Peak-season products keep selling out while slower items occupy shelves. Staff use a spreadsheet that is updated inconsistently. The owner has one month before the next school sports season and cannot afford a full new inventory system.', problem:'Propose an achievable inventory-control improvement that reduces stockouts and excess inventory.', data:[['Stockout rate','14% of top items'],['Unsold seasonal stock','$8,600 at cost'],['Implementation budget','$900']], tasks:['Explain the likely causes and what data to check first.','Recommend a practical replenishment process and responsibility split.','Outline the pilot timeline and how to train staff.','Set KPIs for stockouts, inventory accuracy, and unsold stock.'] },
+    { id:'hotel-checkin', cluster:'Hospitality & Tourism', title:'A hotel wants a smoother arrival', role:'You are an assistant front-office manager at Harbourlight Hotel.', brief:'Guest reviews praise the hotel’s location but increasingly mention queues at check-in from 3:00 to 5:00 p.m. The hotel cannot add permanent staff this quarter. Housekeeping status updates sometimes reach the front desk late.', problem:'Design a guest-focused plan that shortens perceived and actual wait times without compromising privacy or service.', data:[['Average peak wait','18 minutes'],['Rooms per day','145 occupied / 180 available'],['One-time budget','$1,500']], tasks:['Identify the likely process bottlenecks and what you would measure.','Recommend two service or workflow changes that can be piloted quickly.','Describe how departments will coordinate and keep guest information secure.','Set a target, timeline, and review process for the pilot.'] },
+    { id:'finance-cash', cluster:'Finance', title:'A growing business has a cash gap', role:'You are a junior financial analyst for BrightPath Supplies.', brief:'Sales are growing, but several large customers now pay 45 days after invoicing. The company must pay suppliers within 20 days and is considering a short-term loan. Management needs a plan to protect day-to-day cash while continuing to grow.', problem:'Recommend a short-term working-capital plan and show how management can judge whether it is working.', data:[['Monthly sales','$80,000'],['Average collection time','45 days'],['Supplier terms','20 days']], tasks:['Explain why sales growth may not solve the cash-flow problem.','Recommend two practical actions for collections, payment timing, or forecasting.','Discuss the trade-offs before taking a loan.','Name three cash-flow indicators to review weekly.'] },
+    { id:'startup-launch', cluster:'Entrepreneurship', title:'Validate a student-focused service', role:'You are the founder of StudySwap, a proposed peer tutoring marketplace.', brief:'Students say they want easier ways to find tutoring, but the team has only interviewed eight friends. The initial budget is small and the founder is deciding whether to build a full app or test a manual matching service first.', problem:'Create a low-cost validation plan that demonstrates whether real users will adopt and pay for the service.', data:[['Available test budget','$600'],['Initial interviewees','8 friends'],['Proposed pilot','4 weeks']], tasks:['Define the first customer segment and riskiest assumption.','Design an MVP test and specify how participants will be recruited.','Set measurable success criteria and a decision rule.','Explain next steps if the pilot works—and if it does not.'] },
+    { id:'core-team', cluster:'Business Administration Core', title:'A team project keeps missing deadlines', role:'You are a team lead at an event-planning company.', brief:'A cross-functional team has missed two internal deadlines because responsibilities are unclear and the event brief has changed several times. The client’s deadline is firm. Team members are capable but frustrated.', problem:'Present a plan that restores accountability and keeps the client informed without lowering quality.', data:[['Client deadline','12 days away'],['Open tasks','17'],['Budget remaining','$2,400']], tasks:['Identify the most urgent risks and clarify the deliverables.','Prioritize tasks, owners, and checkpoints.','Explain how changes will be approved and communicated.','Choose progress metrics and a backup plan for a critical delay.'] },
+    { id:'personal-finance', cluster:'Personal Financial Literacy', title:'Build a realistic savings plan', role:'You are a financial-literacy coach helping a student plan a major purchase.', brief:'A student wants to buy a laptop for school in six months. They have irregular part-time income, a small savings balance, and recurring costs for transit and phone service. They also want to keep some money available for surprises.', problem:'Create a practical plan that balances the purchase goal, recurring costs, and emergency savings without relying on debt.', data:[['Laptop target','$900'],['Current savings','$180'],['Time horizon','6 months']], tasks:['Calculate the remaining amount and a realistic monthly target.','Separate needs, wants, and irregular expenses in the budget.','Recommend a safe savings habit and an emergency buffer.','Explain how to adjust the plan if income changes.'] },
+    { id:'marketing-loyalty', cluster:'Marketing', title:'Turn one-time buyers into regulars', role:'You are a marketing strategist for a school-supplies retailer.', brief:'A neighbourhood retailer receives strong back-to-school traffic but sees few repeat purchases after September. The owner wants a loyalty approach that feels useful to students and families, not spammy, and can be managed by the existing team.', problem:'Recommend a repeat-purchase strategy that creates value for customers and can be measured affordably.', data:[['September sales','$32,000'],['Returning-customer rate','18%'],['Test budget','$750']], tasks:['Identify one priority segment and a plausible reason customers do not return.','Recommend a loyalty value exchange and one communication channel.','Outline a six-week pilot and how customers will opt in.','Choose measures for repeat visits, margin, and customer feedback.'] },
+    { id:'staff-scheduling', cluster:'Business Management & Administration', title:'Fix uneven shift coverage', role:'You are the store operations coordinator.', brief:'Customer wait times spike after school, while some morning shifts are overstaffed. Employees feel the schedule is unfair because shift changes are often made at the last minute. The store manager wants a fairer process without increasing total labour hours.', problem:'Build a staffing plan that matches demand, improves predictability, and gives employees a voice.', data:[['Peak wait time','9 minutes'],['Quiet-hour utilization','54%'],['Labour-hour budget','No increase']], tasks:['Identify which demand and availability data to collect.','Propose a scheduling rule and a fair shift-change process.','Explain how staff will be informed and how exceptions are handled.','Set a short pilot and track service, labour, and employee feedback.'] },
+    { id:'restaurant-waste', cluster:'Hospitality & Tourism', title:'Reduce restaurant food waste', role:'You are an assistant manager at Maple & Main Bistro.', brief:'The bistro discards prepared food at closing, yet occasionally sells out of two popular dishes at dinner. The chef wants reliable availability; the owner wants to reduce waste without shrinking portions or disappointing guests.', problem:'Recommend a practical food-preparation and monitoring plan that balances guest satisfaction with waste reduction.', data:[['Food discarded','$480 / week'],['Most common sell-out','2 menu items'],['Pilot period','4 weeks']], tasks:['Explain which records will help distinguish overproduction from demand shifts.','Recommend a forecast, batch-prep, or menu adjustment.','Set responsibilities for the kitchen and service team.','Define waste and availability KPIs and a review checkpoint.'] },
+    { id:'pricing-cash', cluster:'Finance', title:'Review pricing before costs rise', role:'You are a financial analyst for a small maker of reusable bottles.', brief:'A supplier has announced a cost increase next month. The business has steady demand but fears a sudden price rise could push customers to alternatives. Management wants to protect contribution margin while maintaining a clear value proposition.', problem:'Present a financially grounded pricing and cost response rather than relying on a blanket price change.', data:[['Current price','$28 / unit'],['Variable cost','$16 / unit'],['Supplier increase','12% on component cost']], tasks:['Calculate the current contribution per unit and explain the cost pressure.','Identify what additional data is needed before changing prices.','Recommend a pricing or sourcing test with a defined segment.','Set a margin target and customer-response monitoring plan.'] },
+    { id:'pop-up-validation', cluster:'Entrepreneurship', title:'Validate a weekend pop-up idea', role:'You are an entrepreneur planning a student-run snack pop-up.', brief:'Your team wants to sell snack boxes at local community events. You have a menu idea and social followers but no paid orders yet. You can run one small trial before deciding whether to invest in equipment and inventory.', problem:'Design the smallest useful test that checks demand, price, and operating feasibility before committing major funds.', data:[['Trial budget','$350'],['Potential event visitors','400'],['Proposed price','$9 / box']], tasks:['State the riskiest assumptions about customer demand and operations.','Design a pre-order or sample test and explain how you will recruit buyers.','Estimate a break-even signal using costs you would need to gather.','Make a clear go / revise / stop decision rule for the trial.'] },
+    { id:'customer-complaint', cluster:'Business Administration Core', title:'Recover trust after a service error', role:'You are a customer experience lead for an online retailer.', brief:'A shipping-system change caused a group of customers to receive inaccurate delivery estimates. Social comments are becoming negative. Orders are still moving, and the team needs a response that is accurate, fair, and operationally realistic.', problem:'Create a coordinated recovery response for affected customers and prevent the same communication error from recurring.', data:[['Affected orders','86'],['Support response time','22 hours'],['Recovery budget','$1,000']], tasks:['Prioritize what customers need to know now and what must be verified first.','Recommend a communication and remedy approach that treats cases fairly.','Coordinate support, logistics, and marketing responsibilities.','Choose KPIs for resolution time, repeat contacts, and customer sentiment.'] },
+    { id:'income-planning', cluster:'Personal Financial Literacy', title:'Plan around irregular income', role:'You are a financial-literacy coach helping a teen with part-time work.', brief:'A student’s shifts vary each week, but their transit pass and phone payment are predictable. They want to save for a course while avoiding overdrafts and still keeping a small amount for fun. Their current approach is to spend first and save what remains.', problem:'Create a simple cash-flow routine that prioritizes essentials, savings, and flexibility when pay varies.', data:[['Typical monthly income','$450–$650'],['Recurring costs','$125 / month'],['Savings goal','$300 in 5 months']], tasks:['Set a savings target that adapts to lower-income months.','Explain how to separate fixed costs, flexible spending, and savings.','Recommend a weekly check-in and a small cash buffer.','Describe what should change if a month’s income falls below expectations.'] }
+  ];
+
+  const defaultState = () => ({
+    version: 1, attempts: [], caseAttempts: [], customQuestions: [],
+    reviewIds: [], masteredIds: [], dailyChecks: {},
+    prefs: { level: 'Regional', cluster: 'All clusters', count: 25, mode: 'exam', caseCluster: 'Marketing' },
+    caseDraft: null
+  });
+
+  function readState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaultState();
+      const loaded = JSON.parse(raw);
+      const fresh = { ...defaultState(), ...loaded };
+      fresh.prefs = { ...defaultState().prefs, ...(loaded.prefs || {}) };
+      fresh.attempts = Array.isArray(fresh.attempts) ? fresh.attempts : [];
+      fresh.caseAttempts = Array.isArray(fresh.caseAttempts) ? fresh.caseAttempts : [];
+      fresh.customQuestions = Array.isArray(fresh.customQuestions) ? fresh.customQuestions : [];
+      fresh.reviewIds = Array.isArray(fresh.reviewIds) ? fresh.reviewIds : [];
+      fresh.masteredIds = Array.isArray(fresh.masteredIds) ? fresh.masteredIds : [];
+      fresh.dailyChecks = fresh.dailyChecks && typeof fresh.dailyChecks === 'object' ? fresh.dailyChecks : {};
+      return fresh;
+    } catch { return defaultState(); }
+  }
+
+  let store = readState();
+  let view = 'dashboard';
+  let activeExam = null;
+  let examInterval = null;
+  let resultFilter = 'all';
+  let shownResult = null;
+  let studyDeck = [];
+  let studyIndex = 0;
+  let studyFlipped = false;
+  let caseSession = loadCaseDraft();
+  let caseInterval = null;
+  let toastTimeout = null;
+  const content = document.getElementById('appContent');
+  const toastEl = document.getElementById('toast');
+  const importInput = document.getElementById('importFile');
+
+  function persist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)); }
+    catch { showToast('Browser storage is full. Export your progress before importing a large question set.'); }
+    updateReviewBadge();
+  }
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function todayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  function getDaily() {
+    const key = todayKey();
+    if (!store.dailyChecks[key]) store.dailyChecks[key] = { exam:false, case:false, review:false };
+    return store.dailyChecks[key];
+  }
+  function formatDate(value, options={month:'short',day:'numeric'}) {
+    try { return new Intl.DateTimeFormat('en-CA', options).format(new Date(value)); }
+    catch { return ''; }
+  }
+  function shuffle(list) {
+    const a = [...list];
+    for (let i=a.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+    return a;
+  }
+  function allQuestions() {
+    const originals = Array.isArray(window.DECA_QUESTIONS) ? window.DECA_QUESTIONS : [];
+    return [...originals, ...store.customQuestions];
+  }
+  function allClusterNames() {
+    return [...new Set([...CLUSTERS, ...store.customQuestions.map(q=>q.cluster).filter(Boolean)])];
+  }
+  function questionById(id) { return allQuestions().find(q => q.id === id); }
+  function selectedClusterQuestions(cluster) {
+    const all = allQuestions();
+    return cluster === 'All clusters' ? all : all.filter(q => q.cluster === cluster);
+  }
+  function clusterQuestionCount(cluster) { return selectedClusterQuestions(cluster).length; }
+  function maximumExamCount(cluster) {
+    return Math.min(100, clusterQuestionCount(cluster));
+  }
+  function normalizedCount(cluster) {
+    const max = maximumExamCount(cluster);
+    const requested = Number(store.prefs.count || 25);
+    return Math.min(Math.max(1, requested), max);
+  }
+  function levelQuestionPick(pool, count, level) {
+    const clean = pool.filter(q => q && q.options && q.options.length === 4 && ['A','B','C','D'].includes(q.answer));
+    if (count >= clean.length) return shuffle(clean);
+    const mix = (LEVELS[level] || LEVELS.Regional).mix;
+    const buckets = [clean.filter(q=>Number(q.difficulty)===1), clean.filter(q=>Number(q.difficulty)===2), clean.filter(q=>Number(q.difficulty)===3)];
+    let picked = [];
+    const used = new Set();
+    mix.forEach((weight, idx) => {
+      const target = Math.floor(count * weight);
+      const slice = shuffle(buckets[idx]).slice(0, target);
+      slice.forEach(q=>{if(!used.has(q.id)){picked.push(q);used.add(q.id);}});
+    });
+    let rest = shuffle(clean.filter(q=>!used.has(q.id)));
+    while (picked.length < count && rest.length) picked.push(rest.pop());
+    return shuffle(picked.slice(0,count));
+  }
+  function toastText(str) {
+    toastEl.textContent = str;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(()=>toastEl.classList.remove('show'), 3100);
+  }
+  function showToast(str) { toastText(str); }
+  function updateReviewBadge() {
+    const n = store.reviewIds.filter(id=>!store.masteredIds.includes(id) && questionById(id)).length;
+    const el = document.getElementById('reviewNavCount');
+    if (el) { el.classList.toggle('show', n>0); el.title = n ? `${n} questions to review` : 'No questions due'; }
+  }
+  function stopExamTimer() { if (examInterval) clearInterval(examInterval); examInterval = null; }
+  function stopCaseTimer() { if (caseInterval) clearInterval(caseInterval); caseInterval = null; }
+  function showView(next, force=false) {
+    if (activeExam && next !== 'exam') { showToast('Finish or submit your current exam before leaving this screen.'); return; }
+    view = next;
+    document.querySelectorAll('[data-view]').forEach(el=>el.classList.toggle('active', el.dataset.view===next));
+    const labels = { dashboard:'Overview','daily':'Question of the day',coach:'AI learning coach',account:'Account & sync','exam-setup':'Exam practice', exam:'Exam in progress', results:'Answer key & results','case-coach':'Case study lab', review:'Review & flashcards', progress:'Performance', vault:'Question vault' };
+    document.getElementById('pageCrumb').textContent = labels[next] || 'Workspace';
+    render();
+    content.focus({preventScroll:true});
+    window.scrollTo({top:0,behavior:'smooth'});
+    if (next === 'review') { /* deck is initialized inside render */ }
+  }
+  function render() {
+    const renderers = {
+      dashboard: renderDashboard, 'exam-setup': renderSetup, exam: renderExam, results: renderResults,
+      'case-coach': renderCases, review: renderReview, progress: renderProgress, vault: renderVault, daily: renderDailyQuestion, coach: renderLearningCoach, account: renderAccount
+    };
+    content.innerHTML = (renderers[view] || renderDashboard)();
+    if (view==='exam') updateExamTimerText();
+    if (view==='case-coach') updateCaseTimerText();
+    updateReviewBadge();
+  }
+  function button(label, action, cls='btn btn-primary', attrs='') {
+    return `<button class="${cls}" data-action="${action}" ${attrs}>${label}</button>`;
+  }
+  function htmlEmpty(icon, title, desc, buttonText='', action='') {
+    return `<div class="empty-state"><div class="empty-symbol">${icon}</div><strong>${title}</strong><p>${desc}</p>${buttonText ? button(buttonText,action,'btn btn-primary btn-small') : ''}</div>`;
+  }
+
+  // Dashboard
+  function dailyQuestion() {
+    const qs=allQuestions(); if(!qs.length) return null;
+    const d=new Date(); const seed=Number(`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`);
+    return qs[seed % qs.length];
+  }
+  function renderDailyQuestion() {
+    const q=dailyQuestion(); if(!q) return htmlEmpty('☀','No question available','Add questions to your vault first.');
+    const key=todayKey(), done=store.dailyChecks[key]?.questionId===q.id;
+    const chosen=store.dailyChecks[key]?.answer;
+    const options=q.options.map((o,i)=>{const l='ABCD'[i];let cls='answer-option';if(done&&l===q.answer)cls+=' correct-choice';else if(done&&l===chosen&&chosen!==q.answer)cls+=' incorrect-choice';return `<button class="${cls}" data-action="daily-answer" data-key="${l}" ${done?'disabled':''}><span class="answer-letter">${l}</span><span class="answer-text">${escapeHtml(o)}</span></button>`}).join('');
+    return `<div class="header-row"><div><div class="eyebrow">DAILY REP · ${escapeHtml(formatDate(new Date(),{weekday:'long',month:'long',day:'numeric'}))}</div><h1 class="page-title">DECA question of the day</h1><p class="page-subtitle">One focused question a day. Build consistency, then learn from the answer explanation.</p></div><span class="pill">${done?'Completed today':'2–3 minutes'}</span></div><section class="panel question-panel"><div class="question-meta"><span class="question-number">TODAY’S CHALLENGE</span><span class="pill">${escapeHtml(q.cluster)} · ${escapeHtml(q.topic)}</span></div><h2 class="question-stem">${escapeHtml(q.question)}</h2><div class="answer-options">${options}</div>${done?`<div class="case-feedback"><strong>${chosen===q.answer?'Correct! Great work.':'Good attempt—review the reasoning below.'}</strong><br>Correct answer: ${q.answer}. ${escapeHtml(q.explanation||'Review this concept and try a related question in practice mode.')}</div><div style="margin-top:16px">${button('Practice this cluster →','daily-practice','btn btn-primary')}</div>`:'<p class="section-desc" style="margin-top:14px">Choose your answer to reveal the answer key and explanation.</p>'}</section><div class="disclaimer" style="margin-top:16px">Questions are original practice items, not official DECA exam questions. The daily question rotates by date using your current question bank.</div>`;
+  }
+  function renderLearningCoach() {
+    const qs=allQuestions(), stats=getTopicStats().filter(x=>x.total).sort((a,b)=>a.accuracy-b.accuracy);
+    const attempts=store.attempts.length, weak=stats.slice(0,3);
+    const recommendations=weak.length?weak.map((s,i)=>`<div class="resource-row"><div class="resource-icon">${i+1}</div><div class="resource-copy"><strong>${escapeHtml(s.topic||s.cluster||'Mixed skills')} · ${Math.round(s.accuracy)}% accuracy</strong><p>Review the explanation for missed items, then do a focused 10-question study set. Aim for two clean attempts before moving on.</p></div><button class="btn btn-secondary btn-small" data-action="coach-practice" data-cluster="${escapeHtml(s.cluster||'All clusters')}">Practice</button></div>`).join(''):`<div class="empty-state"><div class="empty-symbol">✦</div><strong>Your learning profile is starting fresh</strong><p>Complete an exam or a short study set. The coach will use your recorded answers to identify patterns and recommend your next practice session.</p><button class="btn btn-primary" data-action="open-setup">Start a diagnostic set</button></div>`;
+    const latest=store.attempts.slice(-3).reverse();
+    return `<div class="header-row"><div><div class="eyebrow">PERSONALIZED PRACTICE</div><h1 class="page-title">Your learning coach</h1><p class="page-subtitle">A data-driven study plan based on your own practice history—not generic advice.</p></div><span class="pill">${attempts} exam session${attempts===1?'':'s'} analyzed</span></div><section class="panel panel-pad"><div class="panel-heading"><div><h2 class="section-title">Your next best moves</h2><p class="section-desc">Prioritized from your lowest-accuracy topics.</p></div><span class="resource-icon">✦</span></div><div class="resource-list">${recommendations}</div></section><div class="overview-grid" style="margin-top:17px"><section class="panel panel-pad"><h2 class="section-title">Suggested 25-minute plan</h2><div class="craft-list"><div class="craft-item"><span class="craft-letter">1</span><div><strong>5 min · Retrieve</strong><p>Answer flashcards from memory before reading notes.</p></div></div><div class="craft-item"><span class="craft-letter">2</span><div><strong>10 min · Target</strong><p>Complete a focused practice set in your weakest cluster.</p></div></div><div class="craft-item"><span class="craft-letter">3</span><div><strong>7 min · Explain</strong><p>For every miss, explain why the correct choice fits and why a tempting distractor fails.</p></div></div><div class="craft-item"><span class="craft-letter">4</span><div><strong>3 min · Recall</strong><p>Write three takeaways without looking, then revisit them tomorrow.</p></div></div></div></section><section class="panel panel-pad"><h2 class="section-title">Recent performance</h2>${latest.length?latest.map(a=>`<div class="history-row"><div><strong>${escapeHtml(a.cluster||'Mixed clusters')}</strong><span>${escapeHtml(formatDate(a.date||Date.now()))} · ${a.correct||0}/${a.total||0} correct</span></div><div class="history-score">${Math.round(a.score||0)}%</div></div>`).join(''):'<p class="section-desc">Your first completed set will appear here.</p>'}</section></div><div class="disclaimer" style="margin-top:16px"><strong>AI status:</strong> this version provides adaptive recommendations using your recorded results and transparent study rules. It does not send your data to a generative AI service. A live AI tutor needs a securely configured server-side AI API and privacy controls.</div>`;
+  }
+  function renderAccount() {
+    const profile=store.profile||{};
+    return `<div class="header-row"><div><div class="eyebrow">YOUR DECA WORKSPACE</div><h1 class="page-title">Account & saved progress</h1><p class="page-subtitle">Keep your study identity and protect your score history.</p></div></div><div class="vault-grid"><section class="panel panel-pad"><h2 class="section-title">${profile.email?'Your local profile':'Create your study profile'}</h2><p class="section-desc">Set a name and email label for this browser. This prototype does not create a secure online account yet.</p><form id="profileForm" style="display:grid;gap:13px;margin-top:18px"><label class="notes-area">Display name<input class="field" name="displayName" required maxlength="60" value="${escapeHtml(profile.name||'')}" placeholder="e.g. DECA competitor"></label><label class="notes-area">Email address<input class="field" name="email" type="email" required maxlength="160" value="${escapeHtml(profile.email||'')}" placeholder="you@example.com"></label><button class="btn btn-primary" type="submit">Save profile on this device</button></form><div class="disclaimer" style="margin-top:15px">Do not enter a password here. Scores remain in this browser until you export them; this is not cross-device sync.</div></section><section class="panel panel-pad"><h2 class="section-title">Back up your scores</h2><p class="section-desc">Export a portable copy now, then import it on another device when you need to move your history.</p><div style="display:grid;gap:10px;margin-top:17px">${button('Export all progress ↓','export-all-results','btn btn-primary')}${button('Open performance dashboard','account-progress','btn btn-secondary')}</div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3 class="section-title">Want real accounts?</h3><p class="section-desc">Production accounts require a backend such as Supabase or Firebase, verified email/password authentication, cloud database rules, and a privacy policy. Secrets must never be embedded in browser JavaScript.</p></section></div>`;
+  }
+
+  function renderDashboard() {
+    const attempts = store.attempts;
+    const totalQuestions = attempts.reduce((sum,a)=>sum+(a.total||0),0);
+    const avg = attempts.length ? Math.round(attempts.reduce((sum,a)=>sum+(a.percent||0),0)/attempts.length) : 0;
+    const best = attempts.length ? Math.max(...attempts.map(a=>a.percent||0)) : 0;
+    const daily = getDaily();
+    const tasks = [
+      {key:'exam', title:'10-question quick drill', sub:'Build speed and recall'},
+      {key:'case', title:'One case-study rep', sub:'Practice your recommendation'},
+      {key:'review', title:'Review missed questions', sub:'Fix one weak concept'}
+    ];
+    const done = tasks.filter(t=>daily[t.key]).length;
+    const dashChart = attempts.slice(-5);
+    const chart = dashChart.length ? dashChart.map((a,i)=>`<div class="chart-col"><span class="chart-val">${Math.round(a.percent)}%</span><div class="chart-bar ${i===dashChart.length-1?'latest':''}" style="height:${Math.max(5,a.percent)}%" title="${escapeHtml(a.level)}: ${Math.round(a.percent)}%"></div><span class="chart-label">${escapeHtml(formatDate(a.date,{month:'numeric',day:'numeric'}))}</span></div>`).join('') : `<div class="chart-empty">Complete your first practice exam to start your score trend.</div>`;
+    const topicStats = getTopicStats();
+    const weakest = topicStats.filter(t=>t.total>=1).sort((a,b)=>a.accuracy-b.accuracy).slice(0,3);
+    const weakHtml = weakest.length ? `<div class="weak-list">${weakest.map(t=>`<div class="weak-row"><div><div class="weak-row-title">${escapeHtml(t.name)}</div><div class="weak-row-sub">${t.total} question${t.total===1?'':'s'} attempted</div></div><div><div class="weak-row-rate">${t.accuracy}%</div><div class="weak-track"><div class="weak-fill ${t.accuracy<60?'low':''}" style="width:${t.accuracy}%"></div></div></div></div>`).join('')}</div>` : htmlEmpty('↗','Your weak areas will appear here','Complete a practice set to find the topics worth revisiting.');
+    const taskHtml = tasks.map(t=>`<div class="task-line"><span class="task-check ${daily[t.key]?'done':''}">${daily[t.key]?'✓':''}</span><span>${escapeHtml(t.title)}</span><span style="margin-left:auto;color:#a0a9b9;font-size:9px">${daily[t.key]?'Done':'5–15 min'}</span></div>`).join('');
+    return `
+      <div class="header-row"><div><div class="eyebrow">YOUR TRAINING DESK</div><h1 class="page-title">Turn practice into performance.</h1><p class="page-subtitle">Build the knowledge, decision-making, and presentation habits that help you walk into DECA prepared.</p></div><div class="header-actions">${button('＋ Build a practice set','open-setup','btn btn-secondary')} ${button('Start 100-question mock →','full-mock','btn btn-primary')}</div></div>
+      <div class="grid stats-grid">
+        <div class="stat-card"><div class="stat-top">Questions answered <span class="stat-icon">▤</span></div><div class="stat-value">${totalQuestions.toLocaleString()}</div><div class="stat-foot"><span class="delta">${allQuestions().length}</span> original bank questions available</div></div>
+        <div class="stat-card"><div class="stat-top">Average score <span class="stat-icon">↗</span></div><div class="stat-value">${attempts.length?avg+'%':'—'}</div><div class="stat-foot">${attempts.length?`${attempts.length} completed set${attempts.length===1?'':'s'}`:'Complete a set to set your baseline'}</div></div>
+        <div class="stat-card"><div class="stat-top">Personal best <span class="stat-icon">✦</span></div><div class="stat-value">${attempts.length?best+'%':'—'}</div><div class="stat-foot">${attempts.length?'Your highest practice score':'Your next milestone starts here'}</div></div>
+        <div class="stat-card"><div class="stat-top">Review queue <span class="stat-icon">⟲</span></div><div class="stat-value">${store.reviewIds.filter(id=>!store.masteredIds.includes(id)&&questionById(id)).length}</div><div class="stat-foot">Questions to revisit before competition</div></div>
+      </div>
+      <div class="grid overview-grid">
+        <section class="panel hero-card"><div class="hero-kicker"><span>✦</span> YOUR NEXT LEVEL STARTS HERE</div><h2 class="hero-title">Train like the room is full of judges.</h2><p class="hero-copy">Challenge your business knowledge, understand every answer, and turn case prompts into clear recommendations with evidence behind them.</p><div class="hero-actions">${button('Run a mock exam →','full-mock','btn btn-cyan')} ${button('Practice a case study','open-case','btn hero-secondary')}</div><div class="hero-orbit"><span class="orbit-spark">✦</span><span class="orbit-dot"></span><div class="orbit-center">D+</div></div></section>
+        <section class="panel daily-card"><div class="daily-top"><h2>Today's training plan</h2><span class="day-pill">${done===3?'COMPLETE':`${done}/3 DONE`}</span></div><div class="daily-progress"><div class="progress-ring"><svg viewBox="0 0 52 52"><circle class="ring-bg" cx="26" cy="26" r="22"></circle><circle class="ring-value" cx="26" cy="26" r="22" style="stroke-dashoffset:${138-(138*done/3)}"></circle></svg><div class="ring-center">${Math.round(done/3*100)}%</div></div><div><strong>${done===3?'Great work today.':done===0?'20 minutes. One better rep.':'Keep the momentum going.'}</strong><p>Short, repeatable practice for exam recall and case confidence.</p></div></div><div class="task-list">${taskHtml}</div>${button(done===3?'Review your progress':'Start today’s reps →','daily-session','btn btn-secondary btn-full')}</section>
+      </div>
+      <div class="grid lower-grid">
+        <section class="panel performance-card"><div class="panel-heading"><div><h2 class="section-title">Score trend</h2><p class="section-desc">Your five most recent practice sets</p></div><button class="link-btn" data-view="progress">Full report ↗</button></div><div class="mini-chart">${chart}</div><div class="tip-strip"><div class="tip-icon">✦</div><div><strong>Train the reason, not just the letter.</strong><p>For every missed question, explain why the correct option fits the situation better than the distractors.</p></div></div></section>
+        <section class="panel weak-card"><div class="panel-heading"><div><h2 class="section-title">Focus areas</h2><p class="section-desc">Topics with the most room to improve</p></div><button class="link-btn" data-view="review">Review queue ↗</button></div>${weakHtml}</section>
+      </div>
+      <div class="disclaimer" style="margin-top:17px"><strong>Important:</strong> This is a training tool, not a promise of a particular competition score. Questions in the built-in bank are original DECA-style practice items, not official DECA exam questions.</div>`;
+  }
+
+  // Exam setup
+  function renderSetup() {
+    const level = store.prefs.level || 'Regional';
+    const cluster = store.prefs.cluster || 'All clusters';
+    const max = maximumExamCount(cluster);
+    const count = normalizedCount(cluster);
+    const countOptions = cluster === 'All clusters'
+      ? [10,25,50,100].filter(n=>n<=max)
+      : [...new Set([10,max].filter(n=>n<=max))].sort((a,b)=>a-b);
+    const levelCards = Object.entries(LEVELS).map(([key,l])=>`<button type="button" class="choice-card ${level===key?'selected':''}" data-level="${key}"><span class="choice-icon">${l.icon}</span><span class="choice-name">${key}</span><span class="choice-detail">${l.desc}</span></button>`).join('');
+    const clusterOptions = ['All clusters',...allClusterNames()].map(c=>`<option value="${escapeHtml(c)}" ${cluster===c?'selected':''}>${escapeHtml(c)}</option>`).join('');
+    const counts = countOptions.map(n=>`<button class="count-choice ${count===n?'selected':''}" data-count="${n}"><strong>${n===max&&cluster!=='All clusters'?'All '+n:n}</strong><span>${n===100?'full mock':n===max&&cluster!=='All clusters'?'unique questions':n<=10?'quick drill':n<=25?'focused set':n<=50?'deep practice':'full mock'}</span></button>`).join('');
+    const mode = store.prefs.mode || 'exam';
+    return `
+      <div class="header-row"><div><div class="eyebrow">EXAM SIMULATOR</div><h1 class="page-title">Build your practice set.</h1><p class="page-subtitle">Choose your competition training tier, focus area, and session length. Your answer key appears after you finish.</p></div><div class="header-actions">${button('Back to overview','back-dashboard','btn btn-secondary')}</div></div>
+      <div class="setup-layout"><section class="panel setup-main">
+        <div class="setup-section"><div class="step-head"><div class="step-number">01</div><div><h2 class="step-title">Choose your training level</h2><p class="step-copy">The tier changes question selection emphasis; it is not an official stage-specific exam blueprint.</p></div></div><div class="choice-grid">${levelCards}</div></div>
+        <div class="setup-section"><div class="step-head"><div class="step-number">02</div><div><h2 class="step-title">Choose a cluster</h2><p class="step-copy">Practice across the core or focus on the cluster for your event.</p></div></div><label for="clusterSelect" class="form-label">Career cluster / exam focus</label><select class="field" id="clusterSelect">${clusterOptions}</select><div class="field-note">The built-in bank contains ${allQuestions().length} original questions across ${CLUSTERS.length} clusters. A focused set only uses available questions for that cluster.</div></div>
+        <div class="setup-section"><div class="step-head"><div class="step-number">03</div><div><h2 class="step-title">Set your session length</h2><p class="step-copy">For the 100-question mock, use the full mixed bank for a fresh run.</p></div></div><div class="count-grid">${counts}</div><div class="field-note">${cluster==='All clusters'?'The full mixed mock uses all 100 built-in questions once.':'This focus has '+max+' available unique questions; the longest option uses each once.'}</div></div>
+        <div class="setup-section"><div class="step-head"><div class="step-number">04</div><div><h2 class="step-title">Choose how you want to practice</h2><p class="step-copy">Study mode gives immediate explanations; exam mode saves explanations for the answer key.</p></div></div><div class="field-grid"><div><label class="form-label" for="practiceMode">Session style</label><select class="field" id="practiceMode"><option value="exam" ${mode==='exam'?'selected':''}>Exam simulation — answers at the end</option><option value="study" ${mode==='study'?'selected':''}>Study mode — instant feedback</option></select></div><div><label class="form-label">Question sequence</label><div class="field" style="background:#f8f9fc;color:#77839a">Randomized for each new set</div></div></div></div>
+        ${button('Start practice →','start-exam','btn btn-primary btn-full')}
+      </section>
+      <aside class="setup-side"><section class="exam-preview"><div class="preview-chip">YOUR SESSION PREVIEW</div><div class="preview-big">${count}<small> questions</small></div><p class="preview-sub">${escapeHtml(level)} training · ${escapeHtml(cluster)}</p><div class="preview-metrics"><div><div class="preview-metric-label">Estimated time</div><div class="preview-metric-value">${mode==='study'?'Self-paced':formatDuration(Math.round(count/100*70*60))}</div></div><div><div class="preview-metric-label">After completion</div><div class="preview-metric-value">Answer key + why</div></div></div><p class="preview-note">Ontario DECA currently describes Regionals as 100 multiple-choice questions with a 70-minute maximum. The 70-minute clock here is a practice reference, not a guarantee that every association or level uses identical rules.</p></section>
+        <section class="panel standards-card"><h2 class="section-title">Built into every set</h2><p class="section-desc">A practice loop designed to convert mistakes into learning.</p><div class="standards-list"><div class="standard-row"><span class="standard-check">✓</span><div class="standards-row-copy"><strong>Answer explanations</strong><span>Why the right choice fits the business situation</span></div></div><div class="standard-row"><span class="standard-check">✓</span><div class="standards-row-copy"><strong>Topic tagging</strong><span>See the concept behind each question</span></div></div><div class="standard-row"><span class="standard-check">✓</span><div class="standards-row-copy"><strong>Answer sheet</strong><span>Question-by-question review at the end</span></div></div><div class="standard-row"><span class="standard-check">✓</span><div class="standards-row-copy"><strong>Weak-area tracking</strong><span>Missed questions stay in your review queue</span></div></div></div></section>
+      </aside></div>`;
+  }
+  function formatDuration(seconds) {
+    const mins = Math.max(1,Math.round(seconds/60));
+    return mins>=60 ? `${Math.floor(mins/60)}h ${mins%60 ? mins%60+'m':''}`.trim() : `${mins} min`;
+  }
+  function startExam(modeOverride) {
+    const cluster = store.prefs.cluster || 'All clusters';
+    const pool = selectedClusterQuestions(cluster);
+    if (pool.length < 1) { showToast('No questions found for this selection. Import a question bank or choose another cluster.'); return; }
+    const count = Math.min(modeOverride==='daily' ? 10 : normalizedCount(cluster), pool.length, 100);
+    const picked = levelQuestionPick(pool, count, store.prefs.level || 'Regional');
+    const mode = modeOverride==='daily' ? 'exam' : (store.prefs.mode || 'exam');
+    const seconds = Math.max(60, Math.round(count/100*70*60));
+    activeExam = { questions:picked, index:0, answers:{}, flagged:[], startedAt:Date.now(), remaining:seconds, initialSeconds:seconds, mode, level:store.prefs.level||'Regional', cluster, special:modeOverride||'standard' };
+    resultFilter = 'all';
+    showView('exam',true);
+    if (mode==='exam') {
+      stopExamTimer();
+      examInterval = setInterval(()=>{
+        if (!activeExam) return;
+        activeExam.remaining = Math.max(0,activeExam.remaining-1);
+        updateExamTimerText();
+        if (activeExam.remaining<=0) finishExam(true);
+      },1000);
+    }
+  }
+  function updateExamTimerText() {
+    const timer = document.getElementById('examTimer');
+    if (!timer || !activeExam) return;
+    if (activeExam.mode==='study') { timer.textContent='Study mode'; timer.classList.remove('warning'); return; }
+    timer.textContent = `${String(Math.floor(activeExam.remaining/60)).padStart(2,'0')}:${String(activeExam.remaining%60).padStart(2,'0')}`;
+    timer.classList.toggle('warning',activeExam.remaining<=300);
+  }
+  function renderExam() {
+    if (!activeExam) { view='exam-setup'; return renderSetup(); }
+    const ex = activeExam;
+    const q = ex.questions[ex.index];
+    const selected = ex.answers[q.id];
+    const isStudyReveal = ex.mode==='study' && selected;
+    const progress = Object.keys(ex.answers).length;
+    const optionRows = q.options.map((opt,i)=>{
+      const letter = 'ABCD'[i];
+      let cls = 'answer-option';
+      if (selected===letter) cls+=' selected';
+      if (isStudyReveal && letter===q.answer) cls+=' correct-choice';
+      if (isStudyReveal && selected===letter && letter!==q.answer) cls+=' incorrect-choice';
+      return `<button class="${cls}" data-action="choose-option" data-key="${letter}" ${selected&&ex.mode==='study'?'disabled':''}><span class="answer-letter">${letter}</span><span class="answer-text">${escapeHtml(opt)}</span></button>`;
+    }).join('');
+    const nav = ex.questions.map((item,i)=>`<button class="qnav ${i===ex.index?'current':''} ${ex.answers[item.id]&&i!==ex.index?'answered':''} ${ex.flagged.includes(item.id)?'flagged':''}" data-action="jump-question" data-index="${i}" title="Question ${i+1}">${i+1}</button>`).join('');
+    const clusterShort = ex.cluster==='All clusters'?'Mixed clusters':ex.cluster;
+    return `<div class="exam-toolbar"><div class="exam-labels"><span class="pill blue">${escapeHtml(ex.level)} training</span><span class="pill">${escapeHtml(clusterShort)}</span><span class="pill">${ex.mode==='study'?'Study mode':'Exam mode'}</span></div><div id="examTimer" class="exam-timer"><span class="timer-icon">◷</span>--:--</div></div>
+      <div class="exam-progress-track"><div class="exam-progress-fill" style="width:${(ex.index+1)/ex.questions.length*100}%"></div></div>
+      <div class="exam-layout"><section class="panel question-panel"><div class="question-meta"><span class="question-number">QUESTION ${String(ex.index+1).padStart(2,'0')} <span style="color:#c1c8d7">/ ${ex.questions.length}</span></span><button class="flag-btn ${ex.flagged.includes(q.id)?'flagged':''}" data-action="toggle-flag">⚑ ${ex.flagged.includes(q.id)?'Flagged':'Flag for review'}</button></div><span class="pill" style="margin-bottom:12px">${escapeHtml(q.topic)} · ${q.difficulty===1?'Foundation':q.difficulty===2?'Application':'Challenge'}</span><h1 class="question-stem">${escapeHtml(q.question)}</h1><div class="answer-options">${optionRows}</div>
+      ${isStudyReveal?`<div class="case-feedback" style="margin-top:15px;background:${selected===q.answer?'#eaf8f1':'#fff0f1'};color:${selected===q.answer?'#267355':'#a83f4b'}"><strong>${selected===q.answer?'Correct.':'Not quite.'}</strong> ${escapeHtml(q.explanation)}<div style="margin-top:5px;color:inherit;opacity:.85">Learning target: ${escapeHtml(q.target||q.topic)}</div></div>`:''}
+      <div class="question-foot"><div class="question-foot-left">${progress} of ${ex.questions.length} answered · ${ex.questions.length-progress} unanswered</div><div class="question-foot-right">${button('← Previous','prev-question','btn btn-secondary',ex.index===0?'disabled':'')}${ex.index===ex.questions.length-1?button('Finish & see key →','finish-exam','btn btn-primary'):button('Next question →','next-question','btn btn-primary')}</div></div></section>
+      <aside class="question-side"><section class="panel question-map"><div class="map-head"><span>Question map</span><span>${progress}/${ex.questions.length}</span></div><div class="map-sub">Jump to any question in your set.</div><div class="question-grid">${nav}</div><div class="map-legend"><span><i class="legend-dot current"></i>Current</span><span><i class="legend-dot"></i>Answered</span><span><i class="legend-dot flag"></i>Flagged</span></div></section><section class="panel submit-card"><strong>Ready to check your work?</strong><p>When you finish, every question will show the selected answer, correct answer, and a short explanation.</p>${Object.keys(ex.answers).length<ex.questions.length?`<div class="submit-warning">${ex.questions.length-Object.keys(ex.answers).length} question(s) unanswered.</div>`:''}${button('Submit set & view answer key','finish-exam','btn btn-primary btn-full')}</section></aside></div>`;
+  }
+  function finishExam(timeExpired=false) {
+    if (!activeExam) return;
+    if (!timeExpired) {
+      const unanswered = activeExam.questions.filter(q=>!activeExam.answers[q.id]).length;
+      if (unanswered && !confirm(`You have ${unanswered} unanswered question${unanswered===1?'':'s'}. Submit this practice set?`)) return;
+    }
+    stopExamTimer();
+    const ex = activeExam;
+    const rows = ex.questions.map((q,i)=>({
+      id:q.id, index:i+1, cluster:q.cluster, topic:q.topic, difficulty:q.difficulty, question:q.question,
+      options:q.options, answer:q.answer, selected:ex.answers[q.id]||'', isCorrect:ex.answers[q.id]===q.answer,
+      explanation:q.explanation, target:q.target||q.topic, source:q.source||'Original practice', flagged:ex.flagged.includes(q.id)
+    }));
+    const correct = rows.filter(r=>r.isCorrect).length;
+    const attempt = { id:`attempt-${Date.now()}`, date:new Date().toISOString(), level:ex.level, cluster:ex.cluster, total:rows.length, correct, percent:Math.round(correct/rows.length*100), durationSecs:Math.max(0,Math.round((Date.now()-ex.startedAt)/1000)), timeExpired, mode:ex.mode, rows, special:ex.special };
+    store.attempts.push(attempt);
+    if (store.attempts.length>100) store.attempts=store.attempts.slice(-100);
+    rows.filter(r=>!r.isCorrect).forEach(r=>{ if(!store.reviewIds.includes(r.id)) store.reviewIds.push(r.id); store.masteredIds=store.masteredIds.filter(id=>id!==r.id); });
+    if (ex.special==='daily') getDaily().exam=true;
+    persist();
+    shownResult=attempt;
+    activeExam=null;
+    stopExamTimer();
+    showView('results',true);
+    if(timeExpired) showToast('Time is up. Your answers have been saved to the answer key.');
+  }
+  function resultRows(result) {
+    if (!result) return [];
+    if (resultFilter==='correct') return result.rows.filter(r=>r.isCorrect);
+    if (resultFilter==='incorrect') return result.rows.filter(r=>!r.isCorrect);
+    return result.rows;
+  }
+  function renderResults() {
+    const result = shownResult || store.attempts[store.attempts.length-1];
+    if (!result) return `<div class="header-row"><div><h1 class="page-title">Answer key</h1></div></div>${htmlEmpty('▤','No practice set yet','Complete an exam to see your DECA-style answer key.','Build a practice set','open-setup')}`;
+    const pct = result.percent;
+    const advice = pct>=90?'Excellent practice result. Keep testing consistency under time pressure.':pct>=75?'Solid base. Review the missed concepts and practice explaining why each answer fits.':pct>=60?'You have useful starting knowledge. Prioritize the top missed topics, then repeat a shorter set.':'Treat this as a diagnostic, not a verdict. Read the explanations, review the concepts, and try a focused set.';
+    const rows = resultRows(result);
+    const tableRows = rows.map(r=>{const chosen=r.selected?r.options['ABCD'.indexOf(r.selected)]:'Unanswered';const correctText=r.options['ABCD'.indexOf(r.answer)];return `<tr><td>${r.index}</td><td class="key-q">${escapeHtml(r.question)}<div class="key-topic">${escapeHtml(r.cluster)} · ${escapeHtml(r.topic)}</div></td><td class="key-label ${r.isCorrect?'good':'bad'}">${r.selected?`${r.selected} · ${escapeHtml(chosen)}`:'— Unanswered'}</td><td class="key-label good">${r.answer} · ${escapeHtml(correctText)}</td><td class="key-explain">${escapeHtml(r.explanation)}</td></tr>`}).join('');
+    return `<div class="header-row"><div><div class="eyebrow">PRACTICE REPORT</div><h1 class="page-title">Your answer key.</h1><p class="page-subtitle">The score is feedback. The explanation is where improvement happens.</p></div><div class="header-actions">${button('Export answer sheet ↓','export-results','btn btn-secondary')} ${button('Run another set →','open-setup','btn btn-primary')}</div></div>
+      <section class="results-hero"><div><div class="results-kicker">${escapeHtml(result.level)} TRAINING · ${escapeHtml(result.cluster)}</div><h2 class="results-title">${pct>=90?'Strong work. Keep it repeatable.':pct>=75?'Good progress. Sharpen the edges.':'Now you know what to work on.'}</h2><p class="results-copy">${advice} ${result.timeExpired?'This session ended when the timer ran out.':''}</p></div><div class="score-ring"><div class="score-ring-inner"><div class="score-num">${pct}%</div><div class="score-caption">PRACTICE SCORE</div></div></div></section>
+      <div class="result-stat-row"><div class="result-stat"><div class="result-stat-label">Correct answers</div><div class="result-stat-value">${result.correct}<span style="font-size:11px;color:#97a0b2;font-weight:600"> / ${result.total}</span></div></div><div class="result-stat"><div class="result-stat-label">Time used</div><div class="result-stat-value">${formatDuration(result.durationSecs)}</div></div><div class="result-stat"><div class="result-stat-label">Added to review queue</div><div class="result-stat-value">${result.rows.filter(r=>!r.isCorrect).length}</div></div></div>
+      <section class="panel answer-key-card"><div class="panel-heading"><div><h2 class="section-title">Answer sheet & explanations</h2><p class="section-desc">Correct answers are listed separately from your responses, like an exam answer key.</p></div><div class="filter-tabs"><button class="filter-tab ${resultFilter==='all'?'active':''}" data-filter="all">All (${result.total})</button><button class="filter-tab ${resultFilter==='incorrect'?'active':''}" data-filter="incorrect">Missed (${result.total-result.correct})</button><button class="filter-tab ${resultFilter==='correct'?'active':''}" data-filter="correct">Correct (${result.correct})</button></div></div><div class="table-wrap"><table class="answer-table"><thead><tr><th>#</th><th>Question & topic</th><th>Your answer</th><th>Correct</th><th>Why it is correct</th></tr></thead><tbody>${tableRows||`<tr><td colspan="5" style="text-align:center;padding:30px;color:#98a1b4">No questions in this filter.</td></tr>`}</tbody></table></div></section>
+      <div class="tip-strip" style="margin-top:15px"><div class="tip-icon">✦</div><div><strong>Make your review active.</strong><p>Before reading the explanation, say why your option was tempting and which business concept changes the decision. Then use Review & Flashcards for spaced repetition.</p></div></div>`;
+  }
+
+  // Topic diagnostics
+  function getTopicStats() {
+    const map = new Map();
+    store.attempts.forEach(a=>(a.rows||[]).forEach(r=>{
+      const name=r.topic||r.cluster||'Other';
+      if(!map.has(name)) map.set(name,{name,total:0,correct:0,cluster:r.cluster});
+      const item=map.get(name); item.total++; if(r.isCorrect)item.correct++;
+    }));
+    return [...map.values()].map(x=>({...x,accuracy:Math.round(x.correct/x.total*100)}));
+  }
+  function clusterStats() {
+    const map = new Map();
+    store.attempts.forEach(a=>(a.rows||[]).forEach(r=>{
+      const key=r.cluster||'Other';
+      if(!map.has(key)) map.set(key,{name:key,total:0,correct:0});
+      const item=map.get(key); item.total++; if(r.isCorrect)item.correct++;
+    }));
+    return CLUSTERS.map(name=>{ const x=map.get(name); return x?{...x,accuracy:Math.round(x.correct/x.total*100)}:{name,total:0,correct:0,accuracy:0}; });
+  }
+  function renderProgress() {
+    const attempts=store.attempts;
+    const total=attempts.reduce((s,a)=>s+a.total,0);
+    const avg=attempts.length?Math.round(attempts.reduce((s,a)=>s+a.percent,0)/attempts.length):0;
+    const best=attempts.length?Math.max(...attempts.map(a=>a.percent)):0;
+    const cs=[...clusterStats(), ...allClusterNames().filter(n=>!CLUSTERS.includes(n)).map(n=>{const qs=store.attempts.flatMap(a=>a.rows||[]).filter(r=>r.cluster===n);const good=qs.filter(r=>r.isCorrect).length;return {name:n,total:qs.length,correct:good,accuracy:qs.length?Math.round(good/qs.length*100):0};})];
+    const maxTotal=Math.max(1,...cs.map(c=>c.total));
+    const clusterHtml=cs.map(c=>`<div class="cluster-bar-row"><span class="cluster-bar-name">${escapeHtml(c.name)}</span><div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:${c.total?c.accuracy:0}%;opacity:${c.total?1:.18}"></div></div><span class="cluster-bar-score">${c.total?c.accuracy+'%':'—'}</span></div>`).join('');
+    const history=attempts.slice().reverse().slice(0,10).map(a=>`<div class="history-row"><div><strong>${escapeHtml(a.cluster==='All clusters'?'Mixed clusters':a.cluster)} · ${escapeHtml(a.level)} training</strong><span>${escapeHtml(formatDate(a.date,{month:'short',day:'numeric',year:'numeric'}))} · ${a.total} questions · ${a.mode==='study'?'Study mode':'Exam mode'}</span></div><div class="history-score" style="color:${a.percent>=80?'#188960':a.percent>=60?'#bd8327':'#bf4b59'}">${a.percent}%</div><div class="history-mark">${a.correct}/${a.total}</div></div>`).join('');
+    return `<div class="header-row"><div><div class="eyebrow">PERFORMANCE REPORT</div><h1 class="page-title">Know what to work on next.</h1><p class="page-subtitle">Use your actual answers to decide where to spend your next practice session.</p></div><div class="header-actions">${button('Clear local data','clear-progress','btn btn-ghost btn-small')} ${button('Practice weak areas →','weak-practice','btn btn-primary')}</div></div>
+      <div class="grid stats-grid"><div class="stat-card"><div class="stat-top">Questions attempted <span class="stat-icon">▤</span></div><div class="stat-value">${total}</div><div class="stat-foot">Across ${attempts.length} completed set${attempts.length===1?'':'s'}</div></div><div class="stat-card"><div class="stat-top">Average score <span class="stat-icon">↗</span></div><div class="stat-value">${attempts.length?avg+'%':'—'}</div><div class="stat-foot">Mean of practice-set scores</div></div><div class="stat-card"><div class="stat-top">Personal best <span class="stat-icon">✦</span></div><div class="stat-value">${attempts.length?best+'%':'—'}</div><div class="stat-foot">Your highest score so far</div></div><div class="stat-card"><div class="stat-top">Case reps <span class="stat-icon">◈</span></div><div class="stat-value">${store.caseAttempts.length}</div><div class="stat-foot">Case study self-evaluations completed</div></div></div>
+      <div class="grid lower-grid"><section class="panel panel-pad"><div class="panel-heading"><div><h2 class="section-title">Accuracy by cluster</h2><p class="section-desc">Only attempted questions count toward accuracy.</p></div></div>${attempts.length?`<div class="cluster-bars">${clusterHtml}</div>`:htmlEmpty('↗','No accuracy data yet','Start a mixed or cluster-focused practice set to populate this report.')}</section><section class="panel panel-pad"><div class="panel-heading"><div><h2 class="section-title">Case study practice</h2><p class="section-desc">Self-scored against the presentation checklist</p></div></div>${store.caseAttempts.length?`<div class="stat-value">${Math.round(store.caseAttempts.reduce((s,a)=>s+a.score,0)/store.caseAttempts.length/7*100)}%</div><div class="section-desc">Average checklist completion</div><hr class="rule"><div class="history-list">${store.caseAttempts.slice(-4).reverse().map(c=>`<div class="history-row"><div><strong>${escapeHtml(c.title)}</strong><span>${escapeHtml(formatDate(c.date,{month:'short',day:'numeric'}))} · ${escapeHtml(c.cluster)}</span></div><div class="history-score">${c.score}/7</div><div class="history-mark">rubric</div></div>`).join('')}</div>`:htmlEmpty('◈','No case reps yet','Complete a scenario and score yourself on the evidence, plan, risks, and metrics.','Open case lab','open-case')}</section></div>
+      <section class="panel panel-pad" style="margin-top:17px"><div class="panel-heading"><div><h2 class="section-title">Recent exam sessions</h2><p class="section-desc">Your practice history stays in this browser.</p></div><button class="link-btn" data-action="export-all-results">Export data ↓</button></div>${history?`<div class="history-list">${history}</div>`:htmlEmpty('▤','No completed sets yet','Your completed exam sessions and scores will appear here.','Start a practice set','open-setup')}</section>
+      <p class="subtle-link" style="margin-top:13px">Accuracy is a learning signal, not an official DECA score prediction. Revisit topics where you have only answered a few questions.</p>`;
+  }
+
+  // Case study lab
+  function loadCaseDraft() {
+    const draft=store.caseDraft;
+    if (draft && CASES.some(c=>c.id===draft.caseId)) {
+      const item=CASES.find(c=>c.id===draft.caseId);
+      return {...makeFreshCaseSession(item),...draft,scenario:item,timerRunning:false};
+    }
+    return makeFreshCaseSession(CASES[0]);
+  }
+  function makeFreshCaseSession(scenario) {
+    return {caseId:scenario.id,scenario,phase:'brief',prepRemaining:600,pitchRemaining:600,notes:{context:'',recommendation:'',actions:'',metrics:'',risks:''},checks:[],timerRunning:false};
+  }
+  function persistCaseDraft() {
+    if (!caseSession) return;
+    const serial={caseId:caseSession.caseId,phase:caseSession.phase,prepRemaining:caseSession.prepRemaining,pitchRemaining:caseSession.pitchRemaining,notes:caseSession.notes,checks:caseSession.checks};
+    store.caseDraft=serial; persist();
+  }
+  function caseById(id) { return CASES.find(c=>c.id===id) || CASES[0]; }
+  function selectedCase() { return caseSession?.scenario || CASES[0]; }
+  function renderCases() {
+    if (!caseSession || !caseSession.scenario) caseSession=makeFreshCaseSession(CASES[0]);
+    const c=selectedCase();
+    const phases=[['brief','Read the brief'],['prep','10-min prep'],['pitch','10-min pitch']];
+    const timer = caseSession.phase==='pitch'?caseSession.pitchRemaining:caseSession.prepRemaining;
+    const phaseHtml=phases.map(([p,l])=>`<div class="phase ${caseSession.phase===p?'active':(['prep','pitch'].indexOf(caseSession.phase)>['prep','pitch'].indexOf(p)&&p!=='brief'?'done':'')} ">${l}</div>`).join('');
+    const prompts=[['context','C · Context & objective','What does success mean here? Which case facts matter most?'],['recommendation','R · Recommendation','State your best recommendation and why it beats the alternatives.'],['actions','A · Action plan','List steps, timing, owners, budget, and stakeholder communication.'],['metrics','F · Financials & KPIs','Use numbers from the prompt; define how you will measure success.'],['risks','T · Trade-offs & risks','Name a risk, mitigation, and backup plan.']];
+    const notes=prompts.map(([key,label,hint])=>`<div class="notes-area"><label class="form-label" for="note-${key}">${label}</label><textarea id="note-${key}" class="field" data-note="${key}" placeholder="${escapeHtml(hint)}">${escapeHtml(caseSession.notes?.[key]||'')}</textarea></div>`).join('');
+    const rubric=['I identified the decision-maker’s objective and key constraints.','I used specific facts or numbers from the case.','I made one clear recommendation and justified it.','I gave a phased action plan with owners or timing.','I named measurable KPIs and targets.','I covered an ethical, operational, or financial risk.','I closed with a concise summary and next step.'];
+    const rubricHtml=rubric.map((r,i)=>`<label class="rubric-item"><input type="checkbox" data-rubric="${i}" ${caseSession.checks.includes(i)?'checked':''}/><span>${escapeHtml(r)}</span></label>`).join('');
+    const clusterOptions=CLUSTERS.map(cl=>`<option value="${escapeHtml(cl)}" ${cl===c.cluster?'selected':''}>${escapeHtml(cl)}</option>`).join('');
+    let feedback='';
+    if(caseSession.phase==='feedback') {
+      const score=caseSession.lastScore ?? caseSession.checks.length;
+      feedback=`<div class="case-feedback"><strong>Self-score: ${score}/7.</strong> ${score>=6?'Your structure hits most of the essentials. Now rehearse the transitions and tighten the evidence.':score>=4?'A solid outline. Add stronger case-specific evidence, concrete measures, or a clearer risk plan where you left boxes unchecked.':'Use the CRAFT framework to rebuild the pitch. Prioritize a clear recommendation, numbers from the prompt, and a specific action plan.'}</div>`;
+    }
+    return `<div class="header-row"><div><div class="eyebrow">ROLE-PLAY & CASE STUDY COACH</div><h1 class="page-title">Make your recommendation feel inevitable.</h1><p class="page-subtitle">Practice turning a short business prompt into a clear, evidence-backed recommendation, an action plan, and measurable results.</p></div><div class="header-actions">${button('New scenario ↻','new-case','btn btn-secondary')}</div></div>
+      <div class="field-grid" style="margin-bottom:15px;max-width:550px"><div><label class="form-label" for="caseCluster">Practice cluster</label><select class="field" id="caseCluster">${clusterOptions}</select></div><div><label class="form-label">Rehearsal format</label><div class="field" style="background:#f8f9fc">10 min prep · 10 min pitch</div></div></div>
+      <div class="case-layout"><section class="panel case-brief"><div class="case-banner"><span class="pill">${escapeHtml(c.cluster)}</span><h2>${escapeHtml(c.title)}</h2><p>${escapeHtml(c.role)}</p></div><div class="case-block"><h3>THE SITUATION</h3><p>${escapeHtml(c.brief)}</p></div><div class="case-block"><h3>YOUR OBJECTIVE</h3><p>${escapeHtml(c.problem)}</p></div><div class="case-block"><h3>CASE FACTS</h3><div class="case-data-grid">${c.data.map(d=>`<div class="case-data"><span>${escapeHtml(d[0])}</span><strong>${escapeHtml(d[1])}</strong></div>`).join('')}</div></div><div class="case-block"><h3>YOUR DELIVERABLES</h3><ol class="case-asks">${c.tasks.map(t=>`<li>${escapeHtml(t)}</li>`).join('')}</ol></div><div class="tip-strip"><div class="tip-icon">✦</div><div><strong>Judge mindset</strong><p>Make the judge’s job easy: be specific, support your choices with the prompt, and tell them how you will measure success.</p></div></div></section>
+      <aside class="case-side"><section class="panel case-timer-card"><div class="panel-heading" style="margin-bottom:8px"><div><h2 class="section-title">Rehearsal timer</h2><p class="section-desc">Use the timer to train under realistic pressure.</p></div><span class="pill blue">Practice</span></div><div class="phase-row">${phaseHtml}</div><div id="caseTimerText" class="large-timer">${String(Math.floor(timer/60)).padStart(2,'0')}:${String(timer%60).padStart(2,'0')}</div><div class="timer-caption">${caseSession.phase==='pitch'?'Presentation rehearsal':caseSession.phase==='prep'?'Preparation time':caseSession.phase==='feedback'?'Session complete':'Start when you are ready'}</div><div class="case-tools">${caseSession.phase==='brief'||caseSession.phase==='feedback'?button('Start 10-min prep','case-start-prep','btn btn-primary'):caseSession.phase==='prep'?button('Begin pitch phase →','case-start-pitch','btn btn-primary'):button('Restart pitch timer','case-start-pitch','btn btn-primary')}${button('Reset timer','case-reset-timer','btn btn-secondary')}</div><div class="field-note">Timer phases are configurable practice prompts, not a statement of every event’s official timing. Check your event guidelines.</div></section>
+      <section class="panel craft-card"><h2 class="section-title">The CRAFT framework</h2><p class="section-desc">A simple structure when you need to think clearly under pressure.</p><div class="craft-list"><div class="craft-item"><span class="craft-letter">C</span><div><strong>Context</strong><p>Restate the goal, constraints, and what the case data says.</p></div></div><div class="craft-item"><span class="craft-letter">R</span><div><strong>Recommendation</strong><p>Lead with one specific decision and a reason.</p></div></div><div class="craft-item"><span class="craft-letter">A</span><div><strong>Action plan</strong><p>Break execution into steps, owners, and timing.</p></div></div><div class="craft-item"><span class="craft-letter">F</span><div><strong>Financials & KPIs</strong><p>Use a target, a budget, or a measurable result.</p></div></div><div class="craft-item"><span class="craft-letter">T</span><div><strong>Trade-offs</strong><p>Address the risk, mitigation, and what happens next.</p></div></div></div></section></aside></div>
+      <section class="panel notes-panel"><div class="panel-heading"><div><h2 class="section-title">Build your response</h2><p class="section-desc">Your notes save in this browser as you type. Use them as an outline, not a script to read word-for-word.</p></div><span class="pill green">Autosaves locally</span></div><div class="notes-grid">${notes}</div><hr class="rule"/><div class="panel-heading" style="margin-bottom:10px"><div><h2 class="section-title">Self-evaluation checklist</h2><p class="section-desc">Check each item you can clearly demonstrate in your pitch.</p></div><span class="pill">${caseSession.checks.length}/7</span></div><div class="rubric-grid">${rubricHtml}</div>${feedback}<div class="header-actions" style="margin-top:16px">${caseSession.phase==='feedback'?button('Start a new scenario ↻','new-case','btn btn-primary'):button('Finish rehearsal & save score','case-finish','btn btn-primary')} ${button('Clear notes','case-clear-notes','btn btn-secondary')}</div></section>`;
+  }
+  function updateCaseTimerText() {
+    const el=document.getElementById('caseTimerText');
+    if(!el||!caseSession)return;
+    const time=caseSession.phase==='pitch'?caseSession.pitchRemaining:caseSession.prepRemaining;
+    el.textContent=`${String(Math.floor(time/60)).padStart(2,'0')}:${String(time%60).padStart(2,'0')}`;
+  }
+  function startCaseTimer(phase) {
+    stopCaseTimer();
+    caseSession.phase=phase;
+    caseSession.timerRunning=true;
+    persistCaseDraft(); render();
+    caseInterval=setInterval(()=>{
+      if(!caseSession)return;
+      const key=caseSession.phase==='pitch'?'pitchRemaining':'prepRemaining';
+      caseSession[key]=Math.max(0,caseSession[key]-1);
+      updateCaseTimerText();
+      if(caseSession[key]<=0){stopCaseTimer();caseSession.timerRunning=false;persistCaseDraft();showToast(caseSession.phase==='pitch'?'Pitch timer complete. Score your rehearsal.':'Prep time complete. Move into the presentation phase.');}
+    },1000);
+  }
+  function finishCase() {
+    if(caseSession.phase==='feedback'){showToast('This rehearsal has already been saved. Start a new scenario for another rep.');return;}
+    stopCaseTimer();
+    caseSession.phase='feedback'; caseSession.timerRunning=false; caseSession.lastScore=caseSession.checks.length;
+    const c=selectedCase();
+    store.caseAttempts.push({id:`case-${Date.now()}`,date:new Date().toISOString(),caseId:c.id,title:c.title,cluster:c.cluster,score:caseSession.checks.length,notes:{...caseSession.notes}});
+    if(store.caseAttempts.length>100)store.caseAttempts=store.caseAttempts.slice(-100);
+    getDaily().case=true; persistCaseDraft(); persist(); showView('case-coach',true); showToast('Case rehearsal saved to your progress.');
+  }
+
+  // Review queue & flashcards
+  function availableReviewItems() {
+    return store.reviewIds.filter((id,idx,arr)=>arr.indexOf(id)===idx&&!store.masteredIds.includes(id)).map(questionById).filter(Boolean);
+  }
+  function resetStudyDeck() {
+    const due=availableReviewItems();
+    studyDeck=due.length?shuffle(due):shuffle(allQuestions()).slice(0,Math.min(12,allQuestions().length));
+    studyIndex=0; studyFlipped=false;
+  }
+  function renderReview() {
+    if(!studyDeck.length || studyIndex>=studyDeck.length)resetStudyDeck();
+    const due=availableReviewItems();
+    const q=studyDeck[studyIndex] || allQuestions()[0];
+    if(!q) return htmlEmpty('✳','No questions loaded','Add a question bank in the Question Vault first.','Open question vault','open-vault');
+    const flipped=studyFlipped;
+    const front=flipped?`<div class="flashcard-badge"><span class="pill green">ANSWER & WHY</span></div><div class="flashcard-question">${q.answer}. ${escapeHtml(q.options['ABCD'.indexOf(q.answer)])}</div><p class="flashcard-answer">${escapeHtml(q.explanation)}<br/><br/><strong>Learning target:</strong> ${escapeHtml(q.target||q.topic)}</p>`:`<div class="flashcard-badge"><span class="pill blue">${escapeHtml(q.cluster)}</span> <span class="pill">${escapeHtml(q.topic)}</span></div><div class="flashcard-question">${escapeHtml(q.question)}</div><p class="flashcard-answer">Think of the concept before revealing the answer.</p>`;
+    const sideDue=due.slice(0,6).map(item=>`<div class="missed-row"><span class="missed-icon">↺</span><div><strong>${escapeHtml(item.topic)}</strong><span>${escapeHtml(item.cluster)}</span></div><button data-action="review-select" data-id="${escapeHtml(item.id)}" aria-label="Review this question">→</button></div>`).join('');
+    return `<div class="header-row"><div><div class="eyebrow">RECALL PRACTICE</div><h1 class="page-title">Review until it clicks.</h1><p class="page-subtitle">Try to retrieve the concept before flipping the card. Recognition is easier than recall—train recall.</p></div><div class="header-actions">${button('Practice missed topics →','weak-practice','btn btn-primary')}</div></div>
+      <div class="review-layout"><section class="panel flashcard-area"><div class="panel-heading"><div><h2 class="section-title">${due.length?'Your missed-question deck':'Mixed warm-up deck'}</h2><p class="section-desc">Card ${studyIndex+1} of ${studyDeck.length} · ${due.length?'From your own mistakes':'A few questions selected from the bank'}</p></div><button class="btn btn-secondary btn-small" data-action="shuffle-deck">Shuffle ↻</button></div><div class="flashcard">${front}</div><div class="flashcard-actions">${button('← Previous','study-prev','btn btn-secondary',studyIndex===0?'disabled':'')}${flipped?button('Mark mastered ✓','study-master','btn btn-primary'):button('Reveal answer','study-flip','btn btn-primary')}${button('Next card →','study-next','btn btn-secondary',studyIndex===studyDeck.length-1?'disabled':'')}</div></section>
+      <aside><section class="panel review-stats"><h2 class="section-title">Your review queue</h2><p class="section-desc">Missed questions are added automatically after an exam.</p><div class="review-counter"><span>Questions to revisit</span><strong>${due.length}</strong></div><div class="review-track"><span style="width:${Math.max(0,Math.min(100,store.masteredIds.length/(Math.max(1,store.reviewIds.length))*100))}%"></span></div><div class="review-counter"><span>Marked mastered</span><strong>${store.masteredIds.filter(id=>store.reviewIds.includes(id)).length}</strong></div><hr class="rule"/><div class="panel-heading" style="margin-bottom:8px"><div><h2 class="section-title">Priority concepts</h2><p class="section-desc">Choose one to jump to the card.</p></div></div><div class="missed-list">${sideDue || `<div class="section-desc">Your queue is clear. Keep your knowledge sharp with a mixed warm-up.</div>`}</div>${due.length?button('Clear queue by reviewing','study-next','btn btn-secondary btn-full','style="margin-top:12px"'):''}</section><div class="tip-strip"><div class="tip-icon">✦</div><div><strong>Active recall beats rereading.</strong><p>Say the answer in your own words before flipping. A correct guess without a reason is a cue to review again.</p></div></div></aside></div>`;
+  }
+
+  // Question vault / official materials
+  function renderVault() {
+    const count=allQuestions().length;
+    const custom=store.customQuestions.length;
+    const resources=[
+      {icon:'↗',title:'Ontario DECA Regional online testing',desc:'Current guidance for online Regionals, including the 100-question multiple-choice format and 70-minute maximum.',url:'https://deca.ca/v2/about-regionals/regionals-online-testing/',label:'Open Ontario guidance'},
+      {icon:'▤',title:'Official DECA competitive events',desc:'Explore current event offerings, clusters, sample exams, exam blueprints, and performance indicators.',url:'https://www.deca.org/compete',label:'Browse event library'},
+      {icon:'✦',title:'Principles of Entrepreneurship event page',desc:'Official event requirements and resources, including a sample exam link when provided.',url:'https://www.deca.org/compete/principles-of-entrepreneurship',label:'Open event page'},
+      {icon:'◈',title:'Principles of Business Management & Administration',desc:'Event overview and official preparation resources for the business administration core.',url:'https://www.deca.org/compete/principles-of-business-management-and-administration',label:'Open event page'},
+      {icon:'◎',title:'Business Services Marketing Series',desc:'Marketing-cluster event overview with current preparation resources and sample materials.',url:'https://www.deca.org/compete/business-services-marketing-series',label:'Open event page'},
+      {icon:'▣',title:'Ontario DECA Provincials',desc:'Provincials information and season-specific announcements for Ontario participants.',url:'https://deca.ca/v2/about-provincials/',label:'Open Ontario guidance'}
+    ];
+    return `<div class="header-row"><div><div class="eyebrow">YOUR QUESTION LIBRARY</div><h1 class="page-title">One vault. Official sources. Your own practice.</h1><p class="page-subtitle">Use official DECA resources for the latest event rules, then add approved question sets to your personal browser library.</p></div><div class="header-actions">${button('＋ Import questions','import-questions','btn btn-primary')} ${button('Export bank ↓','export-bank','btn btn-secondary')}</div></div>
+      <div class="vault-metrics"><div class="vault-metric"><strong>${count}</strong><span>Total questions in this browser</span></div><div class="vault-metric"><strong>${custom}</strong><span>Imported / custom questions</span></div><div class="vault-metric"><strong>${CLUSTERS.length}</strong><span>Practice clusters</span></div></div>
+      <div class="vault-grid"><section class="panel panel-pad"><div class="panel-heading"><div><h2 class="section-title">Official DECA resource links</h2><p class="section-desc">These pages are the source of truth for the current season and event-specific requirements.</p></div><span class="pill blue">External links</span></div><div class="resource-list">${resources.map(r=>`<div class="resource-row"><div class="resource-icon">${r.icon}</div><div class="resource-copy"><strong>${escapeHtml(r.title)}</strong><p>${escapeHtml(r.desc)}</p></div><a href="${r.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.label)} ↗</a></div>`).join('')}</div><div class="disclaimer" style="margin-top:14px"><strong>Respect the source.</strong> This app does not copy or redistribute a collection of official past exams. Use official materials under their stated terms; the built-in 100 questions are original practice content.</div></section>
+      <aside class="grid"><section class="panel panel-pad"><div class="panel-heading"><div><h2 class="section-title">Add your own questions</h2><p class="section-desc">Import a CSV or JSON question bank stored locally in your browser.</p></div></div><div class="import-drop"><div class="import-symbol">↑</div><strong>Import a question bank</strong><p>Bring in questions from materials you’re allowed to use. This static app imports question data, not raw PDF files.</p>${button('Choose CSV or JSON','import-questions','btn btn-primary btn-small')}<div class="field-note">CSV header: cluster, topic, difficulty, question, optionA, optionB, optionC, optionD, answer, explanation, learningTarget</div></div><div class="header-actions" style="margin-top:12px">${button('Download CSV template ↓','download-template','btn btn-secondary btn-small')} ${button('Export custom bank','export-custom','btn btn-secondary btn-small')}</div></section>
+      <section class="panel panel-pad"><h2 class="section-title">Expected JSON format</h2><p class="section-desc">Your file can be a question array or an object with a questions array.</p><pre class="code-sample">[\n  {\n    "cluster": "Marketing",\n    "topic": "Segmentation",\n    "difficulty": 2,\n    "question": "Your question text",\n    "options": ["A", "B", "C", "D"],\n    "answer": "B",\n    "explanation": "Why B is correct",\n    "target": "Market segmentation"\n  }\n]</pre></section></aside></div>
+      <section class="panel panel-pad" style="margin-top:17px"><div class="panel-heading"><div><h2 class="section-title">Cluster coverage</h2><p class="section-desc">Original built-in questions available per cluster.</p></div></div><div class="cluster-bars">${allClusterNames().map(cl=>{const n=allQuestions().filter(q=>q.cluster===cl).length;return `<div class="cluster-bar-row"><span class="cluster-bar-name">${escapeHtml(cl)}</span><div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:${n/Math.max(1,...CLUSTERS.map(x=>allQuestions().filter(q=>q.cluster===x).length))*100}%"></div></div><span class="cluster-bar-score">${n}</span></div>`;}).join('')}</div></section>`;
+  }
+
+  // Download / import helpers
+  function downloadFile(name, contentText, mime='text/plain;charset=utf-8') {
+    const blob=new Blob([contentText],{type:mime});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+  function csvEscape(value) { const s=String(value??''); return /[",\n\r]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; }
+  function rowsToCsv(rows, headers) { return [headers.map(csvEscape).join(','),...rows.map(row=>headers.map(h=>csvEscape(row[h])).join(','))].join('\r\n'); }
+  function exportResults(attempt=shownResult||store.attempts[store.attempts.length-1]) {
+    if(!attempt){showToast('No exam answer sheet to export yet.');return;}
+    const rows=attempt.rows.map(r=>({'Question #':r.index,Cluster:r.cluster,Topic:r.topic,Question:r.question,'Your answer':r.selected||'Unanswered','Correct answer':r.answer,Correct:r.isCorrect?'Yes':'No',Explanation:r.explanation}));
+    downloadFile(`deca-sprint-answer-key-${todayKey()}.csv`,rowsToCsv(rows,Object.keys(rows[0]||{'Question #':'','Cluster':'','Topic':'','Question':'','Your answer':'','Correct answer':'','Correct':'','Explanation':''})),'text/csv;charset=utf-8');
+    showToast('Answer sheet exported as CSV.');
+  }
+  function exportAllResults() {
+    const payload={app:'DECA Sprint',exportedAt:new Date().toISOString(),attempts:store.attempts,caseAttempts:store.caseAttempts,customQuestions:store.customQuestions,reviewIds:store.reviewIds,masteredIds:store.masteredIds};
+    downloadFile(`deca-sprint-progress-${todayKey()}.json`,JSON.stringify(payload,null,2),'application/json');
+    showToast('Progress export downloaded.');
+  }
+  function exportBank(customOnly=false) {
+    const qs=customOnly?store.customQuestions:allQuestions();
+    downloadFile(`deca-sprint-${customOnly?'custom-':''}question-bank-${todayKey()}.json`,JSON.stringify({questions:qs},null,2),'application/json');
+    showToast(`${qs.length} question${qs.length===1?'':'s'} exported.`);
+  }
+  function downloadTemplate() {
+    const headers=['cluster','topic','difficulty','question','optionA','optionB','optionC','optionD','answer','explanation','learningTarget'];
+    const example={cluster:'Marketing',topic:'Segmentation',difficulty:2,question:'Example question text?',optionA:'Option A',optionB:'Option B',optionC:'Option C',optionD:'Option D',answer:'B',explanation:'Explain why B is correct.',learningTarget:'Market segmentation'};
+    downloadFile('deca-sprint-question-template.csv',rowsToCsv([example],headers),'text/csv;charset=utf-8');
+    showToast('CSV template downloaded.');
+  }
+  function parseCsv(text) {
+    const rows=[]; let row=[], field='', quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i], next=text[i+1];
+      if(ch==='"'&&quoted&&next==='"'){field+='"';i++;}
+      else if(ch==='"'){quoted=!quoted;}
+      else if(ch===','&&!quoted){row.push(field);field='';}
+      else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&next==='\n')i++;row.push(field);if(row.some(c=>String(c).trim()!==''))rows.push(row);row=[];field='';}
+      else field+=ch;
+    }
+    if(field.length||row.length){row.push(field);rows.push(row);}
+    if(!rows.length)return [];
+    const headers=rows.shift().map(h=>h.trim());
+    return rows.map(cells=>Object.fromEntries(headers.map((h,i)=>[h,(cells[i]??'').trim()])));
+  }
+  function normalizeImportedQuestion(raw,index) {
+    const options=Array.isArray(raw.options)?raw.options:[raw.optionA,raw.optionB,raw.optionC,raw.optionD];
+    const answer=String(raw.answer||'').trim().toUpperCase();
+    const cluster=String(raw.cluster||'Custom').trim();
+    const question=String(raw.question||raw.stem||'').trim();
+    const expl=String(raw.explanation||raw.rationale||'').trim();
+    if(!question||options.length!==4||options.some(o=>!String(o??'').trim())||!['A','B','C','D'].includes(answer)||!expl) return null;
+    const base={cluster,topic:String(raw.topic||'Imported').trim(),difficulty:Math.max(1,Math.min(3,Number(raw.difficulty)||2)),question,options:options.map(o=>String(o).trim()),answer,explanation:expl,target:String(raw.learningTarget||raw.target||raw.topic||'Imported concept').trim(),source:'Imported practice'};
+    const hash=hashText(`${base.cluster}|${base.topic}|${base.question}`);
+    return {...base,id:`custom-${hash}-${index}`};
+  }
+  function hashText(str) { let h=2166136261; for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);} return (h>>>0).toString(36); }
+  function importFile(file) {
+    if(!file)return;
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try {
+        let raw;
+        if(file.name.toLowerCase().endsWith('.json')) {const parsed=JSON.parse(reader.result);raw=Array.isArray(parsed)?parsed:parsed.questions;}
+        else raw=parseCsv(String(reader.result||''));
+        if(!Array.isArray(raw))throw new Error('Expected a question array.');
+        const normalized=raw.map(normalizeImportedQuestion).filter(Boolean);
+        if(!normalized.length)throw new Error('No valid questions found. Check the format, four options, A–D answer, and explanation field.');
+        const existing=new Set(store.customQuestions.map(q=>q.id));
+        const unique=normalized.filter(q=>!existing.has(q.id));
+        store.customQuestions.push(...unique);
+        persist(); showView('vault',true); showToast(`${unique.length} question${unique.length===1?'':'s'} imported${normalized.length!==unique.length?`; ${normalized.length-unique.length} duplicate ID(s) skipped`:''}.`);
+      } catch(err) {showToast(err.message||'Could not import this file.');}
+      importInput.value='';
+    };
+    reader.onerror=()=>showToast('The file could not be read.');
+    reader.readAsText(file);
+  }
+
+  // Event handlers
+  document.addEventListener('click',e=>{
+    const viewTarget=e.target.closest('[data-view]');
+    if(viewTarget){e.preventDefault();showView(viewTarget.dataset.view);return;}
+    const levelBtn=e.target.closest('[data-level]');
+    if(levelBtn){store.prefs.level=levelBtn.dataset.level;persist();render();return;}
+    const countBtn=e.target.closest('[data-count]');
+    if(countBtn&&!countBtn.disabled){store.prefs.count=Number(countBtn.dataset.count);persist();render();return;}
+    const filter=e.target.closest('[data-filter]');
+    if(filter){resultFilter=filter.dataset.filter;render();return;}
+    const actionEl=e.target.closest('[data-action]');
+    if(!actionEl)return;
+    const action=actionEl.dataset.action;
+    switch(action){
+      case 'daily-answer': { const q=dailyQuestion(); if(!q)break; const key=todayKey();store.dailyChecks[key]={...(store.dailyChecks[key]||{}),questionId:q.id,answer:actionEl.dataset.key,question:true};persist();render();break; }
+      case 'daily-practice': { const q=dailyQuestion();store.prefs.cluster=q?.cluster||'All clusters';store.prefs.count=Math.min(10,maximumExamCount(store.prefs.cluster));store.prefs.mode='study';persist();startExam();break; }
+      case 'coach-practice': { store.prefs.cluster=actionEl.dataset.cluster||'All clusters';store.prefs.count=Math.min(10,maximumExamCount(store.prefs.cluster));store.prefs.mode='study';persist();startExam();break; }
+      case 'account-progress': showView('progress');break;
+      case 'dashboard': showView('dashboard'); break;
+      case 'back-dashboard': showView('dashboard'); break;
+      case 'open-setup': showView('exam-setup'); break;
+      case 'open-case': showView('case-coach'); break;
+      case 'open-vault': showView('vault'); break;
+      case 'full-mock': store.prefs.cluster='All clusters';store.prefs.count=100;store.prefs.level='Regional';store.prefs.mode='exam';persist();startExam();break;
+      case 'daily-session': store.prefs.cluster='All clusters';store.prefs.count=10;store.prefs.mode='exam';persist();startExam('daily');break;
+      case 'start-exam': startExam();break;
+      case 'choose-option': {
+        if(!activeExam)break;
+        const q=activeExam.questions[activeExam.index];
+        if(activeExam.mode==='study'&&activeExam.answers[q.id])break;
+        activeExam.answers[q.id]=actionEl.dataset.key;
+        render();
+        break;
+      }
+      case 'prev-question': if(activeExam&&activeExam.index>0){activeExam.index--;render();} break;
+      case 'next-question': if(activeExam&&activeExam.index<activeExam.questions.length-1){activeExam.index++;render();} break;
+      case 'jump-question': if(activeExam){activeExam.index=Number(actionEl.dataset.index);render();} break;
+      case 'toggle-flag': if(activeExam){const id=activeExam.questions[activeExam.index].id;activeExam.flagged=activeExam.flagged.includes(id)?activeExam.flagged.filter(x=>x!==id):[...activeExam.flagged,id];render();} break;
+      case 'finish-exam': finishExam(false);break;
+      case 'export-results': exportResults();break;
+      case 'export-all-results': exportAllResults();break;
+      case 'export-bank': exportBank(false);break;
+      case 'export-custom': exportBank(true);break;
+      case 'import-questions': importInput.click();break;
+      case 'download-template': downloadTemplate();break;
+      case 'weak-practice': {
+        const stats=getTopicStats().filter(x=>x.total).sort((a,b)=>a.accuracy-b.accuracy);
+        if(stats.length){const worst=stats[0];store.prefs.cluster=worst.cluster||'All clusters';store.prefs.count=Math.min(10,maximumExamCount(store.prefs.cluster));}
+        else {store.prefs.cluster='All clusters';store.prefs.count=10;}
+        store.prefs.mode='study';persist();startExam();break;
+      }
+      case 'study-flip': studyFlipped=true;getDaily().review=true;persist();render();break;
+      case 'study-next': if(studyIndex<studyDeck.length-1){studyIndex++;studyFlipped=false;render();}else{studyIndex=0;studyFlipped=false;showToast('You reached the end of this deck. Shuffle for another round.');render();} break;
+      case 'study-prev': if(studyIndex>0){studyIndex--;studyFlipped=false;render();}break;
+      case 'study-master': {
+        const q=studyDeck[studyIndex];if(q&&!store.masteredIds.includes(q.id))store.masteredIds.push(q.id);
+        getDaily().review=true;persist();
+        const due=availableReviewItems();
+        studyDeck=due.length?shuffle(due):shuffle(allQuestions()).slice(0,Math.min(12,allQuestions().length));
+        studyIndex=0;studyFlipped=false;render();showToast('Marked as mastered for now. Keep coming back to it later.');break;
+      }
+      case 'shuffle-deck': studyDeck=shuffle(studyDeck);studyIndex=0;studyFlipped=false;render();break;
+      case 'review-select': {
+        const id=actionEl.dataset.id;const selected=questionById(id);if(selected){studyDeck=[selected,...studyDeck.filter(q=>q.id!==id)];studyIndex=0;studyFlipped=false;render();}break;
+      }
+      case 'new-case': {
+        const cluster=document.getElementById('caseCluster')?.value||store.prefs.caseCluster||'Marketing';
+        store.prefs.caseCluster=cluster;const options=CASES.filter(c=>c.cluster===cluster);const pool=options.length?options:CASES;
+        let scenario=pool[Math.floor(Math.random()*pool.length)];if(pool.length>1&&scenario.id===caseSession.caseId)scenario=pool[(pool.findIndex(x=>x.id===scenario.id)+1)%pool.length];caseSession=makeFreshCaseSession(scenario);persistCaseDraft();stopCaseTimer();showView('case-coach',true);break;
+      }
+      case 'case-start-prep': startCaseTimer('prep');break;
+      case 'case-start-pitch': startCaseTimer('pitch');break;
+      case 'case-reset-timer': stopCaseTimer();caseSession.prepRemaining=600;caseSession.pitchRemaining=600;caseSession.phase='brief';caseSession.timerRunning=false;persistCaseDraft();render();showToast('Rehearsal timer reset.');break;
+      case 'case-finish': finishCase();break;
+      case 'case-clear-notes': if(confirm('Clear your notes for this scenario?')){caseSession.notes={context:'',recommendation:'',actions:'',metrics:'',risks:''};persistCaseDraft();render();showToast('Notes cleared.');}break;
+      case 'quick-help': showToast('Choose Exam Practice for multiple choice, Case Study Lab for a timed response, and Review for missed questions. Your progress stays in this browser.');break;
+      case 'clear-progress': if(confirm('Clear all saved practice results, review flags, imported questions, and case notes on this device? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);store=defaultState();shownResult=null;caseSession=makeFreshCaseSession(CASES[0]);studyDeck=[];persist();showView('dashboard',true);showToast('Local practice data cleared.');}break;
+      case 'export-custom': exportBank(true);break;
+    }
+  });
+
+  document.addEventListener('submit',e=>{
+    if(e.target.id==='profileForm'){e.preventDefault();const fd=new FormData(e.target);store.profile={name:String(fd.get('displayName')||'').trim(),email:String(fd.get('email')||'').trim()};persist();const n=document.getElementById('profileName'),a=document.getElementById('profileAvatar');if(n)n.textContent=store.profile.name||'Student';if(a)a.textContent=(store.profile.name||'S').slice(0,1).toUpperCase();showToast('Profile saved on this device. Export progress for backup.');render();}
+  });
+  document.addEventListener('change',e=>{
+    if(e.target.id==='clusterSelect'){
+      store.prefs.cluster=e.target.value;
+      store.prefs.count=Math.min(Number(store.prefs.count)||25,maximumExamCount(store.prefs.cluster));
+      if(store.prefs.count<10)store.prefs.count=maximumExamCount(store.prefs.cluster);
+      persist();render();
+    } else if(e.target.id==='practiceMode') {
+      store.prefs.mode=e.target.value;persist();render();
+    } else if(e.target.id==='caseCluster') {
+      const cluster=e.target.value;store.prefs.caseCluster=cluster;
+      const c=CASES.find(c=>c.cluster===cluster)||CASES[0];stopCaseTimer();caseSession=makeFreshCaseSession(c);persistCaseDraft();persist();render();
+    } else if(e.target.matches('[data-rubric]')) {
+      const index=Number(e.target.dataset.rubric);
+      caseSession.checks=e.target.checked?[...new Set([...caseSession.checks,index])]:caseSession.checks.filter(x=>x!==index);
+      persistCaseDraft();
+      const badge=content.querySelector('.notes-panel .pill'); if(badge)badge.textContent=`${caseSession.checks.length}/7`;
+    }
+  });
+  document.addEventListener('input',e=>{
+    if(e.target.matches('[data-note]')) {
+      if(!caseSession.notes)caseSession.notes={};
+      caseSession.notes[e.target.dataset.note]=e.target.value;
+      // Debounced enough for small local note objects; no network requests are made.
+      persistCaseDraft();
+    }
+  });
+  importInput.addEventListener('change',e=>importFile(e.target.files?.[0]));
+  document.addEventListener('keydown',e=>{
+    if(view==='exam'&&activeExam&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){
+      const q=activeExam.questions[activeExam.index];
+      if(['a','b','c','d'].includes(e.key.toLowerCase())){
+        const key=e.key.toUpperCase();
+        if(activeExam.mode!=='study'||!activeExam.answers[q.id]){activeExam.answers[q.id]=key;render();}
+      } else if(e.key==='ArrowRight'&&activeExam.index<activeExam.questions.length-1){activeExam.index++;render();}
+      else if(e.key==='ArrowLeft'&&activeExam.index>0){activeExam.index--;render();}
+    }
+  });
+
+  // Add a few missing action aliases that are used by page navigation buttons.
+  const observer = new MutationObserver(()=>{
+    // Keep nav state synchronized when a view is changed by an action.
+    document.querySelectorAll('.nav-item').forEach(el=>el.classList.toggle('active',el.dataset.view===view));
+  });
+  observer.observe(content,{childList:true,subtree:false});
+
+  // Small helper so the daily quick practice is correctly marked and setup buttons work.
+  // Initial screen.
+  render();
+  updateReviewBadge();
+})();
+
+</script>
+</body>
+</html>

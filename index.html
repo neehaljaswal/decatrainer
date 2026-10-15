@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111b35" />
+  <meta name="description" content="A DECA practice studio for original exam-style questions, answer explanations, and role-play rehearsal." />
+  <title>DECA Sprint — Practice Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a href="#dashboard" class="brand" data-view="dashboard" aria-label="DECA Sprint home">
+        <span class="brand-mark">D<span>+</span></span>
+        <span class="brand-copy"><strong>DECA Sprint</strong><small>Practice studio</small></span>
+      </a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span><span>Overview</span></button>
+        <button class="nav-item" data-view="exam-setup"><span class="nav-icon">▤</span><span>Exam practice</span><span class="nav-count">100</span></button>
+        <button class="nav-item" data-view="case-coach"><span class="nav-icon">◈</span><span>Case study lab</span></button>
+        <button class="nav-item" data-view="review"><span class="nav-icon">✳</span><span>Review & flashcards</span><span id="reviewNavCount" class="nav-dot"></span></button>
+      </nav>
+      <div class="sidebar-label spaced">YOUR PROGRESS</div>
+      <nav class="primary-nav" aria-label="Progress navigation">
+        <button class="nav-item" data-view="progress"><span class="nav-icon">↗</span><span>Performance</span></button>
+        <button class="nav-item" data-view="vault"><span class="nav-icon">▣</span><span>Question vault</span></button>
+        <button class="nav-item" data-view="daily"><span class="nav-icon">☀</span><span>Question of the day</span></button>
+        <button class="nav-item" data-view="coach"><span class="nav-icon">✦</span><span>AI learning coach</span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-challenge">
+        <div class="challenge-icon">✦</div>
+        <p class="challenge-eyebrow">THE DAILY EDGE</p>
+        <strong>Small reps.<br />Big confidence.</strong>
+        <p class="challenge-copy">A focused 20-minute session beats a last-minute cram.</p>
+        <button class="sidebar-challenge-btn" data-action="daily-session">Start today's reps <span>→</span></button>
+      </div>
+      <div class="sidebar-foot"><span class="status-pip"></span><span>Progress saved on this device</span></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">D<span>+</span></span><strong>DECA Sprint</strong></div>
+        <div class="breadcrumbs"><span>Workspace</span><span class="crumb-slash">/</span><strong id="pageCrumb">Overview</strong></div>
+        <div class="topbar-actions">
+          <div class="practice-tag"><span class="status-pip"></span> Practice mode</div>
+          <button class="icon-button" data-action="quick-help" aria-label="Help" title="Help">?</button>
+          <button class="profile-button" data-view="account" title="Account and saved progress"><span class="avatar" id="profileAvatar">S</span><span class="profile-name" id="profileName">Create account</span><span class="chevron">⌄</span></button>
+        </div>
+      </header>
+      <div id="appContent" class="content-area" tabindex="-1"></div>
+      <footer class="global-footer">
+        <span>Built for practice, not predictions.</span>
+        <span><a href="https://www.deca.org/compete" target="_blank" rel="noopener noreferrer">Official DECA events ↗</a><span class="footer-sep">·</span><span>Original practice content</span></span>
+      </footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input id="importFile" type="file" accept=".csv,.json,application/json,text/csv" hidden />
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
