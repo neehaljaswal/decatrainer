@@ -19,6 +19,7 @@
       <nav class="primary-nav" aria-label="Main navigation">
         <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span><span>Overview</span></button>
         <button class="nav-item" data-view="exam-setup"><span class="nav-icon">▤</span><span>Exam practice</span><span class="nav-count">100</span></button>
+        <button class="nav-item" data-view="pdf-practice"><span class="nav-icon">▧</span><span>PDF exam builder</span></button>
         <button class="nav-item" data-view="case-coach"><span class="nav-icon">◈</span><span>Case study lab</span></button>
         <button class="nav-item" data-view="review"><span class="nav-icon">✳</span><span>Review & flashcards</span><span id="reviewNavCount" class="nav-dot"></span></button>
       </nav>
@@ -59,6 +60,7 @@
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <input id="importFile" type="file" accept=".csv,.json,application/json,text/csv" hidden />
+  <input id="pdfFile" type="file" accept="application/pdf,.pdf" hidden />
   <script src="questions.js"></script>
   <script src="app.js"></script>
 </body>

@@ -63,10 +63,16 @@
   let studyFlipped = false;
   let caseSession = loadCaseDraft();
   let caseInterval = null;
+  let pdfInterval = null;
+  let pdfQuestions = [];
+  let pdfFileName = '';
+  let pdfQuiz = null;
+  let pdfResults = null;
   let toastTimeout = null;
   const content = document.getElementById('appContent');
   const toastEl = document.getElementById('toast');
   const importInput = document.getElementById('importFile');
+  const pdfInput = document.getElementById('pdfFile');
 
   function persist() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)); }
@@ -146,10 +152,11 @@
   function stopExamTimer() { if (examInterval) clearInterval(examInterval); examInterval = null; }
   function stopCaseTimer() { if (caseInterval) clearInterval(caseInterval); caseInterval = null; }
   function showView(next, force=false) {
+    if (pdfQuiz && next !== 'pdf-practice') { showToast('Submit or cancel your PDF practice session before leaving this screen.'); return; }
     if (activeExam && next !== 'exam') { showToast('Finish or submit your current exam before leaving this screen.'); return; }
     view = next;
     document.querySelectorAll('[data-view]').forEach(el=>el.classList.toggle('active', el.dataset.view===next));
-    const labels = { dashboard:'Overview','daily':'Question of the day',coach:'AI learning coach',account:'Account & sync','exam-setup':'Exam practice', exam:'Exam in progress', results:'Answer key & results','case-coach':'Case study lab', review:'Review & flashcards', progress:'Performance', vault:'Question vault' };
+    const labels = { dashboard:'Overview','daily':'Question of the day',coach:'AI learning coach',account:'Account & sync','exam-setup':'Exam practice','pdf-practice':'PDF exam builder', exam:'Exam in progress', results:'Answer key & results','case-coach':'Case study lab', review:'Review & flashcards', progress:'Performance', vault:'Question vault' };
     document.getElementById('pageCrumb').textContent = labels[next] || 'Workspace';
     render();
     content.focus({preventScroll:true});
@@ -158,7 +165,7 @@
   }
   function render() {
     const renderers = {
-      dashboard: renderDashboard, 'exam-setup': renderSetup, exam: renderExam, results: renderResults,
+      dashboard: renderDashboard, 'exam-setup': renderSetup, 'pdf-practice': renderPdfPractice, exam: renderExam, results: renderResults,
       'case-coach': renderCases, review: renderReview, progress: renderProgress, vault: renderVault, daily: renderDailyQuestion, coach: renderLearningCoach, account: renderAccount
     };
     content.innerHTML = (renderers[view] || renderDashboard)();
@@ -491,6 +498,84 @@
       <aside><section class="panel review-stats"><h2 class="section-title">Your review queue</h2><p class="section-desc">Missed questions are added automatically after an exam.</p><div class="review-counter"><span>Questions to revisit</span><strong>${due.length}</strong></div><div class="review-track"><span style="width:${Math.max(0,Math.min(100,store.masteredIds.length/(Math.max(1,store.reviewIds.length))*100))}%"></span></div><div class="review-counter"><span>Marked mastered</span><strong>${store.masteredIds.filter(id=>store.reviewIds.includes(id)).length}</strong></div><hr class="rule"/><div class="panel-heading" style="margin-bottom:8px"><div><h2 class="section-title">Priority concepts</h2><p class="section-desc">Choose one to jump to the card.</p></div></div><div class="missed-list">${sideDue || `<div class="section-desc">Your queue is clear. Keep your knowledge sharp with a mixed warm-up.</div>`}</div>${due.length?button('Clear queue by reviewing','study-next','btn btn-secondary btn-full','style="margin-top:12px"'):''}</section><div class="tip-strip"><div class="tip-icon">✦</div><div><strong>Active recall beats rereading.</strong><p>Say the answer in your own words before flipping. A correct guess without a reason is a cue to review again.</p></div></div></aside></div>`;
   }
 
+  // PDF exam builder. PDF text is extracted in-browser with PDF.js; no file is uploaded to a server.
+  function renderPdfPractice() {
+    if (pdfResults) return renderPdfResults();
+    if (pdfQuiz) return renderPdfQuiz();
+    const extracted = pdfQuestions.length;
+    const keyed = pdfQuestions.filter(q=>q.answer).length;
+    return `<div class="header-row"><div><div class="eyebrow">BRING YOUR OWN MATERIALS</div><h1 class="page-title">Turn a PDF into a timed exam.</h1><p class="page-subtitle">Upload a practice test or study packet. DECA Sprint will extract numbered questions and A–D choices, look for an answer key, then quiz you through the extracted set.</p></div><div class="header-actions">${button('Back to overview','back-dashboard','btn btn-secondary')}</div></div>
+      <div class="pdf-builder-grid"><section class="panel panel-pad"><div class="pdf-drop"><div class="import-symbol">▧</div><h2 class="section-title">Upload a PDF</h2><p class="section-desc">Best results come from text-based PDFs with numbered questions and choices labeled A, B, C, and D. Scanned image-only PDFs need OCR and may not work.</p>${button(pdfFileName?'Choose a different PDF':'Choose PDF file','choose-pdf','btn btn-primary')}<div class="field-note">PDF is processed locally in your browser. It is not sent to a server.</div>${pdfFileName?`<div class="pdf-file-chip"><span>▤</span><div><strong>${escapeHtml(pdfFileName)}</strong><small>${extracted} questions extracted</small></div><button class="link-btn" data-action="clear-pdf">Remove</button></div>`:''}</div>
+      ${extracted?`<div class="pdf-summary"><div><strong>${extracted}</strong><span>questions found</span></div><div><strong>${keyed}/${extracted}</strong><span>answers detected</span></div><div><strong>${pdfQuestions.filter(q=>q.options.every(Boolean)).length}</strong><span>with 4 choices</span></div></div><div class="disclaimer" style="margin-top:14px">${keyed===extracted?'An answer key was detected for every extracted question. Review the preview to catch formatting errors.':`An answer key was detected for ${keyed} of ${extracted} questions. Questions without a key can still be practiced, but won’t count toward your score until you provide the correct answers.`} Check the preview carefully; PDF layouts vary.</div><div class="pdf-preview-list">${pdfQuestions.slice(0,5).map((q,i)=>`<article class="pdf-preview-item"><strong>Q${i+1}. ${escapeHtml(q.question)}</strong><ol type="A">${q.options.map(o=>`<li>${escapeHtml(o||'[Choice not detected]')}</li>`).join('')}</ol><small>${q.answer?`Detected answer: ${q.answer}`:'No answer key detected'}${q.explanation?` · Explanation found`:''}</small></article>`).join('')}${extracted>5?`<p class="field-note">Showing first 5 of ${extracted} extracted questions.</p>`:''}</div><div class="pdf-start-row"><div><label class="form-label" for="pdfMinutes">Timer length (minutes)</label><input class="field" id="pdfMinutes" type="number" min="1" max="300" value="${Math.max(1,Math.ceil(extracted*42/60))}" /></div>${button(`Start all ${extracted} questions →`,'start-pdf-quiz','btn btn-primary')}</div>`:`<div class="empty-state" style="margin-top:16px"><div class="empty-symbol">↥</div><strong>Your extracted questions will appear here</strong><p>Upload a PDF to extract the question text, answer choices, answer key, and any explanations the parser can recognize.</p></div>`}</section>
+      <aside class="panel panel-pad"><h2 class="section-title">What gets extracted?</h2><div class="pdf-feature-list"><div><span>✓</span><p><strong>Question text</strong><br/>Numbered multiple-choice questions</p></div><div><span>✓</span><p><strong>Answer choices</strong><br/>Choices labeled A–D, including wrapped lines</p></div><div><span>✓</span><p><strong>Answer key</strong><br/>Looks for common answer-key formats</p></div><div><span>✓</span><p><strong>Timed quiz + answer review</strong><br/>Navigate questions, submit, then review detected answers</p></div></div><div class="disclaimer" style="margin-top:16px">Important: extraction is best-effort. Multi-column PDFs, scanned pages, tables, and unusual answer-key formats can be misread. Verify the preview before starting. Only upload materials you are allowed to use.</div></aside></div>`;
+  }
+  function renderPdfQuiz() {
+    const q=pdfQuiz.questions[pdfQuiz.index];
+    const mins=Math.floor(pdfQuiz.remaining/60), secs=pdfQuiz.remaining%60;
+    return `<div class="header-row"><div><div class="eyebrow">PDF PRACTICE SESSION</div><h1 class="page-title">${escapeHtml(pdfFileName||'Uploaded practice test')}</h1><p class="page-subtitle">Question ${pdfQuiz.index+1} of ${pdfQuiz.questions.length} · Answers and explanations appear after submission.</p></div><div class="pdf-clock ${pdfQuiz.remaining<60?'danger':''}"><span>TIME REMAINING</span><strong>${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}</strong></div></div>
+      <div class="exam-layout"><section class="panel question-panel"><div class="question-meta"><span class="pill blue">PDF question ${pdfQuiz.index+1}</span><span class="question-counter">${Object.keys(pdfQuiz.answers).length} answered</span></div><h2 class="question-stem">${escapeHtml(q.question)}</h2><div class="answer-list">${q.options.map((option,i)=>{const key='ABCD'[i];return `<button class="answer-option ${pdfQuiz.answers[pdfQuiz.index]===key?'selected':''}" data-action="pdf-answer" data-key="${key}"><span class="answer-letter">${key}</span><span class="answer-copy">${escapeHtml(option||'[Choice not detected]')}</span><span class="answer-radio">${pdfQuiz.answers[pdfQuiz.index]===key?'✓':''}</span></button>`;}).join('')}</div><div class="question-foot"><span class="field-note">Choose one answer. You can change it before submitting.</span><div class="question-foot-right">${button('← Previous','pdf-prev','btn btn-secondary',pdfQuiz.index===0?'disabled':'')}${button(pdfQuiz.index===pdfQuiz.questions.length-1?'Review & submit →':'Next question →','pdf-next','btn btn-primary')}</div></div></section><aside class="question-side"><section class="panel question-map"><div class="panel-heading"><div><h2 class="section-title">Question map</h2><p class="section-desc">Jump to any question.</p></div></div><div class="question-grid">${pdfQuiz.questions.map((item,i)=>`<button class="question-number ${i===pdfQuiz.index?'current':''} ${pdfQuiz.answers[i]?'answered':''}" data-action="pdf-jump" data-index="${i}">${i+1}</button>`).join('')}</div><div class="map-legend"><span><i class="legend-current"></i>Current</span><span><i class="legend-answered"></i>Answered</span><span><i class="legend-empty"></i>Unanswered</span></div></section><section class="panel submit-card"><h2 class="section-title">Ready to finish?</h2><p class="section-desc">${pdfQuiz.questions.length-Object.keys(pdfQuiz.answers).length} unanswered question(s) remaining.</p>${button('Submit & see answers','finish-pdf-quiz','btn btn-primary btn-full')}<button class="link-btn" data-action="cancel-pdf-quiz" style="margin-top:10px">Cancel session</button></section></aside></div>`;
+  }
+  function renderPdfResults() {
+    const r=pdfResults, pct=r.scored?Math.round(r.correct/r.scored*100):null;
+    return `<div class="header-row"><div><div class="eyebrow">SESSION COMPLETE</div><h1 class="page-title">Your PDF answer review.</h1><p class="page-subtitle">${escapeHtml(pdfFileName||'Uploaded PDF')} · ${r.questions.length} questions · ${formatDuration(r.elapsed)}</p></div><div class="header-actions">${button('Practice again','pdf-restart','btn btn-primary')} ${button('Upload another PDF','clear-pdf','btn btn-secondary')}</div></div><section class="results-hero"><div><div class="eyebrow">YOUR RESULT</div><h2 class="results-title">${pct===null?'Answers reviewed':`${pct}% correct`}</h2><p class="results-copy">${r.correct} correct of ${r.scored} questions with a detected answer key. ${r.questions.length-r.scored} questions had no detected key and were excluded from scoring.</p></div><div class="score-ring"><span class="score-num">${pct===null?'—':pct+'%'}</span></div></section><section class="panel panel-pad" style="margin-top:17px"><div class="panel-heading"><div><h2 class="section-title">Question-by-question answer key</h2><p class="section-desc">Compare your selection with the answer detected in the PDF.</p></div><span class="pill">${r.questions.length} total</span></div><div class="pdf-result-list">${r.questions.map((q,i)=>{const selected=r.answers[i]||'';const ok=q.answer&&selected===q.answer;return `<article class="pdf-result-item"><div class="pdf-result-top"><span class="pill ${ok?'green':q.answer?'red':'blue'}">Question ${i+1} · ${!q.answer?'Unscored':ok?'Correct':'Incorrect / blank'}</span></div><h3>${escapeHtml(q.question)}</h3><p><strong>Your answer:</strong> ${selected||'Unanswered'}${q.answer?` · <strong>Correct answer:</strong> ${q.answer}`:' · <strong>Correct answer:</strong> Not detected'}</p><div class="pdf-result-options">${q.options.map((o,j)=>`<div class="${q.answer==='ABCD'[j]?'right':''}"><strong>${'ABCD'[j]}.</strong> ${escapeHtml(o||'[Choice not detected]')}</div>`).join('')}</div>${q.explanation?`<p class="pdf-explanation"><strong>Explanation from PDF:</strong> ${escapeHtml(q.explanation)}</p>`:''}</article>`;}).join('')}</div></section>`;
+  }
+  function stopPdfTimer(){if(pdfInterval)clearInterval(pdfInterval);pdfInterval=null;}
+  function startPdfQuiz(){
+    if(!pdfQuestions.length){showToast('Upload a PDF and extract questions first.');return;}
+    const mins=Math.max(1,Math.min(300,Number(document.getElementById('pdfMinutes')?.value)||Math.ceil(pdfQuestions.length*42/60)));
+    pdfResults=null;pdfQuiz={questions:pdfQuestions.map(q=>({...q,options:[...q.options]})),index:0,answers:{},remaining:mins*60,startedAt:Date.now(),initialSeconds:mins*60};
+    showView('pdf-practice',true);stopPdfTimer();pdfInterval=setInterval(()=>{if(!pdfQuiz)return;pdfQuiz.remaining=Math.max(0,pdfQuiz.remaining-1);const clock=document.querySelector('.pdf-clock strong');if(clock)clock.textContent=`${String(Math.floor(pdfQuiz.remaining/60)).padStart(2,'0')}:${String(pdfQuiz.remaining%60).padStart(2,'0')}`;if(pdfQuiz.remaining<=0)finishPdfQuiz(true);},1000);
+  }
+  function finishPdfQuiz(timedOut=false){
+    if(!pdfQuiz)return;stopPdfTimer();const elapsed=Math.max(0,Math.round((Date.now()-pdfQuiz.startedAt)/1000));const qset=pdfQuiz.questions;const answers={...pdfQuiz.answers};const scored=qset.filter(q=>q.answer).length;const correct=qset.filter((q,i)=>q.answer&&answers[i]===q.answer).length;
+    pdfResults={questions:qset,answers,scored,correct,elapsed,timedOut};pdfQuiz=null;render();if(timedOut)showToast('Time is up. Your PDF exam has been submitted.');window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function loadPdfJs(){
+    if(window.pdfjsLib)return Promise.resolve(window.pdfjsLib);
+    if(window.pdfJsLoading)return window.pdfJsLoading;
+    window.pdfJsLoading=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';script.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';resolve(window.pdfjsLib);};script.onerror=()=>reject(new Error('PDF reader could not load. Connect to the internet and try again.'));document.head.appendChild(script);});
+    return window.pdfJsLoading;
+  }
+  async function extractPdf(file){
+    if(!file)return;if(file.size>40*1024*1024){showToast('Please choose a PDF smaller than 40 MB.');return;}
+    pdfFileName=file.name;pdfQuestions=[];pdfResults=null;pdfQuiz=null;showView('pdf-practice',true);content.innerHTML='<section class="panel panel-pad"><h2 class="section-title">Reading your PDF…</h2><p class="section-desc" id="pdfProgress">Loading the PDF reader.</p><div class="progress-track"><span style="width:35%"></span></div></section>';
+    try{
+      const lib=await loadPdfJs();const data=new Uint8Array(await file.arrayBuffer());const doc=await lib.getDocument({data}).promise;let lines=[];
+      for(let pageNo=1;pageNo<=doc.numPages;pageNo++){
+        const page=await doc.getPage(pageNo);const tc=await page.getTextContent();const rows=new Map();
+        for(const item of tc.items){if(!item.str||!item.str.trim())continue;const y=Math.round(item.transform[5]/2)*2;const row=rows.get(y)||[];row.push({x:item.transform[4],text:item.str});rows.set(y,row);}
+        const pageLines=[...rows.entries()].sort((a,b)=>b[0]-a[0]).map(([,items])=>items.sort((a,b)=>a.x-b.x).map(x=>x.text).join(' ').replace(/\s+/g,' ').trim()).filter(Boolean);
+        lines.push(...pageLines,'');const prog=document.getElementById('pdfProgress');if(prog)prog.textContent=`Reading page ${pageNo} of ${doc.numPages}…`;
+      }
+      pdfQuestions=parsePdfQuestionText(lines.join('\n'));
+      if(!pdfQuestions.length)throw new Error('No numbered multiple-choice questions were detected. Try a text-based PDF with questions numbered 1. / 1) and choices labeled A. through D.');
+      showView('pdf-practice',true);showToast(`Extracted ${pdfQuestions.length} question${pdfQuestions.length===1?'':'s'} from the PDF.`);
+    }catch(err){pdfFileName='';pdfQuestions=[];showView('pdf-practice',true);showToast(err.message||'Could not read this PDF.');}
+    pdfInput.value='';
+  }
+  function parsePdfQuestionText(text){
+    const lines=text.split(/\n/).map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean);const answerMap={};let inKey=false;
+    for(const line of lines){if(/answer\s*key|correct\s*answers|solutions/i.test(line))inKey=true;if(inKey){const re=/(?:^|\s)(\d{1,3})\s*[.)\-:]?\s*([A-D])(?=\s|$|[,;])/gi;let m;while((m=re.exec(line)))answerMap[Number(m[1])]=m[2].toUpperCase();}}
+    const parsed=[];let cur=null,activeOption=-1,inExplanation=false,questionNo=0;
+    const startRe=/^(?:Q(?:uestion)?\s*)?(\d{1,3})\s*[.)]\s+(.+)$/i;const optRe=/^\(?([A-D])\)?\s*[.)\]:-]\s*(.*)$/i;
+    const flush=()=>{if(cur&&cur.question.trim()){const opts=cur.options.map(o=>o.trim());if(opts.some(Boolean)){while(opts.length<4)opts.push('');cur.options=opts.slice(0,4);parsed.push(cur);}}};
+    for(const line of lines){
+      if(/^(answer\s*key|correct\s*answers|solutions)\b/i.test(line)){inKey=true;continue;}
+      if(inKey)continue;
+      const qm=line.match(startRe);
+      if(qm){flush();questionNo=Number(qm[1]);cur={number:questionNo,question:qm[2].trim(),options:['','','',''],answer:answerMap[questionNo]||'',explanation:''};activeOption=-1;inExplanation=false;continue;}
+      if(!cur)continue;
+      const om=line.match(optRe);
+      if(om){activeOption='ABCD'.indexOf(om[1].toUpperCase());cur.options[activeOption]=(cur.options[activeOption]+' '+om[2]).trim();continue;}
+      if(/^(?:answer|correct answer)\s*[:\-]/i.test(line)){const m=line.match(/(?:answer|correct answer)\s*[:\-]\s*([A-D])\b/i);if(m)cur.answer=m[1].toUpperCase();continue;}
+      if(/^(?:explanation|rationale)\s*[:\-]/i.test(line)){cur.explanation=line.replace(/^(?:explanation|rationale)\s*[:\-]\s*/i,'');inExplanation=true;activeOption=-1;continue;}
+      if(inExplanation){cur.explanation+=' '+line;continue;}
+      if(activeOption>=0)cur.options[activeOption]=(cur.options[activeOption]+' '+line).trim();else cur.question+=' '+line;
+    }
+    flush();
+    return parsed.filter(q=>q.question&&q.options.filter(Boolean).length>=2).map((q,i)=>({...q,id:`pdf-${i+1}`,topic:'Uploaded PDF',cluster:'PDF practice',options:q.options.map(o=>o.replace(/\s+/g,' ').trim()),answer:q.answer||answerMap[q.number]||'',explanation:q.explanation.trim()}));
+  }
+
   // Question vault / official materials
   function renderVault() {
     const count=allQuestions().length;
@@ -613,6 +698,16 @@
       case 'open-setup': showView('exam-setup'); break;
       case 'open-case': showView('case-coach'); break;
       case 'open-vault': showView('vault'); break;
+      case 'choose-pdf': pdfInput.click(); break;
+      case 'start-pdf-quiz': startPdfQuiz(); break;
+      case 'pdf-answer': if(pdfQuiz){pdfQuiz.answers[pdfQuiz.index]=actionEl.dataset.key;render();} break;
+      case 'pdf-prev': if(pdfQuiz&&pdfQuiz.index>0){pdfQuiz.index--;render();} break;
+      case 'pdf-next': if(pdfQuiz&&pdfQuiz.index<pdfQuiz.questions.length-1){pdfQuiz.index++;render();}else if(pdfQuiz){finishPdfQuiz(false);} break;
+      case 'pdf-jump': if(pdfQuiz){pdfQuiz.index=Number(actionEl.dataset.index);render();} break;
+      case 'finish-pdf-quiz': finishPdfQuiz(false); break;
+      case 'cancel-pdf-quiz': stopPdfTimer();pdfQuiz=null;showView('pdf-practice',true);break;
+      case 'pdf-restart': pdfResults=null;startPdfQuiz();break;
+      case 'clear-pdf': stopPdfTimer();pdfQuestions=[];pdfQuiz=null;pdfResults=null;pdfFileName='';showView('pdf-practice',true);break;
       case 'full-mock': store.prefs.cluster='All clusters';store.prefs.count=100;store.prefs.level='Regional';store.prefs.mode='exam';persist();startExam();break;
       case 'daily-session': store.prefs.cluster='All clusters';store.prefs.count=10;store.prefs.mode='exam';persist();startExam('daily');break;
       case 'start-exam': startExam();break;
@@ -701,6 +796,7 @@
     }
   });
   importInput.addEventListener('change',e=>importFile(e.target.files?.[0]));
+  pdfInput.addEventListener('change',e=>extractPdf(e.target.files?.[0]));
   document.addEventListener('keydown',e=>{
     if(view==='exam'&&activeExam&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){
       const q=activeExam.questions[activeExam.index];

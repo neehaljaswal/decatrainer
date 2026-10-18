@@ -45,6 +45,12 @@ cluster,topic,difficulty,question,optionA,optionB,optionC,optionD,answer,explana
 - JSON can be an array of question objects or an object with a `questions` array. Each question object should contain `cluster`, `topic`, `difficulty`, `question`, `options` (an array of four strings), `answer`, and `explanation`; `target` or `learningTarget` is optional.
 - Imports are processed locally in the browser. The importer handles question data, **not raw PDFs**; convert materials you have permission to use into the template format first.
 
+## PDF exam builder
+
+Open **PDF exam builder** in the sidebar and upload a text-based PDF. The app uses PDF.js in the browser to extract numbered questions, A–D choices, common answer-key formats, and labeled explanations. It then lets you take the full extracted set with a countdown timer, navigate between questions, and review answers at the end.
+
+Extraction is best-effort: scanned image-only PDFs, complex columns, and unusual layouts may need OCR or manual correction. Always review the preview before starting. The PDF is processed locally in the browser; the PDF itself is not uploaded to the app's server. The PDF.js library is loaded from a CDN, so an internet connection is required for the PDF reader to initialize. Questions without a detected answer key are still included in the quiz but are excluded from the score.
+
 ## Saved data and privacy
 
 Progress, answer history, imported questions, and case notes are saved in browser `localStorage` on the device/profile where the app is used. The Account page stores a display name and email label locally only; it is not secure authentication and does not provide cross-device sync. Clearing browser site data can remove progress, so use **Performance → Export data** to keep a backup. The Question of the Day rotates daily. The Learning Coach prioritizes weak topics using your local answer history; it is adaptive logic, not a connected generative-AI service. The **Clear local data** control intentionally resets this browser's saved app data.
