@@ -47,9 +47,9 @@ cluster,topic,difficulty,question,optionA,optionB,optionC,optionD,answer,explana
 
 ## PDF exam builder
 
-Open **PDF exam builder** in the sidebar and upload a text-based PDF. The app uses PDF.js in the browser to extract numbered questions, A–D choices, common answer-key formats, and labeled explanations. It then lets you take the full extracted set with a countdown timer, navigate between questions, and review answers at the end.
+Open **PDF exam builder** in the sidebar and upload a text-based PDF. The app uses PDF.js in the browser to extract numbered questions, A–D choices, common answer-key formats, and labeled explanations. If no questions are detected from embedded text, it automatically tries OCR for scanned/image-based pages; you can also paste copied PDF text into the built-in fallback. It then lets you take the full extracted set with a countdown timer, navigate between questions, and review answers at the end.
 
-Extraction is best-effort: scanned image-only PDFs, complex columns, and unusual layouts may need OCR or manual correction. Always review the preview before starting. The PDF is processed locally in the browser; the PDF itself is not uploaded to the app's server. The PDF.js library is loaded from a CDN, so an internet connection is required for the PDF reader to initialize. Questions without a detected answer key are still included in the quiz but are excluded from the score.
+Extraction is best-effort: complex columns, blurry scans, and unusual layouts may still need manual correction. OCR loads Tesseract.js from a CDN only when needed, so OCR requires an internet connection. Always review the preview before starting. The PDF is processed locally in the browser; the PDF itself is not uploaded to the app's server. The PDF.js library is loaded from a CDN, so an internet connection is required for the PDF reader to initialize. Questions without a detected answer key are still included in the quiz but are excluded from the score.
 
 ## Saved data and privacy
 

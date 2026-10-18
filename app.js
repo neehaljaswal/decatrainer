@@ -505,7 +505,7 @@
     const extracted = pdfQuestions.length;
     const keyed = pdfQuestions.filter(q=>q.answer).length;
     return `<div class="header-row"><div><div class="eyebrow">BRING YOUR OWN MATERIALS</div><h1 class="page-title">Turn a PDF into a timed exam.</h1><p class="page-subtitle">Upload a practice test or study packet. DECA Sprint will extract numbered questions and A–D choices, look for an answer key, then quiz you through the extracted set.</p></div><div class="header-actions">${button('Back to overview','back-dashboard','btn btn-secondary')}</div></div>
-      <div class="pdf-builder-grid"><section class="panel panel-pad"><div class="pdf-drop"><div class="import-symbol">▧</div><h2 class="section-title">Upload a PDF</h2><p class="section-desc">Best results come from text-based PDFs with numbered questions and choices labeled A, B, C, and D. Scanned image-only PDFs need OCR and may not work.</p>${button(pdfFileName?'Choose a different PDF':'Choose PDF file','choose-pdf','btn btn-primary')}<div class="field-note">PDF is processed locally in your browser. It is not sent to a server.</div>${pdfFileName?`<div class="pdf-file-chip"><span>▤</span><div><strong>${escapeHtml(pdfFileName)}</strong><small>${extracted} questions extracted</small></div><button class="link-btn" data-action="clear-pdf">Remove</button></div>`:''}</div>
+      <div class="pdf-builder-grid"><section class="panel panel-pad"><div class="pdf-drop"><div class="import-symbol">▧</div><h2 class="section-title">Upload a PDF</h2><p class="section-desc">Upload almost any practice-test PDF. DECA Sprint first reads embedded text, then automatically tries OCR for scanned/image-based pages if needed. You can also paste copied PDF text as a fallback.</p>${button(pdfFileName?'Choose a different PDF':'Choose PDF file','choose-pdf','btn btn-primary')}<div class="field-note">Text extraction and OCR run in your browser. OCR may take a little longer on large/scanned PDFs.</div><details class="pdf-paste-fallback" style="margin-top:16px"><summary><strong>Or paste text from your PDF</strong></summary><p class="field-note">Open the PDF, select and copy the text, then paste it here. This can help when the PDF layout confuses automatic extraction.</p><textarea id="pdfPastedText" class="field" rows="7" placeholder="Paste questions, choices, and answer key here…"></textarea><div style="margin-top:10px">${button('Extract pasted text','parse-pasted-pdf','btn btn-secondary btn-small')}</div></details>${pdfFileName?`<div class="pdf-file-chip"><span>▤</span><div><strong>${escapeHtml(pdfFileName)}</strong><small>${extracted} questions extracted</small></div><button class="link-btn" data-action="clear-pdf">Remove</button></div>`:''}</div>
       ${extracted?`<div class="pdf-summary"><div><strong>${extracted}</strong><span>questions found</span></div><div><strong>${keyed}/${extracted}</strong><span>answers detected</span></div><div><strong>${pdfQuestions.filter(q=>q.options.every(Boolean)).length}</strong><span>with 4 choices</span></div></div><div class="disclaimer" style="margin-top:14px">${keyed===extracted?'An answer key was detected for every extracted question. Review the preview to catch formatting errors.':`An answer key was detected for ${keyed} of ${extracted} questions. Questions without a key can still be practiced, but won’t count toward your score until you provide the correct answers.`} Check the preview carefully; PDF layouts vary.</div><div class="pdf-preview-list">${pdfQuestions.slice(0,5).map((q,i)=>`<article class="pdf-preview-item"><strong>Q${i+1}. ${escapeHtml(q.question)}</strong><ol type="A">${q.options.map(o=>`<li>${escapeHtml(o||'[Choice not detected]')}</li>`).join('')}</ol><small>${q.answer?`Detected answer: ${q.answer}`:'No answer key detected'}${q.explanation?` · Explanation found`:''}</small></article>`).join('')}${extracted>5?`<p class="field-note">Showing first 5 of ${extracted} extracted questions.</p>`:''}</div><div class="pdf-start-row"><div><label class="form-label" for="pdfMinutes">Timer length (minutes)</label><input class="field" id="pdfMinutes" type="number" min="1" max="300" value="${Math.max(1,Math.ceil(extracted*42/60))}" /></div>${button(`Start all ${extracted} questions →`,'start-pdf-quiz','btn btn-primary')}</div>`:`<div class="empty-state" style="margin-top:16px"><div class="empty-symbol">↥</div><strong>Your extracted questions will appear here</strong><p>Upload a PDF to extract the question text, answer choices, answer key, and any explanations the parser can recognize.</p></div>`}</section>
       <aside class="panel panel-pad"><h2 class="section-title">What gets extracted?</h2><div class="pdf-feature-list"><div><span>✓</span><p><strong>Question text</strong><br/>Numbered multiple-choice questions</p></div><div><span>✓</span><p><strong>Answer choices</strong><br/>Choices labeled A–D, including wrapped lines</p></div><div><span>✓</span><p><strong>Answer key</strong><br/>Looks for common answer-key formats</p></div><div><span>✓</span><p><strong>Timed quiz + answer review</strong><br/>Navigate questions, submit, then review detected answers</p></div></div><div class="disclaimer" style="margin-top:16px">Important: extraction is best-effort. Multi-column PDFs, scanned pages, tables, and unusual answer-key formats can be misread. Verify the preview before starting. Only upload materials you are allowed to use.</div></aside></div>`;
   }
@@ -548,16 +548,38 @@
         lines.push(...pageLines,'');const prog=document.getElementById('pdfProgress');if(prog)prog.textContent=`Reading page ${pageNo} of ${doc.numPages}…`;
       }
       pdfQuestions=parsePdfQuestionText(lines.join('\n'));
-      if(!pdfQuestions.length)throw new Error('No numbered multiple-choice questions were detected. Try a text-based PDF with questions numbered 1. / 1) and choices labeled A. through D.');
+      if(!pdfQuestions.length){
+        const prog=document.getElementById('pdfProgress');if(prog)prog.textContent='No selectable text found. Trying OCR on each page…';
+        const ocrText=await ocrPdfDocument(doc);
+        pdfQuestions=parsePdfQuestionText(ocrText);
+      }
+      if(!pdfQuestions.length)throw new Error('Could not reliably detect questions. Try the “paste text from your PDF” option, or check whether the PDF is readable.');
       showView('pdf-practice',true);showToast(`Extracted ${pdfQuestions.length} question${pdfQuestions.length===1?'':'s'} from the PDF.`);
     }catch(err){pdfFileName='';pdfQuestions=[];showView('pdf-practice',true);showToast(err.message||'Could not read this PDF.');}
     pdfInput.value='';
   }
+  async function ocrPdfDocument(doc){
+    if(!window.Tesseract){
+      await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('OCR could not load. Connect to the internet or use the paste-text fallback.'));document.head.appendChild(script);});
+    }
+    const worker=await window.Tesseract.createWorker({logger:m=>{const el=document.getElementById('pdfProgress');if(el&&m.status==='recognizing text')el.textContent=`OCR reading page ${Math.min(doc.numPages,Math.max(1,Math.round((m.progress||0)*doc.numPages)))} of ${doc.numPages}…`;}});
+    let all='';
+    try{
+      await worker.loadLanguage('eng');await worker.initialize('eng');
+      for(let pageNo=1;pageNo<=doc.numPages;pageNo++){
+        const page=await doc.getPage(pageNo);const viewport=page.getViewport({scale:1.6});const canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);const ctx=canvas.getContext('2d');
+        await page.render({canvasContext:ctx,viewport}).promise;const result=await worker.recognize(canvas);all+=`\n${result.data.text}\n`;canvas.width=1;canvas.height=1;
+        const prog=document.getElementById('pdfProgress');if(prog)prog.textContent=`OCR reading page ${pageNo} of ${doc.numPages}…`;
+      }
+    } finally {await worker.terminate();}
+    return all;
+  }
+
   function parsePdfQuestionText(text){
     const lines=text.split(/\n/).map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean);const answerMap={};let inKey=false;
     for(const line of lines){if(/answer\s*key|correct\s*answers|solutions/i.test(line))inKey=true;if(inKey){const re=/(?:^|\s)(\d{1,3})\s*[.)\-:]?\s*([A-D])(?=\s|$|[,;])/gi;let m;while((m=re.exec(line)))answerMap[Number(m[1])]=m[2].toUpperCase();}}
     const parsed=[];let cur=null,activeOption=-1,inExplanation=false,questionNo=0;
-    const startRe=/^(?:Q(?:uestion)?\s*)?(\d{1,3})\s*[.)]\s+(.+)$/i;const optRe=/^\(?([A-D])\)?\s*[.)\]:-]\s*(.*)$/i;
+    const startRe=/^(?:Q(?:uestion)?\s*#?\s*)?(\d{1,3})\s*(?:[.)]|[:\-])\s+(.+)$/i;const optRe=/^\(?([A-D])\)?\s*(?:[.)\]:\-]|\s{2,})\s*(.*)$/i;
     const flush=()=>{if(cur&&cur.question.trim()){const opts=cur.options.map(o=>o.trim());if(opts.some(Boolean)){while(opts.length<4)opts.push('');cur.options=opts.slice(0,4);parsed.push(cur);}}};
     for(const line of lines){
       if(/^(answer\s*key|correct\s*answers|solutions)\b/i.test(line)){inKey=true;continue;}
@@ -699,6 +721,7 @@
       case 'open-case': showView('case-coach'); break;
       case 'open-vault': showView('vault'); break;
       case 'choose-pdf': pdfInput.click(); break;
+      case 'parse-pasted-pdf': { const pasted=document.getElementById('pdfPastedText')?.value||'';if(!pasted.trim()){showToast('Paste the PDF text first.');break;}pdfQuestions=parsePdfQuestionText(pasted);pdfFileName=pdfFileName||'Pasted PDF text';pdfResults=null;if(!pdfQuestions.length)showToast('No questions detected. Use numbered questions and labeled A–D choices, then try again.');else{showView('pdf-practice',true);showToast(`Extracted ${pdfQuestions.length} question${pdfQuestions.length===1?'':'s'} from pasted text.`);}break; }
       case 'start-pdf-quiz': startPdfQuiz(); break;
       case 'pdf-answer': if(pdfQuiz){pdfQuiz.answers[pdfQuiz.index]=actionEl.dataset.key;render();} break;
       case 'pdf-prev': if(pdfQuiz&&pdfQuiz.index>0){pdfQuiz.index--;render();} break;
